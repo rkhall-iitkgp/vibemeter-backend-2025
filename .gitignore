@@ -1,0 +1,74 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+.venv/
+*.env
+*.venv
+
+# FastAPI & Uvicorn logs
+logs/
+*.log
+
+# IDE / Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Python package files
+*.egg
+*.egg-info/
+dist/
+build/
+pip-wheel-metadata/
+
+# Machine Learning models & datasets
+app/ml/models/
+app/ml/data/
+*.h5
+*.pkl
+*.joblib
+*.onnx
+
+# Docker-related
+docker-compose.override.yml
+*.dockerignore
+
+# Jupyter Notebooks (if used)
+.ipynb_checkpoints/
+
+# Test coverage / profiling
+htmlcov/
+.coverage
+.coverage.*
+.cache/
+nosetests.xml
+coverage.xml
+pytest_cache/
+test-reports/
+
+# MySQL / Postgres / SQLite databases
+*.sqlite3
+*.db
+*.sql
+pgdata/
+migrations/
+
+# Celery / Background tasks
+celerybeat-schedule
+celerybeat.pid
+
+# Other cache / temporary files
+*.bak
+*.tmp
