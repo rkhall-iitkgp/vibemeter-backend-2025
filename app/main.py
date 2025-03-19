@@ -1,6 +1,6 @@
 from fastapi import FastAPI, WebSocket
 from app.api.endpoints import employee, report, analysis, auth
-from app.api.endpoints.employeeDashboard import vibemeter,profile
+from app.api.endpoints.employeeDashboard import vibemeter, profile
 from app.sockets import chat
 from app.utils.db import Base, engine
 
@@ -13,6 +13,9 @@ app.include_router(report.router, prefix="/api/report", tags=["Report"])
 app.include_router(analysis.router, prefix="/api/analysis", tags=["Analysis"])
 app.include_router(vibemeter.router,prefix="/api/vibemeter",tags=["Vibemeter"])
 app.include_router(profile.router,prefix="/api/profile",tags=["Profile"])
+
+# Create database tables
+Base.metadata.create_all(bind=engine)
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
