@@ -93,3 +93,51 @@ def verify_email(token: str, db: Session = Depends(get_db)):
         return HTTPException(status_code=400, detail="Invalid token")
     except Exception as e:
         return HTTPException(status_code=500, detail="Error verifying email")
+
+
+class UserLogin(BaseModel):
+    employee_id: str | None = None
+    email: str | None = None
+    password: str
+
+
+@router.post("/login")
+def login(user: UserLogin, db: Session = Depends(get_db)):
+    try:
+        # Check if user exists using email or employee_id
+        if (user.email is None and user.employee_id is None) or user.password is None:
+            return HTTPException(status_code=400, detail="Invalid credentials")
+
+        db_user = (
+            db.query(User)
+            .filter((User.email == user.email) | (User.employee_id == user.employee_id))
+            .first()
+        )
+
+        if not db_user:
+            return HTTPException(status_code=400, detail="Invalid credentials")
+
+        # Verify password
+        if not pwd_context.verify(user.password, db_user.password):
+            return HTTPException(status_code=400, detail="Invalid credentials")
+
+        # Check if the user is verified
+        if not db_user.is_verified:
+            return HTTPException(status_code=403, detail="Email not verified")
+
+        # Generate JWT token
+        access_token = jwt.encode(
+            {
+                "sub": db_user.email,
+                "exp": datetime.datetime.now() + datetime.timedelta(hours=24),
+            },
+            SECRET_KEY,
+            algorithm=ALGORITHM,
+        )
+
+        return JSONResponse(
+            content={"access_token": access_token, "token_type": "bearer"},
+            status_code=200,
+        )
+    except Exception as e:
+        return HTTPException(status_code=500, detail="Error during login")
