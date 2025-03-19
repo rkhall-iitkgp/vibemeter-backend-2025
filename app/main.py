@@ -1,6 +1,6 @@
 from fastapi import FastAPI, WebSocket
-from api.endpoints import employee, report, analysis
-from sockets import chat
+from .api.endpoints import employee, report, analysis
+from .sockets import chat
 
 app = FastAPI(title="Conversational Bot for Employee Engagement")
 
