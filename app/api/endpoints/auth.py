@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.utils.db import get_db
 from app.utils.helpers import send_verification_email
-from app.models.user import User
+from app.models.schema import User
 from passlib.context import CryptContext
 from pydantic import BaseModel, EmailStr
 from fastapi.responses import JSONResponse
@@ -67,6 +67,7 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
             status_code=201,
         )
     except Exception as e:
+        print(e)
         return HTTPException(status_code=500, detail="Error registering user")
 
 
