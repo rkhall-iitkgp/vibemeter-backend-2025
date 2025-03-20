@@ -1,27 +1,14 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from sqlalchemy import Table, Column, Integer, String, Date, ForeignKey, MetaData,text
-from datetime import datetime, date
+from datetime import date
 from typing import Optional
 from pydantic import BaseModel, Field
 
 from app.utils.db import get_db
 from app.utils.helpers import format_response
+from app.models.schema import VibeMeterDataset
 
 router = APIRouter()
-
-# Create metadata object
-metadata = MetaData()
-
-# Define the VibeMeter table schema to match your existing database
-vibemeter_dataset = Table(
-    "vibemeter_dataset", metadata,
-    Column("id", Integer, primary_key=True, autoincrement=True),
-    Column("employee_id", String, ForeignKey("user.employee_id"), nullable=False),
-    Column("response_date", Date, nullable=False),
-    Column("vibe_score", Integer, nullable=False),
-    Column("emotion_zone", String, nullable=False),
-)
 
 # Pydantic model for request validation
 class VibeMeterSubmission(BaseModel):
@@ -39,15 +26,10 @@ async def check_today_submission(
     """
     today = date.today()
     
-    # Query for today's entry
-    query = text("""
-        SELECT * FROM vibemeter_dataset 
-        WHERE employee_id = :employee_id 
-        AND response_date = :today
-    """)
-    result = db.execute(
-        query, 
-        {"employee_id": employee_id, "today": today}
+    # Query for today's entry using SQLAlchemy ORM
+    result = db.query(VibeMeterDataset).filter(
+        VibeMeterDataset.employee_id == employee_id,
+        VibeMeterDataset.response_date == today
     ).first()
     
     if result:
@@ -72,12 +54,11 @@ async def submit_vibemeter(
     """
     today = date.today()
     
-    # Check for existing submission
-    existing = db.execute(text("""
-        SELECT id FROM vibemeter_dataset 
-        WHERE employee_id = :employee_id 
-        AND response_date = :today
-    """), {"employee_id": employee_id, "today": today}).first()
+    # Check for existing submission using SQLAlchemy ORM
+    existing = db.query(VibeMeterDataset).filter(
+        VibeMeterDataset.employee_id == employee_id,
+        VibeMeterDataset.response_date == today
+    ).first()
     
     if existing:
         raise HTTPException(
@@ -85,31 +66,22 @@ async def submit_vibemeter(
             detail="Vibe meter already submitted for today"
         )
     
-    # Insert new submission
-    query = text("""
-        INSERT INTO vibemeter_dataset 
-        (employee_id, response_date, vibe_score, emotion_zone)
-        VALUES (:employee_id, :response_date, :vibe_score, :emotion_zone)
-        RETURNING id
-    """)
-    
+    # Create and add new submission using SQLAlchemy ORM
     try:
-        result = db.execute(
-            query,
-            {
-                "employee_id": employee_id,
-                "response_date": today,
-                "vibe_score": submission.vibe_score,
-                "emotion_zone": submission.emotion_zone
-            }
+        new_submission = VibeMeterDataset(
+            employee_id=employee_id,
+            response_date=today,
+            vibe_score=submission.vibe_score,
+            emotion_zone=submission.emotion_zone
         )
-        db.commit()
         
-        new_id = result.scalar_one()
+        db.add(new_submission)
+        db.commit()
+        db.refresh(new_submission)
         
         return format_response({
             "message": "Vibe meter submitted successfully",
-            "id": new_id,
+            "id": new_submission.id,
             "employee_id": employee_id,
             "response_date": today,
             "vibe_score": submission.vibe_score,
@@ -122,4 +94,3 @@ async def submit_vibemeter(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error submitting vibe meter: {str(e)}"
         )
-
