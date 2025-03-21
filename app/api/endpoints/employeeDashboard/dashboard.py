@@ -7,7 +7,7 @@ from pydantic import BaseModel
 
 from app.utils.db import get_db
 from app.utils.helpers import format_response
-from app.models.schema import User, ActivityTrackerDataset, LeaveDataset
+from app.models.schema import User, ActivityTrackerDataset, LeaveDataset, Task
 
 router = APIRouter()
 
@@ -28,6 +28,22 @@ class AttendanceStats(BaseModel):
     total_days_present: int
     total_days_absent: int
     punctuality_score: float  # Calculated metric
+
+class TaskCreate(BaseModel):
+    title: str
+    description: Optional[str] = None
+    due_date: Optional[date] = None
+
+class TaskOut(BaseModel):
+    id: int
+    title: str
+    description: Optional[str]
+    due_date: Optional[date]
+    is_completed: bool
+
+    class Config:
+        orm_mode = True
+
 
 @router.get("/employee/{employee_id}/dashboard")
 async def get_employee_dashboard(
@@ -159,3 +175,47 @@ async def get_employee_dashboard(
             "period": f"{thirty_days_ago.isoformat()} to {today.isoformat()}"
         }
     })
+
+@router.post("/employee/{employee_id}/tasks", response_model=TaskOut)
+async def create_task(employee_id: str, task: TaskCreate, db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.employee_id == employee_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="Employee not found")
+
+    new_task = Task(
+        employee_id=employee_id,
+        title=task.title,
+        description=task.description,
+        due_date=task.due_date
+    )
+    db.add(new_task)
+    db.commit()
+    db.refresh(new_task)
+    return new_task
+
+@router.get("/employee/{employee_id}/tasks", response_model=List[TaskOut])
+async def get_tasks(employee_id: str, db: Session = Depends(get_db)):
+    tasks = db.query(Task).filter(Task.employee_id == employee_id).order_by(Task.due_date).all()
+    return tasks
+
+@router.put("/employee/{employee_id}/tasks/{task_id}", response_model=TaskOut)
+async def update_task_status(employee_id: str, task_id: int, is_completed: bool, db: Session = Depends(get_db)):
+    task = db.query(Task).filter(Task.employee_id == employee_id, Task.id == task_id).first()
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+
+    task.is_completed = is_completed
+    db.commit()
+    db.refresh(task)
+    return task
+
+@router.delete("/employee/{employee_id}/tasks/{task_id}")
+async def delete_task(employee_id: str, task_id: int, db: Session = Depends(get_db)):
+    task = db.query(Task).filter(Task.employee_id == employee_id, Task.id == task_id).first()
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+
+    db.delete(task)
+    db.commit()
+    return {"detail": "Task deleted successfully"}
+
