@@ -1,3 +1,10 @@
+# scripts/add_dummy_tasks.py
+
+from sqlalchemy.orm import Session
+from datetime import date, timedelta
+# from app.utils.db import engine
+# from app.models.schema import Task, User
+
 from sqlalchemy import (
     create_engine, Column, Integer, String, Float, Date, Boolean, ForeignKey
 )
@@ -195,3 +202,71 @@ class Task(Base):
 # Create all tables in the database
 Base.metadata.create_all(engine)
 print("✅ Schema created successfully!")
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+Base = declarative_base()
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+from sqlalchemy.orm import sessionmaker
+
+# Create a session
+SessionLocal = sessionmaker(bind=engine)
+db: Session = SessionLocal()
+
+# Find employees to assign tasks to
+users = db.query(User).limit(3).all()  # Just pick 3 for demo
+
+if not users:
+    print("❌ No users found in the database. Add users first.")
+else:
+    dummy_tasks = [
+        {
+            "title": "Complete onboarding presentation",
+            "description": "Finish the company intro slides",
+            "due_date": date.today() + timedelta(days=3),
+        },
+        {
+            "title": "Submit weekly report",
+            "description": "Summarize progress and blockers",
+            "due_date": date.today() + timedelta(days=1),
+        },
+        {
+            "title": "Team meeting with manager",
+            "description": "Discuss quarterly goals",
+            "due_date": date.today() + timedelta(days=5),
+        },
+    ]
+
+    for user in users:
+        for task_data in dummy_tasks:
+            task = Task(
+                employee_id=user.employee_id,
+                title=task_data["title"],
+                description=task_data["description"],
+                due_date=task_data["due_date"],
+                is_completed=False
+            )
+            db.add(task)
+
+    db.commit()
+    print(f"✅ Added {len(dummy_tasks) * len(users)} dummy tasks for {len(users)} users.")
+
+db.close()

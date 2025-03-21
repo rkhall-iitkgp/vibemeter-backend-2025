@@ -16,7 +16,7 @@ app.include_router(vibemeter.router,prefix="/api/vibemeter",tags=["Vibemeter"])
 app.include_router(profile.router,prefix="/api/profile",tags=["Profile"])
 app.include_router(dashboard.router,prefix="/api/dashboard",tags=["EmployeeDashboard"])
 
-# Create database tables
+# Create database tables    
 Base.metadata.create_all(bind=engine)
 
 # Create database tables
