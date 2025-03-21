@@ -1,9 +1,18 @@
 from fastapi import FastAPI, WebSocket
+from fastapi.middleware.cors import CORSMiddleware
 from app.api.endpoints import employee, report, analysis, auth
 from app.sockets import chat
 from app.utils.db import Base, engine
 
 app = FastAPI(title="Conversational Bot for Employee Engagement")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # In production, replace with specific origins
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Include REST API routers
 app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
