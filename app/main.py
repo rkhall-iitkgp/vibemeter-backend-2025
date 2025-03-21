@@ -19,9 +19,6 @@ app.include_router(dashboard.router,prefix="/api/dashboard",tags=["EmployeeDashb
 # Create database tables    
 Base.metadata.create_all(bind=engine)
 
-# Create database tables
-Base.metadata.create_all(bind=engine)
-
 # WebSocket endpoint for real-time chat
 @app.websocket("/ws/chat")
 async def websocket_endpoint(websocket: WebSocket):

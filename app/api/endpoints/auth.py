@@ -67,7 +67,6 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
             status_code=201,
         )
     except Exception as e:
-        print(e)
         return HTTPException(status_code=500, detail="Error registering user")
 
 
