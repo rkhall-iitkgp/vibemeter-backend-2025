@@ -30,7 +30,7 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
             .first()
         )
         if existing_user:
-            return HTTPException(
+            raise HTTPException(
                 status_code=400, detail="Email or Employee ID already registered"
             )
 
@@ -53,7 +53,7 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
             print(f"Verification token: {token}")
         else:
             if not send_verification_email(user.email, token):
-                return HTTPException(
+                raise HTTPException(
                     status_code=500, detail="Error sending verification email"
                 )
 
@@ -66,8 +66,11 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
             },
             status_code=201,
         )
+    except HTTPException as e:
+        # Re-raise HTTP exceptions to preserve their status codes (like 400)
+        raise e
     except Exception as e:
-        return HTTPException(status_code=500, detail="Error registering user")
+        raise HTTPException(status_code=500, detail="Error registering user")
 
 
 @router.get("/verify/{token}")
@@ -78,9 +81,9 @@ def verify_email(token: str, db: Session = Depends(get_db)):
 
         user = db.query(User).filter(User.email == email).first()
         if not user:
-            return HTTPException(status_code=404, detail="User not found")
+            raise HTTPException(status_code=404, detail="User not found")
         if user.is_verified:
-            return HTTPException(status_code=400, detail="Email already verified")
+            raise HTTPException(status_code=400, detail="Email already verified")
 
         user.is_verified = True
         db.commit()
@@ -88,11 +91,11 @@ def verify_email(token: str, db: Session = Depends(get_db)):
         return {"message": "Email verified successfully"}
 
     except jwt.ExpiredSignatureError:
-        return HTTPException(status_code=400, detail="Verification link expired")
+        raise HTTPException(status_code=400, detail="Verification link expired")
     except jwt.InvalidTokenError:
-        return HTTPException(status_code=400, detail="Invalid token")
+        raise HTTPException(status_code=400, detail="Invalid token")
     except Exception as e:
-        return HTTPException(status_code=500, detail="Error verifying email")
+        raise HTTPException(status_code=500, detail="Error verifying email")
 
 
 class UserLogin(BaseModel):
@@ -106,7 +109,7 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
     try:
         # Check if user exists using email or employee_id
         if (user.email is None and user.employee_id is None) or user.password is None:
-            return HTTPException(status_code=400, detail="Invalid credentials")
+            raise HTTPException(status_code=400, detail="Invalid credentials")
 
         db_user = (
             db.query(User)
@@ -115,15 +118,15 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
         )
 
         if not db_user:
-            return HTTPException(status_code=400, detail="Invalid credentials")
+            raise HTTPException(status_code=400, detail="Invalid credentials")
 
         # Verify password
         if not pwd_context.verify(user.password, db_user.password):
-            return HTTPException(status_code=400, detail="Invalid credentials")
+            raise HTTPException(status_code=400, detail="Invalid credentials")
 
         # Check if the user is verified
         if not db_user.is_verified:
-            return HTTPException(status_code=403, detail="Email not verified")
+            raise HTTPException(status_code=403, detail="Email not verified")
 
         # Generate JWT token
         access_token = jwt.encode(
@@ -140,4 +143,4 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
             status_code=200,
         )
     except Exception as e:
-        return HTTPException(status_code=500, detail="Error during login")
+        raise HTTPException(status_code=500, detail="Error during login")
