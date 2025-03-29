@@ -1,5 +1,5 @@
 from sqlalchemy import (
-    create_engine, Column, Integer, String, Float, Date, Boolean, ForeignKey
+    create_engine, Column, Integer, String, Float, Date, Boolean, ForeignKey, func
 )
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
@@ -30,6 +30,8 @@ class User(Base):
     password = Column(String, nullable=False)
     is_verified = Column(Boolean, default=False)
     profile_picture=Column(String, nullable=True,default="default.jpg")
+    first_name = Column(String, nullable=True) 
+    last_name = Column(String, nullable=True)
 
     # Relationships with other tables
     activities = relationship("ActivityTrackerDataset", back_populates="user")
@@ -39,7 +41,8 @@ class User(Base):
     rewards = relationship("RewardsDataset", back_populates="user")
     vibemeter = relationship("VibeMeterDataset", back_populates="user")
     tasks = relationship("Task", back_populates="user")
-
+    metrics = relationship("EmployeeMetrics", back_populates="user")
+    interventions = relationship("HRIntervention", back_populates="user")
 
 
 # -------------------------------
@@ -191,6 +194,37 @@ class Task(Base):
     is_completed = Column(Boolean, default=False)
 
     user = relationship("User", back_populates="tasks")
+    
+# -------------------------------
+# Table: employee_metrics
+# -------------------------------
+class EmployeeMetrics(Base):
+    __tablename__ = "employee_metrics"
+    
+    id=Column(Integer, primary_key=True, autoincrement=True)
+    employee_id=Column(String, ForeignKey("user.employee_id"), nullable=False)
+    morality_score=Column(Integer, nullable=False)
+    engagement_score=Column(Integer, nullable=False)
+    retention_risk=Column(Integer, nullable=False)
+    culture_score=Column(Integer, nullable=False)
+    date=Column(Date, nullable=False, default=func.current_date())
+    
+    user=relationship("User", back_populates="metrics")
+    
+# -------------------------------
+# Table: hr_intervention
+# -------------------------------
+class HRIntervention(Base):
+    __tablename__ = "hr_intervention"
+    
+    id=Column(Integer, primary_key=True, autoincrement=True)
+    employee_id=Column(String, ForeignKey("user.employee_id"), nullable=False)
+    level=Column(String, nullable=False, default="Low")
+    notes=Column(String, nullable=True)
+    date=Column(Date, nullable=False, default=func.current_date())
+    
+    user=relationship("User", back_populates="interventions")
+
 
 # Create all tables in the database
 Base.metadata.create_all(engine)
