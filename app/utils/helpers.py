@@ -1,4 +1,4 @@
-import os, smtplib
+import os, smtplib, random, string
 
 SMTP_SERVER = os.getenv("SMTP_SERVER")
 SMTP_PORT = 587
@@ -23,3 +23,7 @@ def send_verification_email(email: str, token: str):
             server.sendmail(EMAIL_SENDER, email, message)
     except Exception as e:
         print(f"Error sending email: {e}")
+
+def generate_random_id():
+    # Generate 10 random alphanumeric characters
+    return ''.join(random.choices("ABCDEF" + string.digits, k=10))
