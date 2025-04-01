@@ -1,9 +1,10 @@
 from sqlalchemy import (
-    create_engine, Column, Integer, String, Float, Date, Boolean, ForeignKey
+    create_engine, Column, Integer, String, Float, Date, Boolean, ForeignKey, DateTime, JSON, TIMESTAMP
 )
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from dotenv import load_dotenv
+from app.utils.helpers import generate_random_id
 import os
 
 load_dotenv()
@@ -14,6 +15,33 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 # Create engine and Base
 engine = create_engine(DATABASE_URL)
 Base = declarative_base()
+
+
+
+# -------------------------------
+# Table: user_group_association
+# -------------------------------
+# Columns:
+# - user_id: String (Foreign Key to user.employee_id)
+# - focus_group_id: Integer (Foreign Key to focus_groups.focus_group_id)
+class UserGroupAssociation(Base):
+    __tablename__ = "user_group_association"
+
+    employee_id = Column(String, ForeignKey("user.employee_id"), primary_key=True)
+    focus_group_id = Column(String, ForeignKey("focus_groups.focus_group_id"), primary_key=True)
+
+class GroupActionAssociation(Base):
+    __tablename__ = "group_action_association"
+    
+    focus_group_id = Column(String, ForeignKey("focus_groups.focus_group_id"), primary_key=True)
+    action_id = Column(String, ForeignKey("actions.action_id"), primary_key=True)
+
+class GroupSurveyAssociation(Base):
+    __tablename__ = "group_survey_association"
+
+    focus_group_id = Column(String, ForeignKey("focus_groups.focus_group_id"), primary_key=True)
+    survey_id = Column(String, ForeignKey("survey.survey_id"), primary_key=True)
+
 
 # -------------------------------
 # Table: user
@@ -40,7 +68,86 @@ class User(Base):
     vibemeter = relationship("VibeMeterDataset", back_populates="user")
     tasks = relationship("Task", back_populates="user")
 
+    focus_groups = relationship(
+        "FocusGroup",
+        secondary="user_group_association",
+        back_populates="users",
+    )
 
+
+# -------------------------------
+# Table: focus_groups
+# -------------------------------
+# Columns:
+# - id: String (Primary Key)
+# - name: String (Group name)
+# - description: String (Optional)
+class FocusGroup(Base):
+    __tablename__ = "focus_groups"
+
+    focus_group_id = Column(String, primary_key=True, index=True, default=lambda: "FOC" + generate_random_id())
+    name = Column(String, nullable=False)
+    description = Column(String, nullable=True)
+    
+    # Many-to-many relationship with User
+    users = relationship("User", secondary="user_group_association", back_populates="focus_groups")
+    actions = relationship("Action", secondary="group_action_association", back_populates="target_groups")
+    surveys = relationship("Survey", secondary="group_survey_association", back_populates="target_groups")
+
+
+# -------------------------------
+# Table: actions
+# -------------------------------
+# Columns:
+# - id: String (Primary Key)
+# - title: String (Action title)
+# - purpose: String (Purpose of the action)
+# - metric: String (Metric for the action)
+# - target_groups: List of Strings (Target group ids for the action)
+# - action: String (Action description)
+# - is_completed: Boolean (Defaults to False)
+class Action(Base):
+    __tablename__ = "actions"
+
+    action_id = Column(String, primary_key=True, index=True, default=lambda: "ACT" + generate_random_id())
+    title = Column(String, nullable=False)
+    purpose = Column(String, nullable=False)
+    metric = Column(String, nullable=False)
+    action = Column(String, nullable=False)
+    is_completed = Column(Boolean, default=False)
+    
+    target_groups = relationship("FocusGroup", secondary="group_action_association", back_populates="actions")
+
+
+class Survey(Base):
+    __tablename__ = "survey"
+
+    survey_id = Column(String, primary_key=True, index=True, default=lambda: "SRV" + generate_random_id())
+    title = Column(String, nullable=False)
+    description = Column(String, nullable=False)
+    survey_time = Column(TIMESTAMP, nullable=False)
+    is_active = Column(Boolean, default=True)
+    
+    target_groups = relationship("FocusGroup", secondary="group_survey_association", back_populates="surveys")
+    
+
+class QuestionCategories(Base):
+    __tablename__ = "question_categories"
+    
+    category_id = Column(String, primary_key=True, index=True, default=lambda: "CAT" + generate_random_id())
+    name = Column(String, nullable=False)
+
+    questions = relationship("Questions", back_populates="category")
+
+
+class Questions(Base):
+    __tablename__ = "questions"
+
+    question_id = Column(String, primary_key=True, index=True, default=lambda: "QUE" + generate_random_id())
+    category_id = Column(String, ForeignKey("question_categories.category_id"), nullable=False)
+    text = Column(String, nullable=False)
+
+    category = relationship("QuestionCategories", back_populates="questions")
 
 # -------------------------------
 # Table: activity_tracker_dataset

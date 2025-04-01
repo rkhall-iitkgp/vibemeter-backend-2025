@@ -1,5 +1,5 @@
 from fastapi import FastAPI, WebSocket
-from app.api.endpoints import employee, report, analysis, auth
+from app.api.endpoints import employee, report, analysis, auth, action, survey
 from app.api.endpoints.employeeDashboard import vibemeter, profile, dashboard
 from app.sockets import chat
 from app.utils.db import Base, engine
@@ -28,6 +28,8 @@ app.include_router(profile.router, prefix="/api/profile", tags=["Profile"])
 app.include_router(
     dashboard.router, prefix="/api/dashboard", tags=["EmployeeDashboard"]
 )
+app.include_router(action.router, prefix="/api/action", tags=["Action"])
+app.include_router(survey.router, prefix="/api/survey", tags=["Survey"])
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
