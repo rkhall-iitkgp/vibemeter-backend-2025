@@ -6,6 +6,7 @@ from sqlalchemy.orm import relationship
 from dotenv import load_dotenv
 from app.utils.helpers import generate_random_id
 import os
+from datetime import datetime
 
 load_dotenv()
 
@@ -88,6 +89,8 @@ class FocusGroup(Base):
     focus_group_id = Column(String, primary_key=True, index=True, default=lambda: "FOC" + generate_random_id())
     name = Column(String, nullable=False)
     description = Column(String, nullable=True)
+    created_at = Column(TIMESTAMP, nullable=False, default=datetime.now)
+    tags=Column(ARRAY(String), nullable=True)
     
     # Many-to-many relationship with User
     users = relationship("User", secondary="user_group_association", back_populates="focus_groups")
