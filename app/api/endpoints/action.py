@@ -112,9 +112,9 @@ async def create_action(action: ActionCreate, db: Session = Depends(get_db)):
         )
 
 
-@router.put("{action_id}")
+@router.put("/{action_id}")
 async def update_action(
-    action_id: int, action: ActionData, db: Session = Depends(get_db)
+    action_id: str, action: ActionData, db: Session = Depends(get_db)
 ):
     """
     Update an existing action in the database.
@@ -154,7 +154,7 @@ async def update_action(
         )
 
 
-@router.delete("{action_id}")
+@router.delete("/{action_id}")
 async def delete_action(action_id: str, db: Session = Depends(get_db)):
     """
     Delete an action from the database.
