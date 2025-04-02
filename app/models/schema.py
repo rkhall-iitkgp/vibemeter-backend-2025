@@ -1,5 +1,5 @@
 from sqlalchemy import (
-    create_engine, Column, Integer, String, Float, Date, Boolean, ForeignKey, DateTime, JSON, TIMESTAMP
+    create_engine, Column, Integer, String, Float, Date, Boolean, ForeignKey, DateTime, JSON, TIMESTAMP, ARRAY
 )
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
@@ -129,25 +129,15 @@ class Survey(Base):
     is_active = Column(Boolean, default=True)
     
     target_groups = relationship("FocusGroup", secondary="group_survey_association", back_populates="surveys")
-    
-
-class QuestionCategories(Base):
-    __tablename__ = "question_categories"
-    
-    category_id = Column(String, primary_key=True, index=True, default=lambda: "CAT" + generate_random_id())
-    name = Column(String, nullable=False)
-
-    questions = relationship("Questions", back_populates="category")
 
 
-class Questions(Base):
+class Question(Base):
     __tablename__ = "questions"
 
     question_id = Column(String, primary_key=True, index=True, default=lambda: "QUE" + generate_random_id())
-    category_id = Column(String, ForeignKey("question_categories.category_id"), nullable=False)
     text = Column(String, nullable=False)
-
-    category = relationship("QuestionCategories", back_populates="questions")
+    tags = Column(ARRAY(String), nullable=True)
+    severity = Column(String, nullable=False)
 
 # -------------------------------
 # Table: activity_tracker_dataset

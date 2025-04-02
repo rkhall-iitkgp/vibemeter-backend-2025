@@ -95,9 +95,9 @@ async def create_survey(survey: SurveyCreate, db: Session = Depends(get_db)):
         )
 
 
-@router.put("{survey_id}")
+@router.put("/{survey_id}")
 async def update_survey(
-    survey_id: int, survey: SurveyData, db: Session = Depends(get_db)
+    survey_id: str, survey: SurveyData, db: Session = Depends(get_db)
 ):
     """
     Update an existing survey in the database.
@@ -137,7 +137,7 @@ async def update_survey(
         )
 
 
-@router.delete("{survey_id}")
+@router.delete("/{survey_id}")
 async def delete_survey(survey_id: str, db: Session = Depends(get_db)):
     """
     Delete a survey from the database.
