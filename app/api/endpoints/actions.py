@@ -14,9 +14,9 @@ router = APIRouter()
 class ActionCreate(BaseModel):
     title: str
     purpose: str
-    metric: str
+    metric: List[str]
     target_groups: List[str]
-    action: str
+    steps: List
     is_completed: bool = False
 
 
@@ -24,9 +24,9 @@ class ActionData(BaseModel):
     action_id: str
     title: str
     purpose: str
-    metric: str
+    metric: List[str]
     target_groups: List[str]
-    action: str
+    steps: List
     is_completed: bool
 
 
@@ -46,21 +46,7 @@ async def get_all_actions(
         if not actions:
             raise HTTPException(status_code=404, detail="No actions found.")
 
-        # Format the actions to include target_groups
-        formatted_actions = []
-        for action in actions:
-            formatted_action = {
-                "action_id": action.action_id,
-                "title": action.title,
-                "purpose": action.purpose,
-                "metric": action.metric,
-                "action": action.action,
-                "is_completed": action.is_completed,
-                "target_groups": action.target_groups,
-            }
-            formatted_actions.append(formatted_action)
-
-        return format_response(data=formatted_actions)
+        return format_response(data=actions)
     except HTTPException as e:
         raise e
     except Exception as e:
@@ -81,7 +67,7 @@ async def create_action(action: ActionCreate, db: Session = Depends(get_db)):
             title=action.title,
             purpose=action.purpose,
             metric=action.metric,
-            action=action.action,
+            steps=action.steps,
             is_completed=action.is_completed,
         )
         for group_id in action.target_groups:

@@ -1,10 +1,11 @@
 from sqlalchemy import (
-    create_engine, Column, Integer, String, Float, Date, Boolean, ForeignKey, DateTime, JSON, TIMESTAMP, ARRAY
+    create_engine, Column, Integer, String, Float, Date, Boolean, ForeignKey, TIMESTAMP, ARRAY, JSON
 )
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from dotenv import load_dotenv
 from app.utils.helpers import generate_random_id
+from pydantic import BaseModel
 import os
 from datetime import datetime
 
@@ -109,15 +110,18 @@ class FocusGroup(Base):
 # - target_groups: List of Strings (Target group ids for the action)
 # - action: String (Action description)
 # - is_completed: Boolean (Defaults to False)
+
+
 class Action(Base):
     __tablename__ = "actions"
 
     action_id = Column(String, primary_key=True, index=True, default=lambda: "ACT" + generate_random_id())
     title = Column(String, nullable=False)
     purpose = Column(String, nullable=False)
-    metric = Column(String, nullable=False)
-    action = Column(String, nullable=False)
+    metric = Column(ARRAY(String), nullable=False)
+    steps = Column(ARRAY(JSON), nullable=False)
     is_completed = Column(Boolean, default=False)
+    created_at = Column(TIMESTAMP, nullable=False, default=datetime.now)
     
     target_groups = relationship("FocusGroup", secondary="group_action_association", back_populates="actions")
 
