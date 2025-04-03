@@ -1,15 +1,17 @@
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
-from typing import List, Optional
-from pydantic import BaseModel
 from datetime import datetime
-from fastapi.responses import JSONResponse
+from typing import List
 
+from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel
+from sqlalchemy.orm import Session
+
+from app.models.schema import FocusGroup, User
 from app.utils.db import get_db
 from app.utils.helpers import format_response
-from app.models.schema import FocusGroup, User
 
 router = APIRouter()
+
 
 class UserData(BaseModel):
     employee_id: str
@@ -17,6 +19,7 @@ class UserData(BaseModel):
     password: str
     is_verified: bool
     profile_picture: str
+
 
 class GroupCreate(BaseModel):
     name: str
@@ -144,7 +147,9 @@ async def update_group(
     """
     try:
         db_group = (
-            db.query(FocusGroup).filter(FocusGroup.focus_group_id == focus_group_id).first()
+            db.query(FocusGroup)
+            .filter(FocusGroup.focus_group_id == focus_group_id)
+            .first()
         )
         if not db_group:
             raise HTTPException(status_code=404, detail="Focus Group not found.")
@@ -171,7 +176,9 @@ async def delete_group(focus_group_id: str, db: Session = Depends(get_db)):
     """
     try:
         db_group = (
-            db.query(FocusGroup).filter(FocusGroup.focus_group_id == focus_group_id).first()
+            db.query(FocusGroup)
+            .filter(FocusGroup.focus_group_id == focus_group_id)
+            .first()
         )
         if not db_group:
             raise HTTPException(status_code=404, detail="Focus Group not found.")

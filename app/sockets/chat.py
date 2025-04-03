@@ -1,5 +1,6 @@
 from fastapi import WebSocket
 
+
 async def handle_websocket(websocket: WebSocket):
     await websocket.accept()
     while True:

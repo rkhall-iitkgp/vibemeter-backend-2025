@@ -1,12 +1,13 @@
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
-from typing import List, Optional
-from pydantic import BaseModel
-from fastapi.responses import JSONResponse
+from typing import List
 
+from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel
+from sqlalchemy.orm import Session
+
+from app.models.schema import Question
 from app.utils.db import get_db
 from app.utils.helpers import format_response
-from app.models.schema import Question
 
 router = APIRouter()
 
@@ -77,7 +78,9 @@ async def update_question(
     Update an existing question in the database.
     """
     try:
-        db_question = db.query(Question).filter(Question.question_id == question_id).first()
+        db_question = (
+            db.query(Question).filter(Question.question_id == question_id).first()
+        )
         if not db_question:
             raise HTTPException(status_code=404, detail="Question not found.")
 
@@ -102,7 +105,9 @@ async def delete_question(question_id: str, db: Session = Depends(get_db)):
     Delete a question from the database.
     """
     try:
-        db_question = db.query(Question).filter(Question.question_id == question_id).first()
+        db_question = (
+            db.query(Question).filter(Question.question_id == question_id).first()
+        )
         if not db_question:
             raise HTTPException(status_code=404, detail="Question not found.")
 

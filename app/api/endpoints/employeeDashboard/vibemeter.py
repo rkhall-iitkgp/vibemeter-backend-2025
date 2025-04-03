@@ -1,12 +1,12 @@
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
 from datetime import date
-from typing import Optional
-from pydantic import BaseModel, Field
 
+from fastapi import APIRouter, Depends, HTTPException, status
+from pydantic import BaseModel, Field
+from sqlalchemy.orm import Session
+
+from app.models.schema import VibeMeterDataset
 from app.utils.db import get_db
 from app.utils.helpers import format_response
-from app.models.schema import VibeMeterDataset
 
 router = APIRouter()
 

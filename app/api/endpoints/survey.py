@@ -1,13 +1,14 @@
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
 from datetime import datetime
-from typing import List, Optional
-from pydantic import BaseModel
-from fastapi.responses import JSONResponse
+from typing import List
 
+from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel
+from sqlalchemy.orm import Session
+
+from app.models.schema import FocusGroup, Survey
 from app.utils.db import get_db
 from app.utils.helpers import format_response
-from app.models.schema import Survey, FocusGroup
 
 router = APIRouter()
 
