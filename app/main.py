@@ -1,10 +1,19 @@
 from fastapi import FastAPI, WebSocket
-from app.api.endpoints import actions, employee, report, analysis, auth, survey, questions, focus_group
-from app.api.endpoints.employeeDashboard import vibemeter, profile, dashboard
-from app.sockets import chat
-from app.utils.db import Base, engine
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.endpoints import (
+    actions,
+    analysis,
+    auth,
+    employee,
+    focus_group,
+    questions,
+    report,
+    survey,
+)
+from app.api.endpoints.employeeDashboard import dashboard, profile, vibemeter
+from app.sockets import chat
+from app.utils.db import Base, engine
 
 app = FastAPI(title="Conversational Bot for Employee Engagement")
 

@@ -1,13 +1,24 @@
+import os
+from datetime import datetime
+
+from dotenv import load_dotenv
 from sqlalchemy import (
-    create_engine, Column, Integer, String, Float, Date, Boolean, ForeignKey, TIMESTAMP, ARRAY, JSON
+    ARRAY,
+    JSON,
+    TIMESTAMP,
+    Boolean,
+    Column,
+    Date,
+    Float,
+    ForeignKey,
+    Integer,
+    String,
+    create_engine,
 )
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-from dotenv import load_dotenv
+
 from app.utils.helpers import generate_random_id
-from pydantic import BaseModel
-import os
-from datetime import datetime
 
 load_dotenv()
 
@@ -17,7 +28,6 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 # Create engine and Base
 engine = create_engine(DATABASE_URL)
 Base = declarative_base()
-
 
 
 # -------------------------------
@@ -30,18 +40,26 @@ class UserGroupAssociation(Base):
     __tablename__ = "user_group_association"
 
     employee_id = Column(String, ForeignKey("user.employee_id"), primary_key=True)
-    focus_group_id = Column(String, ForeignKey("focus_groups.focus_group_id"), primary_key=True)
+    focus_group_id = Column(
+        String, ForeignKey("focus_groups.focus_group_id"), primary_key=True
+    )
+
 
 class GroupActionAssociation(Base):
     __tablename__ = "group_action_association"
-    
-    focus_group_id = Column(String, ForeignKey("focus_groups.focus_group_id"), primary_key=True)
+
+    focus_group_id = Column(
+        String, ForeignKey("focus_groups.focus_group_id"), primary_key=True
+    )
     action_id = Column(String, ForeignKey("actions.action_id"), primary_key=True)
+
 
 class GroupSurveyAssociation(Base):
     __tablename__ = "group_survey_association"
 
-    focus_group_id = Column(String, ForeignKey("focus_groups.focus_group_id"), primary_key=True)
+    focus_group_id = Column(
+        String, ForeignKey("focus_groups.focus_group_id"), primary_key=True
+    )
     survey_id = Column(String, ForeignKey("survey.survey_id"), primary_key=True)
 
 
@@ -59,7 +77,7 @@ class User(Base):
     email = Column(String, nullable=False)
     password = Column(String, nullable=False)
     is_verified = Column(Boolean, default=False)
-    profile_picture=Column(String, nullable=True,default="default.jpg")
+    profile_picture = Column(String, nullable=True, default="default.jpg")
 
     # Relationships with other tables
     activities = relationship("ActivityTrackerDataset", back_populates="user")
@@ -87,16 +105,27 @@ class User(Base):
 class FocusGroup(Base):
     __tablename__ = "focus_groups"
 
-    focus_group_id = Column(String, primary_key=True, index=True, default=lambda: "FOC" + generate_random_id())
+    focus_group_id = Column(
+        String,
+        primary_key=True,
+        index=True,
+        default=lambda: "FOC" + generate_random_id(),
+    )
     name = Column(String, nullable=False)
     description = Column(String, nullable=True)
     created_at = Column(TIMESTAMP, nullable=False, default=datetime.now)
-    tags=Column(ARRAY(String), nullable=True)
-    
+    tags = Column(ARRAY(String), nullable=True)
+
     # Many-to-many relationship with User
-    users = relationship("User", secondary="user_group_association", back_populates="focus_groups")
-    actions = relationship("Action", secondary="group_action_association", back_populates="target_groups")
-    surveys = relationship("Survey", secondary="group_survey_association", back_populates="target_groups")
+    users = relationship(
+        "User", secondary="user_group_association", back_populates="focus_groups"
+    )
+    actions = relationship(
+        "Action", secondary="group_action_association", back_populates="target_groups"
+    )
+    surveys = relationship(
+        "Survey", secondary="group_survey_association", back_populates="target_groups"
+    )
 
 
 # -------------------------------
@@ -115,36 +144,56 @@ class FocusGroup(Base):
 class Action(Base):
     __tablename__ = "actions"
 
-    action_id = Column(String, primary_key=True, index=True, default=lambda: "ACT" + generate_random_id())
+    action_id = Column(
+        String,
+        primary_key=True,
+        index=True,
+        default=lambda: "ACT" + generate_random_id(),
+    )
     title = Column(String, nullable=False)
     purpose = Column(String, nullable=False)
     metric = Column(ARRAY(String), nullable=False)
     steps = Column(ARRAY(JSON), nullable=False)
     is_completed = Column(Boolean, default=False)
     created_at = Column(TIMESTAMP, nullable=False, default=datetime.now)
-    
-    target_groups = relationship("FocusGroup", secondary="group_action_association", back_populates="actions")
+
+    target_groups = relationship(
+        "FocusGroup", secondary="group_action_association", back_populates="actions"
+    )
 
 
 class Survey(Base):
     __tablename__ = "survey"
 
-    survey_id = Column(String, primary_key=True, index=True, default=lambda: "SRV" + generate_random_id())
+    survey_id = Column(
+        String,
+        primary_key=True,
+        index=True,
+        default=lambda: "SRV" + generate_random_id(),
+    )
     title = Column(String, nullable=False)
     description = Column(String, nullable=False)
     survey_time = Column(TIMESTAMP, nullable=False)
     is_active = Column(Boolean, default=True)
-    
-    target_groups = relationship("FocusGroup", secondary="group_survey_association", back_populates="surveys")
+
+    target_groups = relationship(
+        "FocusGroup", secondary="group_survey_association", back_populates="surveys"
+    )
 
 
 class Question(Base):
     __tablename__ = "questions"
 
-    question_id = Column(String, primary_key=True, index=True, default=lambda: "QUE" + generate_random_id())
+    question_id = Column(
+        String,
+        primary_key=True,
+        index=True,
+        default=lambda: "QUE" + generate_random_id(),
+    )
     text = Column(String, nullable=False)
     tags = Column(ARRAY(String), nullable=True)
     severity = Column(String, nullable=False)
+
 
 # -------------------------------
 # Table: activity_tracker_dataset
@@ -235,6 +284,7 @@ class PerformanceDataset(Base):
 
     user = relationship("User", back_populates="performance")
 
+
 # -------------------------------
 # Table: rewards_dataset
 # -------------------------------
@@ -253,6 +303,7 @@ class RewardsDataset(Base):
     reward_points = Column(Integer, nullable=False)
 
     user = relationship("User", back_populates="rewards")
+
 
 # -------------------------------
 # Table: vibemeter_dataset
@@ -273,6 +324,7 @@ class VibeMeterDataset(Base):
 
     user = relationship("User", back_populates="vibemeter")
 
+
 # -------------------------------
 # Table: task
 # -------------------------------
@@ -283,6 +335,7 @@ class VibeMeterDataset(Base):
 # - description: String (Optional)
 # - due_date: Date (Optional)
 # - is_completed: Boolean (Defaults to False)
+
 
 class Task(Base):
     __tablename__ = "task"
@@ -295,6 +348,7 @@ class Task(Base):
     is_completed = Column(Boolean, default=False)
 
     user = relationship("User", back_populates="tasks")
+
 
 # Create all tables in the database
 Base.metadata.create_all(engine)

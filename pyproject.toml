@@ -1,0 +1,17 @@
+[tool.black]
+line-length = 88
+target-version = ['py38', 'py39', 'py310']
+include = '\.pyi?$'
+exclude = 'data/'
+
+[tool.isort]
+profile = "black"
+skip = ["data"]
+
+[tool.flake8]
+extend-ignore = ["E203", "E501", "W503"]
+exclude = "data"
+
+[tool.pylint]
+disable = ["C0114", "C0115", "C0116", "C0301"]
+ignore = ["data"]

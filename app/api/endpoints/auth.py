@@ -1,12 +1,16 @@
+import datetime
+import os
+
+import jwt
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
-from app.utils.db import get_db
-from app.utils.helpers import send_verification_email
-from app.models.schema import User
+from fastapi.responses import JSONResponse
 from passlib.context import CryptContext
 from pydantic import BaseModel, EmailStr
-from fastapi.responses import JSONResponse
-import jwt, os, datetime
+from sqlalchemy.orm import Session
+
+from app.models.schema import User
+from app.utils.db import get_db
+from app.utils.helpers import send_verification_email
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = "HS256"
@@ -69,7 +73,7 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
     except HTTPException as e:
         # Re-raise HTTP exceptions to preserve their status codes (like 400)
         raise e
-    except Exception as e:
+    except Exception:
         raise HTTPException(status_code=500, detail="Error registering user")
 
 
@@ -94,7 +98,7 @@ def verify_email(token: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Verification link expired")
     except jwt.InvalidTokenError:
         raise HTTPException(status_code=400, detail="Invalid token")
-    except Exception as e:
+    except Exception:
         raise HTTPException(status_code=500, detail="Error verifying email")
 
 
@@ -142,5 +146,5 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
             content={"access_token": access_token, "token_type": "bearer"},
             status_code=200,
         )
-    except Exception as e:
+    except Exception:
         raise HTTPException(status_code=500, detail="Error during login")
