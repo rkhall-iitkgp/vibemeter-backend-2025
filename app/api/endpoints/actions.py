@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from typing import List, Optional
 from pydantic import BaseModel
 from fastapi.responses import JSONResponse
+from datetime import datetime
 
 from app.utils.db import get_db
 from app.utils.helpers import format_response
@@ -28,6 +29,7 @@ class ActionData(BaseModel):
     target_groups: List[str]
     steps: List
     is_completed: bool
+    created_at: datetime
 
 
 @router.get("")
@@ -46,7 +48,21 @@ async def get_all_actions(
         if not actions:
             raise HTTPException(status_code=404, detail="No actions found.")
 
-        return format_response(data=actions)
+        action_list = []
+        for action in actions:
+            action_dict = {
+                "action_id": action.action_id,
+                "title": action.title,
+                "purpose": action.purpose,
+                "metric": action.metric,
+                "steps": action.steps,
+                "is_completed": action.is_completed,
+                "target_groups": action.target_groups,
+                "created_at": action.created_at,
+            }
+            action_list.append(action_dict)
+
+        return format_response(data=action_list)
     except HTTPException as e:
         raise e
     except Exception as e:
