@@ -1,5 +1,5 @@
 from fastapi import FastAPI, WebSocket
-from app.api.endpoints import employee, report, analysis, auth, action, survey, questions, focus_group
+from app.api.endpoints import actions, employee, report, analysis, auth, survey, questions, focus_group
 from app.api.endpoints.employeeDashboard import vibemeter, profile, dashboard
 from app.sockets import chat
 from app.utils.db import Base, engine
@@ -28,7 +28,7 @@ app.include_router(profile.router, prefix="/api/profile", tags=["Profile"])
 app.include_router(
     dashboard.router, prefix="/api/dashboard", tags=["EmployeeDashboard"]
 )
-app.include_router(action.router, prefix="/api/action", tags=["Action"])
+app.include_router(actions.router, prefix="/api/actions", tags=["Action"])
 app.include_router(survey.router, prefix="/api/survey", tags=["Survey"])
 app.include_router(questions.router, prefix="/api/question", tags=["Question"])
 app.include_router(focus_group.router, prefix="/api/groups", tags=["FocusGroup"])
