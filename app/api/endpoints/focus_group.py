@@ -24,7 +24,7 @@ class UserData(BaseModel):
 class GroupCreate(BaseModel):
     name: str
     description: str
-    tags: List[str]
+    metrics: List[str]
     users: List[str]
 
 
@@ -33,7 +33,7 @@ class GroupData(BaseModel):
     name: str
     description: str
     created_at: datetime
-    tags: List[str]
+    metrics: List[str]
     users: List[UserData]
     actions: List
     surveys: List
@@ -46,7 +46,18 @@ async def get_all_groups(db: Session = Depends(get_db)):
     """
     try:
         groups = db.query(FocusGroup).all()
-        return format_response(data=groups)
+        formatted_groups = []
+        for group in groups:
+            formatted_group = {
+                "focus_group_id": group.focus_group_id,
+                "name": group.name,
+                "description": group.description,
+                "created_at": group.created_at,
+                "metrics": group.metrics,
+                "members": len(group.users),
+            }
+            formatted_groups.append(formatted_group)
+        return format_response(data=formatted_groups)
     except HTTPException as e:
         raise e
     except Exception as e:
@@ -86,7 +97,7 @@ async def get_group_details(focus_group_id: str, db: Session = Depends(get_db)):
             "name": group.name,
             "description": group.description,
             "created_at": group.created_at,
-            "tags": group.tags,
+            "metrics": group.metrics,
             "users": users_data,
             "actions": group.actions,
             "surveys": group.surveys,
@@ -111,7 +122,7 @@ async def create_group(group: GroupCreate, db: Session = Depends(get_db)):
         new_group = FocusGroup(
             name=group.name,
             description=group.description,
-            tags=group.tags,
+            metrics=group.metrics,
         )
 
         for employee_id in group.users:

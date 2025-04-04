@@ -114,7 +114,7 @@ class FocusGroup(Base):
     name = Column(String, nullable=False)
     description = Column(String, nullable=True)
     created_at = Column(TIMESTAMP, nullable=False, default=datetime.now)
-    tags = Column(ARRAY(String), nullable=True)
+    metrics = Column(ARRAY(String), nullable=True)
 
     # Many-to-many relationship with User
     users = relationship(
