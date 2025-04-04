@@ -376,6 +376,7 @@ class Meeting(Base):
     date = Column(Date, nullable=False)
     time = Column(Time, nullable=False)
     duration = Column(Integer, nullable=False)
+    meeting_type = Column(String, nullable=False)
     created_at = Column(DateTime, default=datetime.now)
 
     created_by_id = Column(String, ForeignKey("user.employee_id"), nullable=False)

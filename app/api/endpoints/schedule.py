@@ -1,5 +1,5 @@
 from datetime import date, time
-from typing import List
+from typing import List, Literal
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
@@ -16,6 +16,7 @@ class MeetingCreateRequest(BaseModel):
     date: date
     time: time
     duration: int  # Duration in minutes
+    meeting_type: Literal["virtual", "offline"]
     members: List[str]  # List of employee_ids for meeting members
     created_by_id: str  # Employee ID of the user who creates the meeting
 
@@ -44,6 +45,7 @@ async def schedule_meet(
         date=meeting_data.date,
         time=meeting_data.time,
         duration=meeting_data.duration,
+        meeting_type=meeting_data.meeting_type,
         created_by_id=meeting_data.created_by_id,
     )
 
