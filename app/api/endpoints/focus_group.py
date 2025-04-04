@@ -67,6 +67,30 @@ async def get_all_groups(db: Session = Depends(get_db)):
         )
 
 
+@router.get("/minified")
+async def get_all_groups_minified(db: Session = Depends(get_db)):
+    """
+    Fetch all focus groups from the database in a minified format.
+    """
+    try:
+        groups = db.query(FocusGroup).all()
+        formatted_groups = []
+        for group in groups:
+            formatted_group = {
+                "focus_group_id": group.focus_group_id,
+                "name": group.name,
+            }
+            formatted_groups.append(formatted_group)
+        return format_response(data=formatted_groups)
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to retrieve focus groups: {str(e)}",
+        )
+
+
 @router.get("/{focus_group_id}")
 async def get_group_details(focus_group_id: str, db: Session = Depends(get_db)):
     """
