@@ -9,10 +9,12 @@ from sqlalchemy import (
     Boolean,
     Column,
     Date,
+    DateTime,
     Float,
     ForeignKey,
     Integer,
     String,
+    Time,
     create_engine,
 )
 from sqlalchemy.ext.declarative import declarative_base
@@ -88,6 +90,10 @@ class User(Base):
     vibemeter = relationship("VibeMeterDataset", back_populates="user")
     tasks = relationship("Task", back_populates="user")
 
+    meetings = relationship(
+        "Meeting", secondary="meeting_members", back_populates="members"
+    )
+    meetings_created = relationship("Meeting", back_populates="created_by")
     focus_groups = relationship(
         "FocusGroup",
         secondary="user_group_association",
@@ -348,6 +354,36 @@ class Task(Base):
     is_completed = Column(Boolean, default=False)
 
     user = relationship("User", back_populates="tasks")
+
+
+class MeetingMembers(Base):
+    __tablename__ = "meeting_members"
+
+    meeting_id = Column(String, ForeignKey("meeting.meeting_id"), primary_key=True)
+    user_id = Column(String, ForeignKey("user.employee_id"), primary_key=True)
+
+
+class Meeting(Base):
+    __tablename__ = "meeting"
+
+    meeting_id = Column(
+        String,
+        primary_key=True,
+        index=True,
+        default=lambda: "MEET" + generate_random_id(),
+    )
+    title = Column(String, nullable=False)
+    date = Column(Date, nullable=False)
+    time = Column(Time, nullable=False)
+    duration = Column(Integer, nullable=False)
+    created_at = Column(DateTime, default=datetime.now)
+
+    created_by_id = Column(String, ForeignKey("user.employee_id"), nullable=False)
+    created_by = relationship("User", back_populates="meetings_created")
+
+    members = relationship(
+        "User", secondary="meeting_members", back_populates="meetings"
+    )
 
 
 # Create all tables in the database
