@@ -179,12 +179,28 @@ class Survey(Base):
     )
     title = Column(String, nullable=False)
     description = Column(String, nullable=False)
-    survey_time = Column(TIMESTAMP, nullable=False)
     is_active = Column(Boolean, default=True)
+    created_at = Column(TIMESTAMP, nullable=False, default=datetime.now)
+    ends_at = Column(TIMESTAMP, nullable=False)
+    questions = Column(ARRAY(JSON), nullable=False)
 
     target_groups = relationship(
         "FocusGroup", secondary="group_survey_association", back_populates="surveys"
     )
+    responses = relationship("SurveyResponse", back_populates="survey")
+
+
+class SurveyResponse(Base):
+    __tablename__ = "survey_response"
+
+    survey_response_id = Column(
+        Integer, primary_key=True, default=lambda: "SRE" + generate_random_id()
+    )
+    survey_id = Column(String, ForeignKey("survey.survey_id"), nullable=False)
+    employee_id = Column(String, ForeignKey("user.employee_id"), nullable=False)
+    responses = Column(ARRAY(JSON), nullable=False)
+
+    survey = relationship("Survey", back_populates="responses")
 
 
 class Question(Base):
