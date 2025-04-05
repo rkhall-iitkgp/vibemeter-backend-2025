@@ -7,6 +7,7 @@ from app.api.endpoints import (
     auth,
     employee,
     focus_group,
+    meetings,
     questions,
     report,
     schedule,
@@ -36,6 +37,7 @@ app.include_router(
 )
 app.include_router(employee.router, prefix="/api/employee", tags=["Employee"])
 app.include_router(focus_group.router, prefix="/api/groups", tags=["FocusGroup"])
+app.include_router(meetings.router, prefix="/api/meetings", tags=["Meetings"])
 app.include_router(profile.router, prefix="/api/profile", tags=["Profile"])
 app.include_router(questions.router, prefix="/api/question", tags=["Question"])
 app.include_router(report.router, prefix="/api/report", tags=["Report"])
