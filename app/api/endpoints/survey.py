@@ -17,6 +17,7 @@ class QuestionData(BaseModel):
     id: str | int
     text: str
 
+
 class SurveyCreate(BaseModel):
     title: str
     description: str
