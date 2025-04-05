@@ -72,3 +72,4 @@ celerybeat.pid
 # Other cache / temporary files
 *.bak
 *.tmp
+.env
