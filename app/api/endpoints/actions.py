@@ -82,7 +82,7 @@ async def get_action(action_id: str, db: Session = Depends(get_db)):
         action = db.query(Action).filter(Action.action_id == action_id).first()
         if not action:
             raise HTTPException(status_code=404, detail="Action not found.")
-        
+
         formatted_groups = []
         for group in action.target_groups:
             formatted_group = {
@@ -114,6 +114,7 @@ async def get_action(action_id: str, db: Session = Depends(get_db)):
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Failed to retrieve action: {str(e)}",
         )
+
 
 @router.post("")
 async def create_action(action: ActionCreate, db: Session = Depends(get_db)):
