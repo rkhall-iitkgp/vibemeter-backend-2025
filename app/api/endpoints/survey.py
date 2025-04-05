@@ -86,23 +86,23 @@ async def get_survey(survey_id: str, db: Session = Depends(get_db)):
             "created_at": db_survey.created_at,
             "questions": db_survey.questions,
         }
-        for question in formatted_survey['questions']:
-            question['options'] = [
+        for question in formatted_survey["questions"]:
+            question["options"] = [
                 {"value": 1, "label": "Very Dissatisfied"},
                 {"value": 2, "label": "Dissatisfied"},
                 {"value": 3, "label": "Neutral"},
                 {"value": 4, "label": "Satisfied"},
-                {"value": 5, "label": "Very Satisfied"}
+                {"value": 5, "label": "Very Satisfied"},
             ]
-            question['responses'] = [
+            question["responses"] = [
                 {"value": 1, "count": 5, "percentage": 2},
                 {"value": 2, "count": 15, "percentage": 6},
                 {"value": 3, "count": 45, "percentage": 19},
                 {"value": 4, "count": 120, "percentage": 51},
-                {"value": 5, "count": 49, "percentage": 21}
+                {"value": 5, "count": 49, "percentage": 21},
             ]
-            question['average'] = 3.8
-            question['delta'] = +0.5
+            question["average"] = 3.8
+            question["delta"] = +0.5
 
         return format_response(data=formatted_survey)
     except HTTPException as e:
