@@ -85,6 +85,7 @@ async def get_survey(survey_id: str, db: Session = Depends(get_db)):
             "target_groups": db_survey.target_groups,
             "created_at": db_survey.created_at,
             "questions": db_survey.questions,
+            "survey_status": {},
         }
         for question in formatted_survey["questions"]:
             question["options"] = [
@@ -103,6 +104,12 @@ async def get_survey(survey_id: str, db: Session = Depends(get_db)):
             ]
             question["average"] = 3.8
             question["delta"] = +0.5
+
+        total_responses = 0
+        for target_group in formatted_survey["target_groups"]:
+            total_responses += len(target_group.users)
+        formatted_survey["survey_status"]["total_responses"] = total_responses
+        formatted_survey["survey_status"]["responses_filled"] = 1
 
         return format_response(data=formatted_survey)
     except HTTPException as e:
