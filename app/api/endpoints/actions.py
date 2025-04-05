@@ -73,6 +73,48 @@ async def get_all_actions(
         )
 
 
+@router.get("/{action_id}")
+async def get_action(action_id: str, db: Session = Depends(get_db)):
+    """
+    Fetch a specific action from the database by its ID.
+    """
+    try:
+        action = db.query(Action).filter(Action.action_id == action_id).first()
+        if not action:
+            raise HTTPException(status_code=404, detail="Action not found.")
+        
+        formatted_groups = []
+        for group in action.target_groups:
+            formatted_group = {
+                "focus_group_id": group.focus_group_id,
+                "name": group.name,
+                "description": group.description,
+                "created_at": group.created_at,
+                "metrics": group.metrics,
+                "members": len(group.users),
+            }
+            formatted_groups.append(formatted_group)
+
+        action_dict = {
+            "action_id": action.action_id,
+            "title": action.title,
+            "purpose": action.purpose,
+            "metric": action.metric,
+            "steps": action.steps,
+            "is_completed": action.is_completed,
+            "target_groups": action.target_groups,
+            "created_at": action.created_at,
+        }
+
+        return format_response(data=action_dict)
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to retrieve action: {str(e)}",
+        )
+
 @router.post("")
 async def create_action(action: ActionCreate, db: Session = Depends(get_db)):
     """
