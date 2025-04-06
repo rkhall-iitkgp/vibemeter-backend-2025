@@ -13,6 +13,7 @@ from app.api.endpoints import (
     schedule,
     survey,
     ws,
+    suggestions,
 )
 from app.api.endpoints.employeeDashboard import dashboard, profile, vibemeter
 from app.utils.db import Base, engine
@@ -45,6 +46,7 @@ app.include_router(schedule.router, prefix="/api/schedule", tags=["Schedule"])
 app.include_router(survey.router, prefix="/api/survey", tags=["Survey"])
 app.include_router(vibemeter.router, prefix="/api/vibemeter", tags=["Vibemeter"])
 app.include_router(ws.router, prefix="/api/ws", tags=["WebSocket"])
+app.include_router(suggestions.router, prefix="/api/suggestions", tags=["Suggestions"])
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
