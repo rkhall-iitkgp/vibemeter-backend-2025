@@ -11,6 +11,7 @@ from app.api.endpoints import (
     questions,
     report,
     schedule,
+    suggestions,
     survey,
     ws,
 )
@@ -42,6 +43,7 @@ app.include_router(profile.router, prefix="/api/profile", tags=["Profile"])
 app.include_router(questions.router, prefix="/api/question", tags=["Question"])
 app.include_router(report.router, prefix="/api/report", tags=["Report"])
 app.include_router(schedule.router, prefix="/api/schedule", tags=["Schedule"])
+app.include_router(suggestions.router, prefix="/api/suggestions", tags=["Suggestions"])
 app.include_router(survey.router, prefix="/api/survey", tags=["Survey"])
 app.include_router(vibemeter.router, prefix="/api/vibemeter", tags=["Vibemeter"])
 app.include_router(ws.router, prefix="/api/ws", tags=["WebSocket"])
