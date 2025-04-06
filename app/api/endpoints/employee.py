@@ -110,21 +110,33 @@ async def get_employee_details(
     ]
 
     # Fetch focus groups
-    focus_groups = (
-        db.query(FocusGroup)
-        .join(User.focus_groups)
-        .filter(User.employee_id == employee_id)
-        .all()
-    )
+    # focus_groups = (
+    #     db.query(FocusGroup)
+    #     .join(User.focus_groups)
+    #     .filter(User.employee_id == employee_id)
+    #     .all()
+    # )
 
-    focus_groups_list = [
-        {
-            "focus_group_id": group.focus_group_id,
-            "name": group.name,
-            "description": group.description,
+    # focus_groups_list = [
+    #     {
+    #         "focus_group_id": group.focus_group_id,
+    #         "name": group.name,
+    #         "description": group.description,
+    #     }
+    #     for group in focus_groups
+    # ]
+
+    formatted_groups = []
+    for groups in user.focus_groups:
+        formatted_group = {
+            "focus_group_id": groups.focus_group_id,
+            "name": groups.name,
+            "description": groups.description,
+            "created_at": groups.created_at,
+            "metrics": groups.metrics,
+            "members": len(groups.users),
         }
-        for group in focus_groups
-    ]
+        formatted_groups.append(formatted_group)
 
     # Fetch action plans
     action_plans = (
@@ -156,7 +168,7 @@ async def get_employee_details(
         "awards": awards_list,
         "vibemeter": get_dummy_vibemeter(employee_id),
         "chat_summary": "Chat summary data here",
-        "focus_groups": focus_groups_list,
+        "focus_groups": formatted_groups,
         "action_plans": action_plans_list,
     }
 
