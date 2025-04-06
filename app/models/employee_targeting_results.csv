@@ -1,0 +1,496 @@
+Employee_ID,Risk_Score,Should_Target,Primary_Concern,Outreach_Category,Issue_Count,Issues,Avg_Vibe_Score,Recent_Vibe_Trend,Low_Mood_Flag,Negative_Trend_Flag,Avg_Work_Hours,Max_Work_Hours,Overworked_Flag,Total_Leave_Days,Insufficient_Leave_Flag,Performance_Rating,Has_Improvement_Feedback,Performance_Concern_Flag,Reward_Points,Award_Count,Recognition_Concern_Flag
+EMP0250,7,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,3,Low mood: Average vibe score is below neutral; Overworked: High average working hours; Performance concerns: Low rating or improvement needed,1.0,0.0,True,False,9.43,9.43,True,,False,3.0,True,True,,,False
+EMP0302,7,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,3,Low mood: Average vibe score is below neutral; Overworked: High average working hours; Performance concerns: Low rating or improvement needed,1.0,0.0,True,False,9.1,9.1,True,,False,1.0,False,True,322.0,1.0,False
+EMP0232,6,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,3,Low mood: Average vibe score is below neutral; Needs break: Low leave utilization; Performance concerns: Low rating or improvement needed,1.0,0.0,True,False,,,False,3.0,True,1.0,False,True,217.0,1.0,False
+EMP0269,6,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,3,Low mood: Average vibe score is below neutral; Overworked: High average working hours; Needs break: Low leave utilization,1.0,0.0,True,False,9.55,9.55,True,4.0,True,,,False,354.0,2.0,False
+EMP0296,6,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,3,Low mood: Average vibe score is below neutral; Needs break: Low leave utilization; Performance concerns: Low rating or improvement needed,2.5,0.0,True,False,8.78,8.78,False,4.0,True,2.0,False,True,,,False
+EMP0133,6,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,3,Low mood: Average vibe score is below neutral; Needs break: Low leave utilization; Performance concerns: Low rating or improvement needed,2.0,0.0,True,False,7.06,7.06,False,2.0,True,2.0,False,True,393.0,1.0,False
+EMP0412,6,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,3,Low mood: Average vibe score is below neutral; Needs break: Low leave utilization; Performance concerns: Low rating or improvement needed,2.0,0.0,True,False,8.15,8.15,False,1.0,True,1.0,True,True,,,False
+EMP0467,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Overworked: High average working hours,2.0,0.0,True,False,9.58,9.58,True,,False,3.0,False,False,666.0,2.0,False
+EMP0283,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Overworked: High average working hours,2.0,0.0,True,False,9.8,9.8,True,8.0,False,,,False,1169.0,3.0,False
+EMP0329,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,1.0,0.0,True,False,,,False,,False,2.0,False,True,,,False
+EMP0257,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,2.0,0.0,True,False,,,False,,False,4.0,True,True,903.0,3.0,False
+EMP0319,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,2.0,0.0,True,False,7.583333333333333,8.28,False,29.0,False,1.0,False,True,,,False
+EMP0320,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,2.25,0.4166666666666665,True,False,,,False,,False,2.0,False,True,16.0,1.0,False
+EMP0461,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,2.0,0.0,True,False,4.16,4.16,False,21.0,False,2.0,False,True,435.0,2.0,False
+EMP0452,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,1.0,0.0,True,False,,,False,22.0,False,1.0,False,True,394.0,1.0,False
+EMP0013,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,2.0,0.0,True,False,4.0,4.0,False,,False,1.0,True,True,,,False
+EMP0056,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,1.0,0.0,True,False,5.06,5.06,False,17.0,False,4.0,True,True,249.0,1.0,False
+EMP0383,5,True,Overworked: High average working hours,workload,3,Overworked: High average working hours; Needs break: Low leave utilization; Performance concerns: Low rating or improvement needed,,,False,False,9.71,9.71,True,2.0,True,4.0,True,True,882.0,3.0,False
+EMP0184,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,2.0,0.0,True,False,6.137499999999999,8.5,False,7.0,False,1.0,False,True,392.0,1.0,False
+EMP0377,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,2.0,0.0,True,False,6.6,6.9,False,14.0,False,3.0,True,True,140.0,1.0,False
+EMP0179,5,True,Overworked: High average working hours,workload,3,Overworked: High average working hours; Needs break: Low leave utilization; Performance concerns: Low rating or improvement needed,3.6666666666666665,0.0,False,False,9.98,9.98,True,4.0,True,1.0,True,True,501.0,2.0,False
+EMP0047,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,1.0,0.0,True,False,,,False,18.0,False,2.0,False,True,,,False
+EMP0043,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,2.5,0.0,True,False,6.765000000000001,9.24,False,,False,2.0,False,True,144.0,1.0,False
+EMP0188,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,2.8333333333333335,0.5,True,False,,,False,13.0,False,2.0,True,True,,,False
+EMP0360,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,1.0,0.0,True,False,,,False,8.0,False,1.0,False,True,351.0,1.0,False
+EMP0387,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Overworked: High average working hours,1.0,0.0,True,False,9.25,9.25,True,6.0,False,,,False,695.0,3.0,False
+EMP0156,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,1.0,0.0,True,False,,,False,,False,1.0,True,True,1166.0,4.0,False
+EMP0059,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,2.0,0.0,True,False,,,False,,False,2.0,True,True,84.0,1.0,False
+EMP0066,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,1.0,0.0,True,False,8.37,8.37,False,18.0,False,4.0,True,True,208.0,1.0,False
+EMP0393,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,2.6666666666666665,0.0,True,False,,,False,13.0,False,1.0,False,True,,,False
+EMP0391,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,2.5,0.0,True,False,,,False,,False,2.0,False,True,489.0,2.0,False
+EMP0351,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,2.5,0.0,True,False,,,False,,False,1.0,False,True,74.0,1.0,False
+EMP0272,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,2.3333333333333335,0.0,True,False,8.525,9.91,False,21.0,False,1.0,True,True,884.0,3.0,False
+EMP0136,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,1.0,0.0,True,False,4.98,4.98,False,6.0,False,3.0,True,True,359.0,1.0,False
+EMP0479,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,2.5,0.0,True,False,5.04,5.04,False,10.0,False,1.0,True,True,317.0,1.0,False
+EMP0019,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,2.6666666666666665,0.0,True,False,7.25,7.25,False,,False,2.0,False,True,184.0,1.0,False
+EMP0472,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,2.0,0.0,True,False,8.5,9.68,False,11.0,False,1.0,False,True,,,False
+EMP0466,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,2.0,0.0,True,False,6.050000000000001,7.74,False,,False,1.0,False,True,,,False
+EMP0018,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,1.0,0.0,True,False,,,False,,False,1.0,False,True,502.0,2.0,False
+EMP0122,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,1.0,0.0,True,False,6.09,9.03,False,,False,1.0,False,True,149.0,1.0,False
+EMP0157,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,1.0,0.0,True,False,,,False,9.0,False,2.0,False,True,773.0,2.0,False
+EMP0112,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,1.0,0.0,True,False,8.276666666666667,9.5,False,,False,1.0,False,True,381.0,2.0,False
+EMP0071,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,2.5,0.0,True,False,6.115,7.46,False,11.0,False,2.0,False,True,42.0,1.0,False
+EMP0143,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,1.0,0.0,True,False,,,False,8.0,False,4.0,True,True,,,False
+EMP0403,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,2.0,0.0,True,False,7.63,7.63,False,27.0,False,2.0,True,True,215.0,2.0,False
+EMP0115,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,1.0,0.0,True,False,7.72,7.72,False,24.0,False,4.0,True,True,483.0,1.0,False
+EMP0094,5,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Performance concerns: Low rating or improvement needed,2.0,0.0,True,False,7.306666666666666,8.58,False,,False,1.0,False,True,593.0,2.0,False
+EMP0012,4,True,Overworked: High average working hours,workload,2,Overworked: High average working hours; Performance concerns: Low rating or improvement needed,6.0,0.0,False,False,9.24,9.24,True,10.0,False,1.0,True,True,251.0,1.0,False
+EMP0323,4,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Needs break: Low leave utilization,1.0,0.0,True,False,8.26,8.26,False,4.0,True,,,False,74.0,1.0,False
+EMP0190,4,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Needs break: Low leave utilization,2.3333333333333335,0.0,True,False,8.315000000000001,9.14,False,1.0,True,3.0,False,False,,,False
+EMP0458,4,True,Overworked: High average working hours,workload,2,Overworked: High average working hours; Performance concerns: Low rating or improvement needed,3.0,0.0,False,False,9.445,9.81,True,14.0,False,1.0,False,True,521.0,2.0,False
+EMP0334,4,True,Declining mood: Recent vibe scores are lower than average,emotional_wellbeing,2,Declining mood: Recent vibe scores are lower than average; Performance concerns: Low rating or improvement needed,4.75,-0.08333333333333304,False,True,8.275,8.99,False,,False,2.0,False,True,467.0,2.0,False
+EMP0223,4,True,Overworked: High average working hours,workload,2,Overworked: High average working hours; Performance concerns: Low rating or improvement needed,,,False,False,9.62,9.62,True,11.0,False,2.0,False,True,433.0,2.0,False
+EMP0294,4,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Needs break: Low leave utilization,2.0,0.0,True,False,,,False,1.0,True,,,False,1088.0,3.0,False
+EMP0267,4,True,Overworked: High average working hours,workload,2,Overworked: High average working hours; Performance concerns: Low rating or improvement needed,,,False,False,9.31,9.31,True,15.0,False,3.0,True,True,123.0,2.0,False
+EMP0389,4,True,Declining mood: Recent vibe scores are lower than average,emotional_wellbeing,2,Declining mood: Recent vibe scores are lower than average; Performance concerns: Low rating or improvement needed,3.0,-0.3333333333333335,False,True,,,False,16.0,False,3.0,True,True,568.0,2.0,False
+EMP0401,4,True,Overworked: High average working hours,workload,2,Overworked: High average working hours; Performance concerns: Low rating or improvement needed,,,False,False,9.24,9.24,True,7.0,False,3.0,True,True,,,False
+EMP0446,4,True,Declining mood: Recent vibe scores are lower than average,emotional_wellbeing,2,Declining mood: Recent vibe scores are lower than average; Performance concerns: Low rating or improvement needed,4.0,-0.6666666666666665,False,True,,,False,,False,1.0,False,True,,,False
+EMP0014,4,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Needs break: Low leave utilization,2.0,0.0,True,False,6.66,9.59,False,4.0,True,,,False,,,False
+EMP0440,4,True,Overworked: High average working hours,workload,2,Overworked: High average working hours; Performance concerns: Low rating or improvement needed,4.0,0.0,False,False,9.03,9.03,True,13.0,False,4.0,True,True,33.0,1.0,False
+EMP0438,4,True,Declining mood: Recent vibe scores are lower than average,emotional_wellbeing,2,Declining mood: Recent vibe scores are lower than average; Performance concerns: Low rating or improvement needed,3.0,-0.6666666666666665,False,True,8.45,8.45,False,22.0,False,1.0,False,True,,,False
+EMP0437,4,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Needs break: Low leave utilization,2.0,0.0,True,False,,,False,4.0,True,,,False,39.0,1.0,False
+EMP0077,4,True,Overworked: High average working hours,workload,2,Overworked: High average working hours; Performance concerns: Low rating or improvement needed,,,False,False,9.469999999999999,9.94,True,,False,2.0,False,True,183.0,1.0,False
+EMP0022,4,True,Overworked: High average working hours,workload,2,Overworked: High average working hours; Performance concerns: Low rating or improvement needed,5.0,0.0,False,False,9.92,9.92,True,12.0,False,4.0,True,True,29.0,1.0,False
+EMP0488,4,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,2,Low mood: Average vibe score is below neutral; Needs break: Low leave utilization,1.0,0.0,True,False,,,False,4.0,True,,,False,798.0,5.0,False
+EMP0002,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,1.0,0.0,True,False,6.25,7.05,False,18.0,False,3.0,False,False,409.0,1.0,False
+EMP0003,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,2.0,0.0,True,False,4.09,4.09,False,,False,4.0,False,False,708.0,2.0,False
+EMP0497,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,2.0,0.0,True,False,,,False,,False,,,False,,,False
+EMP0473,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,1.0,0.0,True,False,7.65,7.65,False,17.0,False,3.0,False,False,,,False
+EMP0017,3,True,Overworked: High average working hours,workload,2,Overworked: High average working hours; Needs break: Low leave utilization,4.0,0.0,False,False,9.56,9.56,True,3.0,True,4.0,False,False,457.0,1.0,False
+EMP0082,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,1.0,0.0,True,False,4.07,4.07,False,5.0,False,,,False,,,False
+EMP0146,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,1.0,0.0,True,False,7.62,7.62,False,9.0,False,,,False,,,False
+EMP0064,3,True,Needs break: Low leave utilization,performance,2,Needs break: Low leave utilization; Performance concerns: Low rating or improvement needed,,,False,False,4.4,4.4,False,3.0,True,2.0,True,True,233.0,1.0,False
+EMP0089,3,True,Needs break: Low leave utilization,performance,2,Needs break: Low leave utilization; Performance concerns: Low rating or improvement needed,,,False,False,8.31,8.31,False,4.0,True,1.0,True,True,476.0,1.0,False
+EMP0058,3,True,Needs break: Low leave utilization,performance,2,Needs break: Low leave utilization; Performance concerns: Low rating or improvement needed,4.0,0.0,False,False,6.15,8.65,False,4.0,True,1.0,False,True,203.0,1.0,False
+EMP0072,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,1.0,0.0,True,False,6.09,6.09,False,,False,,,False,380.0,1.0,False
+EMP0125,3,True,Needs break: Low leave utilization,performance,2,Needs break: Low leave utilization; Performance concerns: Low rating or improvement needed,4.5,0.0,False,False,7.8149999999999995,8.68,False,2.0,True,3.0,True,True,,,False
+EMP0417,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,2.0,0.0,True,False,,,False,12.0,False,,,False,,,False
+EMP0424,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,2.0,0.0,True,False,7.975,9.78,False,9.0,False,,,False,,,False
+EMP0111,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,1.5,0.0,True,False,6.84,8.21,False,9.0,False,,,False,,,False
+EMP0107,3,True,Needs break: Low leave utilization,performance,2,Needs break: Low leave utilization; Performance concerns: Low rating or improvement needed,,,False,False,,,False,2.0,True,4.0,True,True,18.0,1.0,False
+EMP0093,3,True,Needs break: Low leave utilization,performance,2,Needs break: Low leave utilization; Performance concerns: Low rating or improvement needed,,,False,False,,,False,2.0,True,1.0,False,True,449.0,1.0,False
+EMP0103,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,2.0,0.0,True,False,6.095000000000001,6.82,False,,False,,,False,666.0,2.0,False
+EMP0102,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,2.0,0.0,True,False,4.895,5.15,False,,False,,,False,693.0,2.0,False
+EMP0147,3,True,Needs break: Low leave utilization,performance,2,Needs break: Low leave utilization; Performance concerns: Low rating or improvement needed,,,False,False,,,False,1.0,True,2.0,False,True,,,False
+EMP0413,3,True,Needs break: Low leave utilization,performance,2,Needs break: Low leave utilization; Performance concerns: Low rating or improvement needed,5.0,0.0,False,False,,,False,4.0,True,2.0,False,True,575.0,2.0,False
+EMP0234,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,1.5,0.0,True,False,,,False,,False,3.0,False,False,,,False
+EMP0220,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,2.5,0.0,True,False,,,False,5.0,False,4.0,False,False,517.0,2.0,False
+EMP0335,3,True,Needs break: Low leave utilization,performance,2,Needs break: Low leave utilization; Performance concerns: Low rating or improvement needed,,,False,False,4.28,4.28,False,2.0,True,1.0,False,True,217.0,1.0,False
+EMP0348,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,1.0,0.0,True,False,6.44,6.44,False,,False,3.0,False,False,,,False
+EMP0347,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,2.0,0.0,True,False,7.07,7.07,False,24.0,False,4.0,False,False,,,False
+EMP0193,3,True,Needs break: Low leave utilization,performance,2,Needs break: Low leave utilization; Performance concerns: Low rating or improvement needed,5.5,0.0,False,False,,,False,3.0,True,3.0,True,True,878.0,4.0,False
+EMP0191,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,1.0,0.0,True,False,7.135,8.85,False,,False,,,False,,,False
+EMP0215,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,2.5,0.0,True,False,6.1,6.1,False,13.0,False,,,False,,,False
+EMP0173,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,2.0,0.0,True,False,8.29,8.29,False,13.0,False,4.0,False,False,580.0,2.0,False
+EMP0176,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,1.0,0.0,True,False,,,False,8.0,False,4.0,False,False,650.0,2.0,False
+EMP0397,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,2.6666666666666665,0.0,True,False,7.1,7.1,False,5.0,False,,,False,333.0,2.0,False
+EMP0155,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,2.5,0.0,True,False,5.47,5.47,False,,False,,,False,,,False
+EMP0163,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,2.0,0.0,True,False,5.244999999999999,6.06,False,18.0,False,,,False,149.0,1.0,False
+EMP0087,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,2.0,0.0,True,False,,,False,14.0,False,4.0,False,False,418.0,2.0,False
+EMP0328,3,True,Needs break: Low leave utilization,performance,2,Needs break: Low leave utilization; Performance concerns: Low rating or improvement needed,,,False,False,,,False,1.0,True,1.0,False,True,410.0,2.0,False
+EMP0322,3,True,Needs break: Low leave utilization,performance,2,Needs break: Low leave utilization; Performance concerns: Low rating or improvement needed,3.0,0.0,False,False,,,False,4.0,True,3.0,True,True,352.0,1.0,False
+EMP0251,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,2.5,0.0,True,False,6.523333333333333,8.29,False,12.0,False,,,False,128.0,2.0,False
+EMP0248,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,2.0,0.0,True,False,7.5649999999999995,8.87,False,,False,,,False,,,False
+EMP0246,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,1.0,0.0,True,False,8.99,8.99,False,11.0,False,,,False,,,False
+EMP0310,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,1.0,0.0,True,False,5.39,5.39,False,,False,3.0,False,False,118.0,1.0,False
+EMP0301,3,True,Needs break: Low leave utilization,performance,2,Needs break: Low leave utilization; Performance concerns: Low rating or improvement needed,6.0,0.0,False,False,7.504999999999999,9.37,False,1.0,True,2.0,True,True,,,False
+EMP0306,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,2.0,0.3333333333333335,True,False,8.23,8.59,False,,False,,,False,,,False
+EMP0261,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,1.0,0.0,True,False,,,False,8.0,False,3.0,False,False,,,False
+EMP0262,3,True,Needs break: Low leave utilization,performance,2,Needs break: Low leave utilization; Performance concerns: Low rating or improvement needed,3.5,0.0,False,False,5.45,5.45,False,2.0,True,1.0,False,True,87.0,1.0,False
+EMP0253,3,True,Needs break: Low leave utilization,performance,2,Needs break: Low leave utilization; Performance concerns: Low rating or improvement needed,,,False,False,6.98,9.06,False,2.0,True,4.0,True,True,221.0,1.0,False
+EMP0490,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,1.0,0.0,True,False,5.49,5.49,False,12.0,False,,,False,,,False
+EMP0031,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,1.0,0.0,True,False,5.88,5.88,False,,False,,,False,289.0,1.0,False
+EMP0028,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,2.0,0.0,True,False,5.67,5.67,False,13.0,False,3.0,False,False,,,False
+EMP0465,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,2.0,0.0,True,False,,,False,8.0,False,,,False,125.0,1.0,False
+EMP0281,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,2.5,0.0,True,False,,,False,,False,,,False,620.0,2.0,False
+EMP0455,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,2.6666666666666665,0.0,True,False,,,False,,False,3.0,False,False,442.0,3.0,False
+EMP0235,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,2.0,0.0,True,False,5.21,5.21,False,,False,,,False,25.0,1.0,False
+EMP0491,3,True,Needs break: Low leave utilization,performance,2,Needs break: Low leave utilization; Performance concerns: Low rating or improvement needed,5.0,0.0,False,False,8.04,8.04,False,4.0,True,4.0,True,True,,,False
+EMP0273,3,True,Low mood: Average vibe score is below neutral,emotional_wellbeing,1,Low mood: Average vibe score is below neutral,1.0,0.0,True,False,,,False,,False,3.0,False,False,534.0,2.0,False
+EMP0297,3,True,Overworked: High average working hours,workload,2,Overworked: High average working hours; Needs break: Low leave utilization,4.0,0.0,False,False,9.95,9.95,True,3.0,True,,,False,,,False
+EMP0422,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,6.07,6.07,False,13.0,False,1.0,True,True,261.0,2.0,False
+EMP0426,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.0,0.0,False,False,,,False,,False,4.0,True,True,230.0,2.0,False
+EMP0429,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,5.0,0.0,False,False,,,False,19.0,False,2.0,True,True,,,False
+EMP0097,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,3.0,0.0,False,False,8.33,9.66,False,,False,1.0,False,True,,,False
+EMP0100,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,8.0,False,2.0,False,True,856.0,2.0,False
+EMP0119,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,8.375,8.52,False,,False,1.0,False,True,85.0,1.0,False
+EMP0117,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,,False,2.0,True,True,,,False
+EMP0113,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,10.0,False,2.0,True,True,401.0,1.0,False
+EMP0421,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.0,0.0,False,False,,,False,,False,1.0,False,True,179.0,1.0,False
+EMP0420,2,False,Overworked: High average working hours,None,1,Overworked: High average working hours,,,False,False,9.79,9.79,True,8.0,False,4.0,False,False,,,False
+EMP0423,2,False,Declining mood: Recent vibe scores are lower than average,None,1,Declining mood: Recent vibe scores are lower than average,3.75,-0.4166666666666665,False,True,,,False,12.0,False,3.0,False,False,,,False
+EMP0430,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,5.0,0.0,False,False,6.25,6.25,False,,False,1.0,False,True,189.0,2.0,False
+EMP0431,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,5.0,0.0,False,False,,,False,,False,1.0,False,True,261.0,1.0,False
+EMP0432,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,4.02,4.02,False,,False,3.0,True,True,353.0,2.0,False
+EMP0434,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,8.69,8.69,False,,False,1.0,True,True,183.0,1.0,False
+EMP0436,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,7.373333333333332,8.87,False,,False,1.0,False,True,,,False
+EMP0442,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,7.2,7.2,False,8.0,False,1.0,True,True,274.0,2.0,False
+EMP0443,2,False,Overworked: High average working hours,None,1,Overworked: High average working hours,5.0,0.0,False,False,9.15,9.15,True,12.0,False,,,False,350.0,1.0,False
+EMP0444,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,3.3333333333333335,0.0,False,False,,,False,,False,1.0,False,True,72.0,2.0,False
+EMP0445,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.0,0.0,False,False,5.8,7.06,False,8.0,False,1.0,False,True,92.0,1.0,False
+EMP0074,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,3.0,0.0,False,False,,,False,,False,2.0,False,True,558.0,3.0,False
+EMP0075,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,,False,1.0,False,True,285.0,1.0,False
+EMP0498,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,5.0,0.0,False,False,,,False,13.0,False,2.0,True,True,1487.0,4.0,False
+EMP0023,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,3.0,0.0,False,False,4.92,4.92,False,,False,2.0,False,True,,,False
+EMP0020,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,7.04,9.16,False,9.0,False,2.0,True,True,906.0,2.0,False
+EMP0481,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,6.0,0.0,False,False,4.9,4.9,False,20.0,False,3.0,True,True,358.0,2.0,False
+EMP0101,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.0,0.0,False,False,8.58,8.58,False,21.0,False,2.0,True,True,,,False
+EMP0108,2,False,Overworked: High average working hours,None,1,Overworked: High average working hours,4.5,0.0,False,False,9.58,9.58,True,5.0,False,4.0,False,False,309.0,1.0,False
+EMP0110,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.0,0.0,False,False,6.67,6.67,False,10.0,False,4.0,True,True,,,False
+EMP0024,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,5.0,0.0,False,False,,,False,19.0,False,1.0,False,True,414.0,1.0,False
+EMP0495,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,5.21,5.21,False,19.0,False,4.0,True,True,450.0,2.0,False
+EMP0494,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,23.0,False,1.0,True,True,,,False
+EMP0476,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,7.0,False,4.0,True,True,,,False
+EMP0007,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,25.0,False,2.0,False,True,108.0,1.0,False
+EMP0006,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,3.0,0.0,False,False,6.195,6.89,False,,False,1.0,False,True,,,False
+EMP0470,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,8.88,8.88,False,,False,2.0,False,True,413.0,1.0,False
+EMP0469,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,7.12,7.12,False,,False,1.0,False,True,,,False
+EMP0489,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,6.0,0.0,False,False,7.18,7.18,False,,False,1.0,True,True,353.0,1.0,False
+EMP0487,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.0,0.0,False,False,5.45,5.45,False,,False,1.0,False,True,265.0,1.0,False
+EMP0485,2,False,Overworked: High average working hours,None,1,Overworked: High average working hours,,,False,False,9.46,9.46,True,,False,,,False,226.0,1.0,False
+EMP0484,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,6.83,7.87,False,17.0,False,2.0,False,True,398.0,1.0,False
+EMP0475,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,6.0,0.0,False,False,,,False,13.0,False,2.0,False,True,,,False
+EMP0474,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,5.0,0.0,False,False,,,False,9.0,False,2.0,False,True,,,False
+EMP0061,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,16.0,False,4.0,True,True,676.0,3.0,False
+EMP0060,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,7.26,7.26,False,6.0,False,2.0,False,True,,,False
+EMP0065,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,7.33,9.25,False,14.0,False,1.0,False,True,,,False
+EMP0063,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,6.0,0.0,False,False,,,False,,False,2.0,True,True,259.0,1.0,False
+EMP0068,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,5.0,0.0,False,False,5.125,6.09,False,16.0,False,1.0,False,True,,,False
+EMP0168,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.5,0.0,False,False,6.09,6.78,False,26.0,False,2.0,False,True,,,False
+EMP0167,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,5.0,0.0,False,False,,,False,,False,2.0,False,True,,,False
+EMP0070,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,5.6433333333333335,6.48,False,7.0,False,3.0,True,True,315.0,1.0,False
+EMP0141,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,5.46,6.12,False,11.0,False,1.0,False,True,,,False
+EMP0139,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,3.0,0.0,False,False,,,False,,False,1.0,False,True,395.0,1.0,False
+EMP0142,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,7.3933333333333335,9.21,False,14.0,False,2.0,False,True,66.0,1.0,False
+EMP0169,2,False,Overworked: High average working hours,None,1,Overworked: High average working hours,3.0,0.0,False,False,9.97,9.97,True,,False,4.0,False,False,245.0,1.0,False
+EMP0152,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,6.65,6.65,False,6.0,False,4.0,True,True,457.0,1.0,False
+EMP0153,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.5,0.0,False,False,,,False,14.0,False,1.0,False,True,60.0,1.0,False
+EMP0151,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,7.51,7.9,False,19.0,False,1.0,True,True,,,False
+EMP0144,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.666666666666667,0.0,False,False,,,False,,False,2.0,False,True,,,False
+EMP0410,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,4.47,4.47,False,,False,4.0,True,True,,,False
+EMP0411,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,6.330000000000001,7.51,False,6.0,False,2.0,False,True,,,False
+EMP0407,2,False,Overworked: High average working hours,None,1,Overworked: High average working hours,5.0,0.0,False,False,9.15,9.15,True,,False,,,False,,,False
+EMP0408,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,5.0,0.0,False,False,5.86,5.86,False,,False,1.0,True,True,343.0,1.0,False
+EMP0154,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,6.0,0.0,False,False,,,False,36.0,False,1.0,False,True,409.0,2.0,False
+EMP0398,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,,False,2.0,False,True,157.0,1.0,False
+EMP0405,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,,False,3.0,True,True,,,False
+EMP0402,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,3.3333333333333335,0.0,False,False,,,False,5.0,False,1.0,True,True,,,False
+EMP0419,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,7.12,7.12,False,11.0,False,2.0,False,True,418.0,2.0,False
+EMP0418,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.0,0.0,False,False,8.76,8.76,False,27.0,False,1.0,False,True,250.0,1.0,False
+EMP0415,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,13.0,False,1.0,True,True,,,False
+EMP0135,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,3.0,0.0,False,False,5.86,5.86,False,,False,1.0,False,True,126.0,1.0,False
+EMP0132,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.0,0.0,False,False,6.69,6.69,False,,False,1.0,True,True,453.0,1.0,False
+EMP0131,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,7.175,8.52,False,12.0,False,1.0,False,True,181.0,1.0,False
+EMP0128,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,6.0,0.0,False,False,,,False,23.0,False,3.0,True,True,197.0,1.0,False
+EMP0126,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,4.52,4.75,False,,False,1.0,True,True,304.0,2.0,False
+EMP0104,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,7.03,7.03,False,12.0,False,2.0,True,True,,,False
+EMP0106,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,7.36,7.36,False,30.0,False,4.0,True,True,,,False
+EMP0116,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,8.87,8.87,False,,False,1.0,True,True,,,False
+EMP0213,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,5.0,False,2.0,False,True,,,False
+EMP0200,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,3.5,0.16666666666666652,False,False,,,False,13.0,False,4.0,True,True,151.0,1.0,False
+EMP0189,2,False,Overworked: High average working hours,None,1,Overworked: High average working hours,,,False,False,9.96,9.96,True,,False,,,False,502.0,2.0,False
+EMP0198,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,,False,2.0,True,True,,,False
+EMP0192,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,5.505,6.51,False,12.0,False,1.0,False,True,365.0,1.0,False
+EMP0046,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.0,0.0,False,False,,,False,,False,2.0,False,True,317.0,1.0,False
+EMP0045,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,3.0,0.0,False,False,,,False,5.0,False,1.0,False,True,110.0,1.0,False
+EMP0207,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,6.596666666666667,7.37,False,8.0,False,4.0,True,True,288.0,1.0,False
+EMP0210,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.5,0.0,False,False,6.23,7.13,False,,False,3.0,True,True,183.0,1.0,False
+EMP0355,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,3.5,0.0,False,False,6.43,6.43,False,5.0,False,2.0,True,True,264.0,1.0,False
+EMP0366,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,6.0,0.0,False,False,7.36,7.36,False,,False,3.0,True,True,,,False
+EMP0202,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.0,0.0,False,False,5.119999999999999,5.64,False,8.0,False,2.0,True,True,573.0,2.0,False
+EMP0211,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.0,0.0,False,False,6.42,6.42,False,24.0,False,2.0,False,True,183.0,2.0,False
+EMP0380,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,3.0,0.0,False,False,7.303333333333334,8.59,False,,False,2.0,False,True,,,False
+EMP0178,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,6.79,6.79,False,,False,2.0,False,True,,,False
+EMP0388,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,8.69,8.69,False,,False,3.0,True,True,127.0,1.0,False
+EMP0378,2,False,Overworked: High average working hours,None,1,Overworked: High average working hours,6.0,0.0,False,False,9.475,9.66,True,14.0,False,,,False,433.0,1.0,False
+EMP0367,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,,False,2.0,False,True,33.0,1.0,False
+EMP0376,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,7.0,False,1.0,True,True,316.0,2.0,False
+EMP0372,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,8.56,8.56,False,,False,1.0,False,True,54.0,1.0,False
+EMP0370,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,14.0,False,2.0,False,True,71.0,1.0,False
+EMP0201,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,3.0,0.0,False,False,4.93,4.93,False,9.0,False,3.0,True,True,811.0,2.0,False
+EMP0161,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,3.3333333333333335,0.0,False,False,,,False,16.0,False,4.0,True,True,,,False
+EMP0396,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.0,0.0,False,False,4.06,4.06,False,,False,1.0,True,True,,,False
+EMP0392,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,3.5,0.0,False,False,6.793333333333333,7.51,False,8.0,False,2.0,False,True,81.0,1.0,False
+EMP0385,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,3.3333333333333335,0.0,False,False,,,False,19.0,False,1.0,False,True,,,False
+EMP0159,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,6.92,6.92,False,,False,1.0,False,True,,,False
+EMP0164,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,3.5,0.0,False,False,,,False,14.0,False,1.0,False,True,428.0,2.0,False
+EMP0083,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,6.96,6.96,False,13.0,False,1.0,False,True,645.0,2.0,False
+EMP0221,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,6.0,0.0,False,False,7.4399999999999995,9.99,False,,False,1.0,False,True,979.0,3.0,False
+EMP0224,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,5.88,5.88,False,,False,1.0,False,True,401.0,2.0,False
+EMP0228,2,False,Overworked: High average working hours,None,1,Overworked: High average working hours,5.0,0.0,False,False,9.350000000000001,9.65,True,14.0,False,3.0,False,False,729.0,3.0,False
+EMP0233,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,6.68,6.68,False,6.0,False,1.0,True,True,831.0,2.0,False
+EMP0342,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,7.9239999999999995,9.98,False,7.0,False,2.0,False,True,,,False
+EMP0340,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.0,0.0,False,False,4.45,4.45,False,,False,4.0,True,True,452.0,1.0,False
+EMP0339,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,8.965,9.18,False,23.0,False,1.0,False,True,106.0,1.0,False
+EMP0337,2,False,Overworked: High average working hours,None,1,Overworked: High average working hours,,,False,False,9.23,9.23,True,,False,3.0,False,False,119.0,2.0,False
+EMP0345,2,False,Overworked: High average working hours,None,1,Overworked: High average working hours,4.0,0.0,False,False,9.72,9.72,True,17.0,False,4.0,False,False,227.0,1.0,False
+EMP0352,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,16.0,False,3.0,True,True,316.0,1.0,False
+EMP0459,2,False,Overworked: High average working hours,None,1,Overworked: High average working hours,,,False,False,9.02,9.02,True,,False,,,False,264.0,1.0,False
+EMP0460,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,14.0,False,2.0,True,True,578.0,2.0,False
+EMP0457,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,4.28,4.28,False,,False,1.0,True,True,274.0,1.0,False
+EMP0456,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,13.0,False,3.0,True,True,,,False
+EMP0453,2,False,Overworked: High average working hours,None,1,Overworked: High average working hours,6.0,0.0,False,False,9.1,9.1,True,,False,,,False,176.0,1.0,False
+EMP0447,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.0,0.0,False,False,6.673333333333333,8.4,False,7.0,False,2.0,False,True,431.0,2.0,False
+EMP0361,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,5.0,0.0,False,False,,,False,11.0,False,3.0,True,True,87.0,1.0,False
+EMP0048,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,3.6666666666666665,0.0,False,False,7.695,8.7,False,,False,2.0,True,True,,,False
+EMP0051,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,5.0,0.0,False,False,7.66,7.66,False,7.0,False,2.0,False,True,,,False
+EMP0244,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,3.0,0.0,False,False,,,False,,False,1.0,True,True,475.0,1.0,False
+EMP0247,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.5,0.16666666666666696,False,False,,,False,5.0,False,1.0,True,True,231.0,2.0,False
+EMP0305,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,5.27,5.27,False,,False,2.0,False,True,809.0,4.0,False
+EMP0304,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.0,0.0,False,False,8.129999999999999,9.91,False,13.0,False,1.0,False,True,124.0,1.0,False
+EMP0309,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,7.78,7.78,False,19.0,False,4.0,True,True,925.0,3.0,False
+EMP0312,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,5.994999999999999,7.02,False,10.0,False,1.0,False,True,,,False
+EMP0242,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,6.0,0.0,False,False,7.035,8.64,False,,False,2.0,False,True,218.0,1.0,False
+EMP0243,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,,False,2.0,False,True,36.0,1.0,False
+EMP0327,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,6.0,0.0,False,False,7.16,7.94,False,14.0,False,2.0,True,True,508.0,2.0,False
+EMP0317,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.5,0.0,False,False,,,False,14.0,False,1.0,False,True,175.0,1.0,False
+EMP0321,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,6.0,0.0,False,False,8.01,8.01,False,,False,2.0,True,True,,,False
+EMP0326,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.0,0.0,False,False,8.27,8.27,False,,False,2.0,False,True,,,False
+EMP0330,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,8.53,8.53,False,,False,4.0,True,True,,,False
+EMP0282,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,15.0,False,4.0,True,True,496.0,1.0,False
+EMP0254,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,22.0,False,1.0,False,True,500.0,2.0,False
+EMP0255,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,3.0,0.0,False,False,,,False,9.0,False,3.0,True,True,282.0,1.0,False
+EMP0256,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,6.529999999999999,8.28,False,,False,1.0,True,True,,,False
+EMP0260,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,7.765000000000001,9.09,False,,False,4.0,True,True,193.0,3.0,False
+EMP0259,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.666666666666667,0.0,False,False,,,False,16.0,False,1.0,False,True,,,False
+EMP0303,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,8.37,8.37,False,22.0,False,2.0,False,True,397.0,2.0,False
+EMP0265,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,5.0,0.0,False,False,7.14,7.14,False,15.0,False,2.0,False,True,,,False
+EMP0037,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,13.0,False,1.0,True,True,836.0,3.0,False
+EMP0039,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,6.0,0.0,False,False,,,False,18.0,False,2.0,False,True,435.0,1.0,False
+EMP0035,2,False,Overworked: High average working hours,None,1,Overworked: High average working hours,,,False,False,9.99,9.99,True,,False,3.0,False,False,,,False
+EMP0036,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.0,0.0,False,False,,,False,22.0,False,2.0,True,True,623.0,3.0,False
+EMP0041,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.0,0.0,False,False,6.886666666666667,9.1,False,,False,3.0,True,True,429.0,1.0,False
+EMP0040,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,5.0,0.0,False,False,8.42,8.42,False,13.0,False,3.0,True,True,393.0,1.0,False
+EMP0279,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,5.0,0.0,False,False,5.996666666666666,6.25,False,,False,1.0,True,True,443.0,1.0,False
+EMP0278,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,3.0,0.0,False,False,,,False,,False,4.0,True,True,374.0,1.0,False
+EMP0055,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.0,0.0,False,False,,,False,,False,1.0,False,True,253.0,1.0,False
+EMP0057,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,6.0,0.0,False,False,6.574999999999999,7.8,False,,False,1.0,False,True,72.0,1.0,False
+EMP0027,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,6.0,0.0,False,False,4.94,4.94,False,13.0,False,1.0,False,True,,,False
+EMP0033,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.0,0.0,False,False,6.25,6.25,False,,False,2.0,True,True,,,False
+EMP0275,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,,False,1.0,True,True,272.0,1.0,False
+EMP0277,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.5,0.0,False,False,7.31,7.31,False,,False,1.0,False,True,16.0,1.0,False
+EMP0053,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,7.255000000000001,8.72,False,9.0,False,4.0,True,True,,,False
+EMP0052,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,,,False,,False,1.0,False,True,,,False
+EMP0298,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,5.8,5.8,False,,False,1.0,True,True,132.0,1.0,False
+EMP0270,2,False,Overworked: High average working hours,None,1,Overworked: High average working hours,3.5,0.0,False,False,9.46,9.46,True,,False,4.0,False,False,,,False
+EMP0295,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,,,False,False,8.86,8.86,False,14.0,False,2.0,False,True,,,False
+EMP0292,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,5.5,0.0,False,False,7.635,8.19,False,,False,3.0,True,True,157.0,1.0,False
+EMP0009,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.0,0.0,False,False,8.14,9.06,False,14.0,False,1.0,False,True,661.0,4.0,False
+EMP0290,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,4.0,0.0,False,False,8.69,8.69,False,7.0,False,1.0,True,True,,,False
+EMP0500,2,False,Performance concerns: Low rating or improvement needed,None,1,Performance concerns: Low rating or improvement needed,5.0,0.0,False,False,8.965,9.53,False,19.0,False,4.0,True,True,366.0,1.0,False
+EMP0010,2,False,Overworked: High average working hours,None,1,Overworked: High average working hours,4.0,0.0,False,False,9.36,9.91,True,12.0,False,4.0,False,False,,,False
+EMP0025,1,False,Needs break: Low leave utilization,None,1,Needs break: Low leave utilization,,,False,False,,,False,4.0,True,,,False,327.0,1.0,False
+EMP0289,1,False,Needs break: Low leave utilization,None,1,Needs break: Low leave utilization,6.0,0.0,False,False,5.66,5.66,False,1.0,True,,,False,,,False
+EMP0341,1,False,Needs break: Low leave utilization,None,1,Needs break: Low leave utilization,4.0,0.0,False,False,5.630000000000001,6.32,False,3.0,True,,,False,,,False
+EMP0331,1,False,Needs break: Low leave utilization,None,1,Needs break: Low leave utilization,,,False,False,8.88,8.88,False,2.0,True,,,False,,,False
+EMP0362,1,False,Needs break: Low leave utilization,None,1,Needs break: Low leave utilization,6.0,0.0,False,False,8.92,9.15,False,4.0,True,4.0,False,False,105.0,1.0,False
+EMP0350,1,False,Needs break: Low leave utilization,None,1,Needs break: Low leave utilization,6.0,0.0,False,False,7.14,7.14,False,3.0,True,4.0,False,False,47.0,1.0,False
+EMP0313,1,False,Needs break: Low leave utilization,None,1,Needs break: Low leave utilization,,,False,False,,,False,3.0,True,,,False,213.0,1.0,False
+EMP0307,1,False,Needs break: Low leave utilization,None,1,Needs break: Low leave utilization,,,False,False,,,False,2.0,True,,,False,426.0,2.0,False
+EMP0314,1,False,Needs break: Low leave utilization,None,1,Needs break: Low leave utilization,,,False,False,,,False,1.0,True,,,False,32.0,1.0,False
+EMP0299,1,False,Needs break: Low leave utilization,None,1,Needs break: Low leave utilization,4.666666666666667,0.0,False,False,,,False,4.0,True,,,False,646.0,2.0,False
+EMP0214,1,False,Needs break: Low leave utilization,None,1,Needs break: Low leave utilization,4.0,0.0,False,False,7.25,9.23,False,3.0,True,4.0,False,False,,,False
+EMP0109,1,False,Needs break: Low leave utilization,None,1,Needs break: Low leave utilization,3.5,0.0,False,False,7.425,7.56,False,3.0,True,,,False,,,False
+EMP0185,1,False,Needs break: Low leave utilization,None,1,Needs break: Low leave utilization,,,False,False,,,False,3.0,True,4.0,False,False,505.0,2.0,False
+EMP0090,1,False,Needs break: Low leave utilization,None,1,Needs break: Low leave utilization,4.666666666666667,0.0,False,False,8.27,8.27,False,2.0,True,,,False,451.0,1.0,False
+EMP0425,1,False,Needs break: Low leave utilization,None,1,Needs break: Low leave utilization,5.0,0.0,False,False,4.47,4.47,False,4.0,True,,,False,,,False
+EMP0032,1,False,Needs break: Low leave utilization,None,1,Needs break: Low leave utilization,,,False,False,6.620000000000001,8.46,False,4.0,True,4.0,False,False,,,False
+EMP0005,1,False,Needs break: Low leave utilization,None,1,Needs break: Low leave utilization,4.5,0.0,False,False,7.375,9.95,False,4.0,True,,,False,,,False
+EMP0067,1,False,Needs break: Low leave utilization,None,1,Needs break: Low leave utilization,4.0,0.0,False,False,,,False,1.0,True,3.0,False,False,508.0,2.0,False
+EMP0079,1,False,Needs break: Low leave utilization,None,1,Needs break: Low leave utilization,,,False,False,7.14,7.14,False,1.0,True,,,False,1234.0,3.0,False
+EMP0171,1,False,Needs break: Low leave utilization,None,1,Needs break: Low leave utilization,,,False,False,,,False,2.0,True,,,False,,,False
+EMP0195,1,False,Needs break: Low leave utilization,None,1,Needs break: Low leave utilization,,,False,False,,,False,1.0,True,,,False,,,False
+EMP0399,1,False,Needs break: Low leave utilization,None,1,Needs break: Low leave utilization,6.0,0.0,False,False,7.419999999999999,8.67,False,3.0,True,,,False,96.0,1.0,False
+EMP0166,1,False,Needs break: Low leave utilization,None,1,Needs break: Low leave utilization,3.0,0.0,False,False,5.86,5.86,False,3.0,True,4.0,False,False,,,False
+EMP0217,1,False,Needs break: Low leave utilization,None,1,Needs break: Low leave utilization,,,False,False,6.64,6.64,False,1.0,True,4.0,False,False,155.0,1.0,False
+EMP0492,0,False,None,None,0,None,,,False,False,,,False,13.0,False,,,False,163.0,1.0,False
+EMP0493,0,False,None,None,0,None,3.5,0.0,False,False,6.6,6.6,False,6.0,False,,,False,567.0,2.0,False
+EMP0286,0,False,None,None,0,None,4.333333333333333,0.0,False,False,8.24,8.24,False,,False,,,False,447.0,1.0,False
+EMP0263,0,False,None,None,0,None,3.0,0.0,False,False,5.25,5.25,False,15.0,False,,,False,710.0,2.0,False
+EMP0258,0,False,None,None,0,None,4.0,0.0,False,False,6.66,6.66,False,7.0,False,3.0,False,False,,,False
+EMP0483,0,False,None,None,0,None,,,False,False,,,False,9.0,False,,,False,,,False
+EMP0482,0,False,None,None,0,None,,,False,False,8.52,8.52,False,15.0,False,4.0,False,False,,,False
+EMP0480,0,False,None,None,0,None,3.0,0.0,False,False,,,False,13.0,False,,,False,,,False
+EMP0478,0,False,None,None,0,None,5.5,0.0,False,False,6.6325,8.16,False,19.0,False,3.0,False,False,434.0,1.0,False
+EMP0021,0,False,None,None,0,None,,,False,False,4.43,4.43,False,5.0,False,,,False,,,False
+EMP0016,0,False,None,None,0,None,3.5,0.0,False,False,,,False,14.0,False,,,False,278.0,1.0,False
+EMP0011,0,False,None,None,0,None,3.5,0.0,False,False,8.365,9.05,False,,False,3.0,False,False,186.0,1.0,False
+EMP0271,0,False,None,None,0,None,,,False,False,6.76,6.76,False,9.0,False,,,False,,,False
+EMP0274,0,False,None,None,0,None,5.0,0.0,False,False,,,False,17.0,False,3.0,False,False,616.0,2.0,False
+EMP0276,0,False,None,None,0,None,5.0,0.0,False,False,7.496666666666666,9.61,False,23.0,False,,,False,,,False
+EMP0300,0,False,None,None,0,None,3.0,0.0,False,False,8.09,8.09,False,23.0,False,,,False,831.0,2.0,False
+EMP0288,0,False,None,None,0,None,5.0,0.0,False,False,7.4,7.4,False,,False,,,False,,,False
+EMP0285,0,False,None,None,0,None,3.0,0.0,False,False,5.213333333333334,5.37,False,21.0,False,4.0,False,False,798.0,4.0,False
+EMP0293,0,False,None,None,0,None,3.5,0.0,False,False,6.05,6.05,False,11.0,False,,,False,70.0,1.0,False
+EMP0245,0,False,None,None,0,None,,,False,False,,,False,12.0,False,3.0,False,False,439.0,1.0,False
+EMP0241,0,False,None,None,0,None,,,False,False,,,False,,False,,,False,671.0,2.0,False
+EMP0239,0,False,None,None,0,None,6.0,0.0,False,False,,,False,11.0,False,3.0,False,False,,,False
+EMP0238,0,False,None,None,0,None,3.0,0.0,False,False,5.029999999999999,5.52,False,,False,3.0,False,False,,,False
+EMP0324,0,False,None,None,0,None,3.0,0.0,False,False,5.7,5.7,False,10.0,False,,,False,155.0,1.0,False
+EMP0249,0,False,None,None,0,None,,,False,False,8.02,8.02,False,,False,3.0,False,False,305.0,1.0,False
+EMP0318,0,False,None,None,0,None,3.0,0.0,False,False,,,False,,False,3.0,False,False,471.0,1.0,False
+EMP0252,0,False,None,None,0,None,5.5,0.0,False,False,7.34,8.08,False,,False,,,False,,,False
+EMP0225,0,False,None,None,0,None,5.5,0.0,False,False,6.445,7.14,False,33.0,False,3.0,False,False,309.0,1.0,False
+EMP0226,0,False,None,None,0,None,4.0,0.0,False,False,6.753333333333334,7.63,False,10.0,False,,,False,,,False
+EMP0227,0,False,None,None,0,None,3.0,0.0,False,False,,,False,5.0,False,3.0,False,False,383.0,1.0,False
+EMP0229,0,False,None,None,0,None,,,False,False,6.35,9.0,False,,False,,,False,,,False
+EMP0230,0,False,None,None,0,None,,,False,False,4.85,4.85,False,8.0,False,,,False,395.0,1.0,False
+EMP0325,0,False,None,None,0,None,,,False,False,4.84,4.84,False,,False,,,False,357.0,2.0,False
+EMP0332,0,False,None,None,0,None,3.0,0.0,False,False,,,False,18.0,False,3.0,False,False,203.0,2.0,False
+EMP0222,0,False,None,None,0,None,,,False,False,7.345,9.17,False,,False,4.0,False,False,584.0,2.0,False
+EMP0336,0,False,None,None,0,None,,,False,False,,,False,10.0,False,,,False,474.0,2.0,False
+EMP0333,0,False,None,None,0,None,,,False,False,7.135,8.44,False,,False,,,False,,,False
+EMP0284,0,False,None,None,0,None,,,False,False,,,False,8.0,False,,,False,,,False
+EMP0264,0,False,None,None,0,None,,,False,False,,,False,11.0,False,3.0,False,False,,,False
+EMP0268,0,False,None,None,0,None,,,False,False,,,False,17.0,False,,,False,250.0,1.0,False
+EMP0266,0,False,None,None,0,None,6.0,0.0,False,False,,,False,21.0,False,,,False,354.0,1.0,False
+EMP0311,0,False,None,None,0,None,,,False,False,,,False,9.0,False,,,False,,,False
+EMP0308,0,False,None,None,0,None,,,False,False,8.13,8.13,False,6.0,False,,,False,,,False
+EMP0315,0,False,None,None,0,None,,,False,False,8.835,9.8,False,12.0,False,,,False,,,False
+EMP0316,0,False,None,None,0,None,4.333333333333333,0.0,False,False,6.414999999999999,8.29,False,,False,,,False,,,False
+EMP0236,0,False,None,None,0,None,5.0,0.0,False,False,,,False,,False,,,False,597.0,2.0,False
+EMP0237,0,False,None,None,0,None,,,False,False,8.84,8.84,False,15.0,False,,,False,411.0,1.0,False
+EMP0280,0,False,None,None,0,None,5.0,0.0,False,False,,,False,,False,4.0,False,False,299.0,1.0,False
+EMP0287,0,False,None,None,0,None,3.5,0.0,False,False,,,False,9.0,False,3.0,False,False,87.0,1.0,False
+EMP0291,0,False,None,None,0,None,,,False,False,8.71,8.71,False,13.0,False,3.0,False,False,,,False
+EMP0015,0,False,None,None,0,None,,,False,False,,,False,31.0,False,,,False,859.0,3.0,False
+EMP0364,0,False,None,None,0,None,,,False,False,,,False,14.0,False,3.0,False,False,222.0,1.0,False
+EMP0363,0,False,None,None,0,None,3.5,0.0,False,False,8.37,8.37,False,,False,,,False,439.0,1.0,False
+EMP0359,0,False,None,None,0,None,3.0,0.0,False,False,7.085000000000001,9.06,False,10.0,False,,,False,,,False
+EMP0358,0,False,None,None,0,None,,,False,False,8.379999999999999,9.49,False,,False,,,False,504.0,2.0,False
+EMP0356,0,False,None,None,0,None,3.5,0.0,False,False,5.79,5.79,False,15.0,False,3.0,False,False,274.0,1.0,False
+EMP0357,0,False,None,None,0,None,3.0,0.0,False,False,,,False,14.0,False,3.0,False,False,,,False
+EMP0354,0,False,None,None,0,None,5.0,0.0,False,False,6.51,6.51,False,20.0,False,,,False,423.0,1.0,False
+EMP0353,0,False,None,None,0,None,4.0,0.0,False,False,7.29,7.29,False,13.0,False,,,False,522.0,2.0,False
+EMP0338,0,False,None,None,0,None,5.0,0.0,False,False,7.67,8.08,False,27.0,False,4.0,False,False,1205.0,3.0,False
+EMP0349,0,False,None,None,0,None,,,False,False,,,False,,False,,,False,137.0,1.0,False
+EMP0346,0,False,None,None,0,None,,,False,False,8.82,8.82,False,19.0,False,,,False,233.0,1.0,False
+EMP0344,0,False,None,None,0,None,,,False,False,,,False,12.0,False,,,False,,,False
+EMP0343,0,False,None,None,0,None,4.0,0.0,False,False,,,False,,False,3.0,False,False,,,False
+EMP0231,0,False,None,None,0,None,5.0,0.0,False,False,7.73,7.73,False,,False,,,False,,,False
+EMP0216,0,False,None,None,0,None,6.0,0.0,False,False,,,False,13.0,False,,,False,18.0,1.0,False
+EMP0206,0,False,None,None,0,None,6.0,0.0,False,False,,,False,,False,,,False,743.0,2.0,False
+EMP0197,0,False,None,None,0,None,,,False,False,8.16,8.16,False,6.0,False,,,False,409.0,1.0,False
+EMP0199,0,False,None,None,0,None,6.0,0.0,False,False,,,False,,False,,,False,422.0,3.0,False
+EMP0368,0,False,None,None,0,None,,,False,False,,,False,,False,,,False,375.0,1.0,False
+EMP0365,0,False,None,None,0,None,,,False,False,7.816666666666666,8.7,False,30.0,False,,,False,560.0,2.0,False
+EMP0371,0,False,None,None,0,None,,,False,False,4.28,4.28,False,20.0,False,,,False,544.0,4.0,False
+EMP0373,0,False,None,None,0,None,3.5,0.0,False,False,5.21,5.21,False,12.0,False,,,False,128.0,1.0,False
+EMP0375,0,False,None,None,0,None,6.0,0.0,False,False,,,False,7.0,False,,,False,,,False
+EMP0369,0,False,None,None,0,None,,,False,False,8.56,8.82,False,,False,3.0,False,False,,,False
+EMP0379,0,False,None,None,0,None,,,False,False,,,False,,False,3.0,False,False,438.0,1.0,False
+EMP0212,0,False,None,None,0,None,,,False,False,,,False,,False,,,False,372.0,1.0,False
+EMP0219,0,False,None,None,0,None,,,False,False,7.596666666666667,9.72,False,25.0,False,3.0,False,False,362.0,2.0,False
+EMP0218,0,False,None,None,0,None,3.0,0.0,False,False,,,False,10.0,False,,,False,962.0,4.0,False
+EMP0187,0,False,None,None,0,None,4.0,0.0,False,False,7.555,9.14,False,,False,3.0,False,False,443.0,1.0,False
+EMP0208,0,False,None,None,0,None,5.0,0.0,False,False,,,False,,False,,,False,,,False
+EMP0205,0,False,None,None,0,None,,,False,False,5.35,5.35,False,,False,,,False,642.0,2.0,False
+EMP0203,0,False,None,None,0,None,4.666666666666667,0.0,False,False,4.75,4.75,False,,False,,,False,393.0,1.0,False
+EMP0181,0,False,None,None,0,None,,,False,False,7.66,9.65,False,28.0,False,3.0,False,False,468.0,2.0,False
+EMP0180,0,False,None,None,0,None,5.5,0.0,False,False,6.56,6.56,False,9.0,False,,,False,202.0,1.0,False
+EMP0177,0,False,None,None,0,None,,,False,False,4.84,4.84,False,,False,,,False,,,False
+EMP0183,0,False,None,None,0,None,5.0,0.0,False,False,,,False,,False,,,False,,,False
+EMP0382,0,False,None,None,0,None,4.0,0.0,False,False,,,False,5.0,False,3.0,False,False,,,False
+EMP0384,0,False,None,None,0,None,6.0,0.0,False,False,4.08,4.15,False,16.0,False,3.0,False,False,229.0,3.0,False
+EMP0386,0,False,None,None,0,None,,,False,False,4.67,4.67,False,13.0,False,,,False,728.0,3.0,False
+EMP0182,0,False,None,None,0,None,,,False,False,6.285,6.44,False,,False,,,False,654.0,2.0,False
+EMP0390,0,False,None,None,0,None,4.0,0.0,False,False,4.88,4.88,False,,False,,,False,,,False
+EMP0394,0,False,None,None,0,None,4.0,0.0,False,False,,,False,,False,4.0,False,False,196.0,1.0,False
+EMP0158,0,False,None,None,0,None,,,False,False,,,False,23.0,False,4.0,False,False,95.0,1.0,False
+EMP0395,0,False,None,None,0,None,6.0,0.0,False,False,,,False,32.0,False,,,False,1010.0,3.0,False
+EMP0160,0,False,None,None,0,None,6.0,0.0,False,False,8.57,8.57,False,28.0,False,,,False,963.0,3.0,False
+EMP0162,0,False,None,None,0,None,3.5,0.0,False,False,,,False,,False,,,False,503.0,2.0,False
+EMP0165,0,False,None,None,0,None,,,False,False,7.0600000000000005,9.56,False,,False,,,False,,,False
+EMP0186,0,False,None,None,0,None,,,False,False,,,False,9.0,False,,,False,613.0,3.0,False
+EMP0170,0,False,None,None,0,None,3.5,0.0,False,False,,,False,,False,,,False,620.0,2.0,False
+EMP0140,0,False,None,None,0,None,,,False,False,8.3525,9.07,False,,False,,,False,,,False
+EMP0148,0,False,None,None,0,None,5.0,0.0,False,False,6.82,9.08,False,,False,,,False,160.0,1.0,False
+EMP0145,0,False,None,None,0,None,,,False,False,,,False,,False,3.0,False,False,266.0,1.0,False
+EMP0149,0,False,None,None,0,None,,,False,False,6.11,6.11,False,,False,,,False,476.0,1.0,False
+EMP0150,0,False,None,None,0,None,,,False,False,8.19,8.19,False,,False,,,False,210.0,1.0,False
+EMP0400,0,False,None,None,0,None,,,False,False,6.92,6.92,False,18.0,False,,,False,,,False
+EMP0404,0,False,None,None,0,None,,,False,False,,,False,11.0,False,,,False,,,False
+EMP0406,0,False,None,None,0,None,4.0,0.0,False,False,,,False,7.0,False,,,False,,,False
+EMP0381,0,False,None,None,0,None,6.0,0.0,False,False,,,False,,False,,,False,193.0,3.0,False
+EMP0172,0,False,None,None,0,None,5.0,0.0,False,False,7.43,8.82,False,,False,,,False,482.0,1.0,False
+EMP0174,0,False,None,None,0,None,,,False,False,4.34,4.34,False,17.0,False,,,False,476.0,2.0,False
+EMP0175,0,False,None,None,0,None,4.0,0.0,False,False,,,False,6.0,False,4.0,False,False,449.0,2.0,False
+EMP0194,0,False,None,None,0,None,6.0,0.0,False,False,5.01,5.01,False,14.0,False,3.0,False,False,872.0,2.0,False
+EMP0196,0,False,None,None,0,None,,,False,False,,,False,,False,,,False,159.0,1.0,False
+EMP0204,0,False,None,None,0,None,,,False,False,,,False,,False,,,False,1516.0,4.0,False
+EMP0134,0,False,None,None,0,None,,,False,False,5.55,5.55,False,,False,,,False,41.0,2.0,False
+EMP0130,0,False,None,None,0,None,4.0,0.0,False,False,7.91,7.91,False,8.0,False,4.0,False,False,187.0,1.0,False
+EMP0129,0,False,None,None,0,None,,,False,False,,,False,46.0,False,,,False,,,False
+EMP0127,0,False,None,None,0,None,,,False,False,5.965,7.3,False,11.0,False,,,False,237.0,1.0,False
+EMP0124,0,False,None,None,0,None,5.0,0.0,False,False,,,False,11.0,False,,,False,173.0,1.0,False
+EMP0123,0,False,None,None,0,None,3.0,0.0,False,False,,,False,,False,4.0,False,False,,,False
+EMP0409,0,False,None,None,0,None,6.0,0.0,False,False,6.195,6.97,False,13.0,False,,,False,470.0,2.0,False
+EMP0416,0,False,None,None,0,None,3.6,0.06666666666666643,False,False,4.99,4.99,False,22.0,False,3.0,False,False,,,False
+EMP0428,0,False,None,None,0,None,3.0,0.0,False,False,5.265,6.18,False,5.0,False,,,False,,,False
+EMP0114,0,False,None,None,0,None,3.6666666666666665,0.0,False,False,,,False,,False,,,False,,,False
+EMP0120,0,False,None,None,0,None,,,False,False,,,False,6.0,False,,,False,261.0,1.0,False
+EMP0118,0,False,None,None,0,None,4.5,0.0,False,False,4.94,4.94,False,8.0,False,4.0,False,False,180.0,1.0,False
+EMP0121,0,False,None,None,0,None,,,False,False,7.209999999999999,8.87,False,,False,,,False,,,False
+EMP0414,0,False,None,None,0,None,4.0,0.0,False,False,,,False,,False,3.0,False,False,472.0,2.0,False
+EMP0427,0,False,None,None,0,None,,,False,False,,,False,11.0,False,,,False,807.0,2.0,False
+EMP0137,0,False,None,None,0,None,6.0,0.0,False,False,7.494999999999999,9.98,False,,False,,,False,346.0,1.0,False
+EMP0095,0,False,None,None,0,None,5.0,0.0,False,False,7.47,7.47,False,,False,,,False,368.0,1.0,False
+EMP0096,0,False,None,None,0,None,4.0,0.0,False,False,,,False,6.0,False,,,False,,,False
+EMP0105,0,False,None,None,0,None,4.5,0.0,False,False,8.33,8.33,False,12.0,False,,,False,31.0,1.0,False
+EMP0098,0,False,None,None,0,None,,,False,False,5.635,6.38,False,30.0,False,,,False,106.0,1.0,False
+EMP0435,0,False,None,None,0,None,,,False,False,4.345000000000001,4.61,False,13.0,False,3.0,False,False,,,False
+EMP0439,0,False,None,None,0,None,5.0,0.0,False,False,,,False,,False,,,False,,,False
+EMP0441,0,False,None,None,0,None,,,False,False,,,False,,False,4.0,False,False,,,False
+EMP0433,0,False,None,None,0,None,,,False,False,8.46,9.83,False,,False,3.0,False,False,823.0,2.0,False
+EMP0076,0,False,None,None,0,None,3.0,0.0,False,False,7.3825,8.86,False,,False,,,False,,,False
+EMP0078,0,False,None,None,0,None,4.0,0.0,False,False,,,False,16.0,False,,,False,393.0,3.0,False
+EMP0080,0,False,None,None,0,None,5.0,0.0,False,False,7.08,7.08,False,,False,,,False,,,False
+EMP0081,0,False,None,None,0,None,5.0,0.0,False,False,5.645999999999999,7.63,False,13.0,False,4.0,False,False,,,False
+EMP0084,0,False,None,None,0,None,4.5,0.16666666666666696,False,False,8.21,8.47,False,,False,,,False,612.0,3.0,False
+EMP0091,0,False,None,None,0,None,4.0,0.0,False,False,6.640000000000001,6.91,False,7.0,False,3.0,False,False,,,False
+EMP0092,0,False,None,None,0,None,4.5,0.0,False,False,,,False,15.0,False,,,False,,,False
+EMP0138,0,False,None,None,0,None,3.5,0.0,False,False,6.1,6.1,False,24.0,False,,,False,523.0,2.0,False
+EMP0088,0,False,None,None,0,None,,,False,False,7.786666666666666,9.65,False,11.0,False,3.0,False,False,318.0,1.0,False
+EMP0086,0,False,None,None,0,None,4.0,0.0,False,False,,,False,,False,,,False,398.0,1.0,False
+EMP0085,0,False,None,None,0,None,,,False,False,,,False,11.0,False,,,False,443.0,1.0,False
+EMP0062,0,False,None,None,0,None,,,False,False,8.93,8.93,False,16.0,False,,,False,,,False
+EMP0448,0,False,None,None,0,None,4.0,0.0,False,False,,,False,13.0,False,,,False,105.0,1.0,False
+EMP0449,0,False,None,None,0,None,3.0,0.0,False,False,6.84,6.84,False,8.0,False,,,False,,,False
+EMP0069,0,False,None,None,0,None,4.0,0.0,False,False,5.92,5.92,False,,False,,,False,379.0,1.0,False
+EMP0073,0,False,None,None,0,None,4.0,0.0,False,False,6.04,6.63,False,7.0,False,,,False,178.0,1.0,False
+EMP0454,0,False,None,None,0,None,3.0,0.0,False,False,,,False,23.0,False,4.0,False,False,18.0,1.0,False
+EMP0042,0,False,None,None,0,None,,,False,False,6.91,6.91,False,6.0,False,4.0,False,False,,,False
+EMP0044,0,False,None,None,0,None,5.0,0.0,False,False,7.46,7.46,False,9.0,False,,,False,,,False
+EMP0049,0,False,None,None,0,None,,,False,False,,,False,,False,,,False,351.0,1.0,False
+EMP0050,0,False,None,None,0,None,,,False,False,7.914999999999999,8.28,False,,False,,,False,,,False
+EMP0054,0,False,None,None,0,None,,,False,False,5.43,5.43,False,18.0,False,4.0,False,False,395.0,1.0,False
+EMP0450,0,False,None,None,0,None,,,False,False,,,False,,False,,,False,497.0,1.0,False
+EMP0451,0,False,None,None,0,None,4.0,0.0,False,False,,,False,10.0,False,,,False,,,False
+EMP0029,0,False,None,None,0,None,,,False,False,8.19,8.19,False,,False,4.0,False,False,,,False
+EMP0026,0,False,None,None,0,None,4.5,0.0,False,False,7.553333333333334,9.3,False,32.0,False,3.0,False,False,,,False
+EMP0034,0,False,None,None,0,None,5.0,0.0,False,False,5.31,5.31,False,7.0,False,3.0,False,False,,,False
+EMP0030,0,False,None,None,0,None,,,False,False,8.4,9.89,False,,False,,,False,80.0,1.0,False
+EMP0462,0,False,None,None,0,None,4.0,0.0,False,False,,,False,5.0,False,4.0,False,False,466.0,2.0,False
+EMP0463,0,False,None,None,0,None,3.0,0.0,False,False,6.87,6.87,False,13.0,False,3.0,False,False,139.0,1.0,False
+EMP0464,0,False,None,None,0,None,6.0,0.0,False,False,7.28,7.28,False,,False,4.0,False,False,160.0,2.0,False
+EMP0038,0,False,None,None,0,None,5.0,0.0,False,False,,,False,6.0,False,,,False,20.0,1.0,False
+EMP0468,0,False,None,None,0,None,6.0,0.0,False,False,7.6825,8.36,False,28.0,False,4.0,False,False,,,False
+EMP0471,0,False,None,None,0,None,6.0,0.0,False,False,6.895,8.65,False,,False,4.0,False,False,754.0,3.0,False
+EMP0008,0,False,None,None,0,None,4.0,0.0,False,False,,,False,33.0,False,,,False,120.0,1.0,False
+EMP0477,0,False,None,None,0,None,,,False,False,7.097499999999999,8.95,False,17.0,False,,,False,173.0,1.0,False
+EMP0496,0,False,None,None,0,None,,,False,False,,,False,12.0,False,3.0,False,False,488.0,2.0,False
+EMP0004,0,False,None,None,0,None,4.0,0.0,False,False,,,False,,False,3.0,False,False,708.0,3.0,False
+EMP0499,0,False,None,None,0,None,,,False,False,5.51,5.51,False,9.0,False,,,False,,,False
+EMP0001,0,False,None,None,0,None,,,False,False,,,False,6.0,False,4.0,False,False,63.0,1.0,False
