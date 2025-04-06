@@ -48,6 +48,7 @@ app.include_router(suggestions.router, prefix="/api/suggestions", tags=["Suggest
 app.include_router(survey.router, prefix="/api/survey", tags=["Survey"])
 app.include_router(vibemeter.router, prefix="/api/vibemeter", tags=["Vibemeter"])
 app.include_router(ws.router, prefix="/api/ws", tags=["WebSocket"])
+app.include_router(suggestions.router, prefix="/api/suggestions", tags=["Suggestions"])
 app.include_router(admin_dashboard.router, prefix="/api/admin", tags=["AdminMetrics"])
 
 # Create database tables
