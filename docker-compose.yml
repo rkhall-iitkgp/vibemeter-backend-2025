@@ -6,3 +6,13 @@ services:
     container_name: vibemeter
     network_mode: host
     restart: unless-stopped
+  redis:
+    image: redis:alpine
+    stop_grace_period: 30s
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:
