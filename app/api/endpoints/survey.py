@@ -105,10 +105,11 @@ async def get_survey(survey_id: str, db: Session = Depends(get_db)):
             question["average"] = 3.8
             question["delta"] = +0.5
 
-        total_responses = 0
+        response_users = set()
         for target_group in formatted_survey["target_groups"]:
-            total_responses += len(target_group.users)
-        formatted_survey["survey_status"]["total_responses"] = total_responses
+            for user in target_group.users:
+                response_users.add(user.employee_id)
+        formatted_survey["survey_status"]["total_responses"] = len(response_users)
         formatted_survey["survey_status"]["responses_filled"] = 1
 
         return format_response(data=formatted_survey)

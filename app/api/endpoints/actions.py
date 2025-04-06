@@ -102,7 +102,7 @@ async def get_action(action_id: str, db: Session = Depends(get_db)):
             "metric": action.metric,
             "steps": action.steps,
             "is_completed": action.is_completed,
-            "target_groups": action.target_groups,
+            "target_groups": formatted_groups,
             "created_at": action.created_at,
         }
 
