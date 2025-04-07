@@ -51,6 +51,22 @@ class TaskOut(BaseModel):
         orm_mode = True
 
 
+class UserData(BaseModel):
+    employee_id: str
+    name: str
+    job_title: str
+    email: str
+    phone: str
+    created_at: date
+
+
+class AwardsData(BaseModel):
+    id: int
+    title: str
+    icon: str
+    date: str
+
+
 @router.get("/employee/{employee_id}/dashboard")
 async def get_employee_dashboard(employee_id: str, db: Session = Depends(get_db)):
     """
@@ -273,3 +289,32 @@ async def delete_task(employee_id: str, task_id: int, db: Session = Depends(get_
     db.delete(task)
     db.commit()
     return {"detail": "Task deleted successfully"}
+
+
+@router.get("/employee/{employee_id}")
+async def get_persona_dashboard(employee_id: str, db: Session = Depends(get_db)):
+    """
+    Fetch all leaves for a given employee.
+    """
+    user_data = UserData(
+        employee_id=employee_id,
+        name="John Doe",
+        job_title="Software Engineer",
+        created_at=date.today(),
+        phone="1234567890",
+        email="test@test.com",
+        profile_picture="",
+    )
+
+    awards = [
+        AwardsData(id=1, title="Employee of the Month", icon="star", date="01/2025"),
+        AwardsData(id=2, title="Best Innovator", icon="lightbulb", date="02/2025"),
+        AwardsData(id=3, title="Team Leader", icon="users", date="03/2025"),
+    ]
+
+    return format_response(
+        {
+            "user_data": user_data,
+            "awards": awards,
+        }
+    )
