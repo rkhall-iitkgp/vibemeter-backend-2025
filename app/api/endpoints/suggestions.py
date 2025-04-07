@@ -1,7 +1,7 @@
 import json
 import os
 import re
-from app.models.schema import FocusGroup
+
 import pandas as pd
 from dotenv import load_dotenv
 from fastapi import APIRouter, Depends, HTTPException
@@ -12,6 +12,7 @@ from app.models.schema import FocusGroup
 from app.utils.db import get_db
 
 load_dotenv()
+
 
 def extract_and_parse_json(text: str):
     """
@@ -37,25 +38,27 @@ def extract_and_parse_json(text: str):
 
 router = APIRouter()
 
+
 @router.get("/{id}")
-def get_focus_group_suggestions(id: str,db: Session = Depends(get_db) ):
+def get_focus_group_suggestions(id: str, db: Session = Depends(get_db)):
     """
     Endpoint to get focus group suggestions from the Gemini API.
     """
     try:
-        focus_group = db.query(FocusGroup).filter(FocusGroup.focus_group_id == id).first()
+        focus_group = (
+            db.query(FocusGroup).filter(FocusGroup.focus_group_id == id).first()
+        )
         if not focus_group:
             return {"error": "Focus group not found"}
     except Exception as e:
         return {"error": f"An error occurred while fetching the focus group: {str(e)}"}
-    
+
     focus_group_data = {
         "name": focus_group.name,
         "description": focus_group.description,
         "metrics": focus_group.metrics,
     }
     client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-    
 
     system_prompt = (
         "You are an HR analyst tasked with analyzing employee issues and suggesting actionable steps. "
@@ -216,4 +219,3 @@ def generate_suggestions_by_id(focus_group_id=str, db: Session = Depends(get_db)
     if not extracted_json:
         raise HTTPException(status_code=500, detail="Internal Server Error")
     return extracted_json
-

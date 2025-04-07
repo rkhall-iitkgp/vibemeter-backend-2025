@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from app.models.schema import Question
 from app.utils.db import get_db
 from app.utils.helpers import format_response
+from app.utils.redis_client import redis_client
 
 router = APIRouter()
 
@@ -31,7 +32,31 @@ async def get_all_questions(db: Session = Depends(get_db)):
     Fetch all questions from the database.
     """
     try:
+
+        cache_key = "all_questions"
+        cached_questions = await redis_client.get(cache_key)
+
+        if cached_questions:
+            # Return cached questions if available
+            return format_response(
+                data=eval(cached_questions)
+            )  # Convert string back to list
+
+        # Fetch questions from the database if not cached
         questions = db.query(Question).all()
+        questions = [
+            {
+                "question_id": question.question_id,
+                "text": question.text,
+                "tags": question.tags,
+                "severity": question.severity,
+            }
+            for question in questions
+        ]
+
+        # Cache the questions in Redis
+        await redis_client.set(cache_key, str(questions), ex=3600)  # Cache for 1 hour
+
         return format_response(data=questions)
     except HTTPException as e:
         raise e

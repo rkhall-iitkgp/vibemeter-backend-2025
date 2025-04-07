@@ -1,3 +1,4 @@
+import json
 import random
 from typing import Any, Dict, List
 
@@ -6,6 +7,7 @@ from sqlalchemy.orm import Session
 
 from app.models.schema import Action, FocusGroup, RewardsDataset, User
 from app.utils.db import get_db
+from app.utils.redis_client import redis_client
 
 router = APIRouter()
 
@@ -21,7 +23,13 @@ async def get_employee_risk_categorization(
     - A dictionary with three risk categories: high_risk_employees,
       medium_risk_employees, and low_risk_employees
     """
+    cache_key = "employee_risk_categorization"
     try:
+        # Check if data is cached
+        cached_data = await redis_client.get(cache_key)
+        if cached_data:
+            return json.loads(cached_data)
+
         # Fetch first 15 users from the database
         all_users = db.query(User).limit(15).all()
 
@@ -53,6 +61,11 @@ async def get_employee_risk_categorization(
                 risk_categories["medium_risk_employees"].append(employee_info)
             else:
                 risk_categories["low_risk_employees"].append(employee_info)
+
+        # Cache the data
+        await redis_client.set(
+            cache_key, json.dumps(risk_categories), ex=3600
+        )  # Cache for 1 hour
 
         return risk_categories
 
@@ -90,6 +103,13 @@ def get_dummy_vibemeter(employee_id: str) -> Dict:
 async def get_employee_details(
     employee_id: str, db: Session = Depends(get_db)
 ) -> Dict[str, Any]:
+
+    # Check if data is cached
+    cache_key = f"employee_details:{employee_id}"
+    cached_data = await redis_client.get(cache_key)
+    if cached_data:
+        return json.loads(cached_data)
+
     # Fetch the user
     user = db.query(User).filter(User.employee_id == employee_id).first()
     if not user:
@@ -103,7 +123,7 @@ async def get_employee_details(
     awards_list = [
         {
             "award_type": award.award_type,
-            "award_date": award.award_date,
+            "award_date": award.award_date.isoformat(),
             "reward_points": award.reward_points,
         }
         for award in awards
@@ -164,7 +184,7 @@ async def get_employee_details(
         "job_title": "HR",
         "email": user.email,
         "phone_number": "+1 (555) 987-6543",
-        "created_at": user.created_at if hasattr(user, "created_at") else None,
+        "created_at": str(user.created_at if hasattr(user, "created_at") else None),
         "employee_id": employee_id,
         "awards": awards_list,
         "vibemeter": get_dummy_vibemeter(employee_id),
@@ -172,5 +192,10 @@ async def get_employee_details(
         "focus_groups": formatted_groups,
         "action_plans": action_plans_list,
     }
+
+    # Cache the data
+    await redis_client.set(
+        cache_key, json.dumps(employee_details), ex=3600
+    )  # Cache for 1 hour
 
     return employee_details
