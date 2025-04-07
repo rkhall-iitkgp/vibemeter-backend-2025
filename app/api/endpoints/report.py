@@ -1,7 +1,10 @@
-from fastapi import APIRouter
-from app.utils.reportgen import make_report
-from fastapi.responses import FileResponse
 import os
+
+from fastapi import APIRouter
+from fastapi.responses import FileResponse
+
+from app.utils.reportgen import make_report
+
 router = APIRouter()
 
 
@@ -25,7 +28,7 @@ async def get_daily_report():
             "Leadership: Leadership effectiveness",
         ],
         "issue_count": [15, 12, 14, 11, 13, 10, 12],
-    }   
+    }
     high_concern_employee = {
         "high_concern_employees": [
             ["Ankan", "Leadership Training", "Needs Urgent Attention!"],
@@ -60,8 +63,5 @@ async def get_daily_report():
 
     # Return the PDF file as a response
     return FileResponse(
-        path=pdf_path,
-        filename="employee_dashboard.pdf",
-        media_type="application/pdf"
+        path=pdf_path, filename="employee_dashboard.pdf", media_type="application/pdf"
     )
-

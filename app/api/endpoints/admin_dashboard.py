@@ -48,10 +48,10 @@ class BubbleData(BaseModel):
 
 
 class DashboardResponse(BaseModel):
-    employeeSatisfaction: EmployeeSatisfaction
-    vibemeterScores: VibemeterScore
-    highConcernEmployees: List[Employee]
-    bubbleDemoData: List[BubbleData]
+    employee_satisfaction: EmployeeSatisfaction
+    vibemeter_scores: VibemeterScore
+    high_concern_employees: List[Employee]
+    bubble_data: List[BubbleData]
 
 
 @router.get("/dashboard", response_model=DashboardResponse)

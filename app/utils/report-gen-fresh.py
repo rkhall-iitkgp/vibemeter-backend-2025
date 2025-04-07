@@ -1,16 +1,16 @@
 from reportgen import make_report
 
-
 if __name__ == "__main__":
     title = "Employee Engagement & Satisfaction Report"
     subtitle = "Quarterly Analysis - Q2 2025"
     metrics = {
-            "title": "Employee Engagement Score",
-            "score": 78,
-            "change": 5.3,
+        "title": "Employee Engagement Score",
+        "score": 78,
+        "change": 5.3,
     }
-                    
-    issues = {"issues" : [
+
+    issues = {
+        "issues": [
             "Workload: Heavy workload affecting wellness",
             "Recognition: Insufficient recognition systems",
             "Compensation: Concerns about fair compensation",
@@ -19,11 +19,11 @@ if __name__ == "__main__":
             "Team Culture: Team dynamic challenges",
             "Leadership: Leadership effectiveness",
         ],
-        
         # Extract values from the provided issues data
-        "issue_count" : [15, 12, 14, 11, 13, 10, 12]
+        "issue_count": [15, 12, 14, 11, 13, 10, 12],
     }
-    high_concern_employee =  {"high_concern_employees" : [
+    high_concern_employee = {
+        "high_concern_employees": [
             ["Ankan", "Leadership Training", "Needs Urgent Attention!"],
             ["Ankan", "Morality", "-28%"],
             ["Ankan", "Engagement", "-40%"],
