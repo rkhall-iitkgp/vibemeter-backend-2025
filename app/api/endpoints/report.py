@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from utils.reportgen import make_report
+from app.utils.reportgen import make_report
 from fastapi.responses import FileResponse
 import os
 router = APIRouter()
