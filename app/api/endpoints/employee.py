@@ -9,6 +9,82 @@ from app.utils.db import get_db
 
 router = APIRouter()
 
+first_names = [
+    "James",
+    "Emma",
+    "William",
+    "Olivia",
+    "Michael",
+    "Sophia",
+    "Benjamin",
+    "Charlotte",
+    "Daniel",
+    "Isabella",
+    "Alexander",
+    "Amelia",
+    "Lucas",
+    "Mia",
+    "Ethan",
+    "Ava",
+    "Matthew",
+    "Harper",
+    "Henry",
+    "Ella",
+    "Jack",
+    "Scarlett",
+    "Noah",
+    "Lily",
+    "Samuel",
+    "Grace",
+    "Jack",
+    "Chloe",
+    "Liam",
+    "Zoe",
+    "David",
+    "Victoria",
+]
+
+surnames = [
+    "Smith",
+    "Johnson",
+    "Williams",
+    "Brown",
+    "Jones",
+    "Taylor",
+    "Davis",
+    "Miller",
+    "Wilson",
+    "Moore",
+    "Anderson",
+    "Thomas",
+    "Jackson",
+    "White",
+    "Harris",
+    "Martin",
+    "Thompson",
+    "Garcia",
+    "Martinez",
+    "Roberts",
+    "Clark",
+    "Lewis",
+    "Walker",
+    "Young",
+    "Allen",
+    "King",
+    "Scott",
+    "Wright",
+    "Adams",
+    "Baker",
+    "Hill",
+    "Nelson",
+]
+
+
+def generate_random_name():
+    first_name = random.choice(first_names)
+    surname = random.choice(surnames)
+    return f"{first_name} {surname}"
+
 
 @router.get("/")
 async def get_employee_risk_categorization(
@@ -38,6 +114,7 @@ async def get_employee_risk_categorization(
             risk_score = round(random.uniform(0, 100), 2)
 
             employee_info = {
+                "name": generate_random_name(),
                 "employee_id": user.employee_id,
                 "email": user.email,
                 "is_verified": (
