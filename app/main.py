@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.endpoints import (
     actions,
+    admin_dashboard,
     analysis,
     auth,
     employee,
@@ -45,6 +46,7 @@ app.include_router(schedule.router, prefix="/api/schedule", tags=["Schedule"])
 app.include_router(survey.router, prefix="/api/survey", tags=["Survey"])
 app.include_router(vibemeter.router, prefix="/api/vibemeter", tags=["Vibemeter"])
 app.include_router(ws.router, prefix="/api/ws", tags=["WebSocket"])
+app.include_router(admin_dashboard.router, prefix="/api/admin", tags=["AdminMetrics"])
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
