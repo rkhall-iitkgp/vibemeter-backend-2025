@@ -4,8 +4,12 @@ import re
 
 import pandas as pd
 from dotenv import load_dotenv
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends, HTTPException
 from google import genai
+from sqlalchemy.orm import Session
+
+from app.models.schema import FocusGroup
+from app.utils.db import get_db
 
 load_dotenv()
 
@@ -36,9 +40,13 @@ router = APIRouter()
 
 
 @router.get("")
-def analyze_employee_targeting_csv():
-
+def generate_suggestions(db: Session = Depends(get_db)):
     client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+    target_groups = db.query(FocusGroup).all()
+    target_groups = [
+        f"Name: {group.name}\n" f"Description: {group.description}"
+        for group in target_groups
+    ]
 
     csv_path = os.path.abspath(
         os.path.join(
@@ -67,6 +75,7 @@ def analyze_employee_targeting_csv():
         "{ "
         "'title': 'Action Title', "
         "'purpose': 'Purpose of the Action', "
+        "'target_group: 'Name of target group'"
         "'metric': ['Metric 1', 'Metric 2', ...], "
         "'steps': [ "
         "{ "
@@ -80,7 +89,9 @@ def analyze_employee_targeting_csv():
         "] "
         "} "
         "The action plan should be tailored to address the specific issue identified for the group and help employees improve their work life. "
-        "For each group, suggest 3-5 practical steps. "
+        "Here are the focus groups you should target:"
+        f"{"".join([f"Group {i}:\n {group}\n\n\n" for i, group in enumerate(target_groups)])}"
+        # "For each group, suggest 3-5 practical steps. "
         "The metrics should be measurable indicators to evaluate the effectiveness of the action."
     )
 
@@ -97,5 +108,55 @@ def analyze_employee_targeting_csv():
             user_prompt,
         ],
     )
+
     extracted_json = extract_and_parse_json(response.text)
+    if not extracted_json:
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+    return extracted_json
+
+
+@router.get("/{focus_group_id}")
+def generate_suggestions_by_id(focus_group_id=str, db: Session = Depends(get_db)):
+    client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+    target_group = (
+        db.query(FocusGroup).filter(FocusGroup.focus_group_id == focus_group_id).first()
+    )
+    target_group = (
+        f"Group Name; {target_group.name}\nDescription: {target_group.description}\n\n"
+    )
+
+    system_prompt = (
+        "You are an HR analyst tasked with analyzing employee issues and suggesting actionable steps. "
+        "Take a look at this target group:"
+        f"{target_group}"
+        "Then, for this issue group, generate an array of action plan whose each element is in the following JSON format: "
+        "{ "
+        "'title': 'Action Title', "
+        "'purpose': 'Purpose of the Action', "
+        "'target_group: 'Name of target group'"
+        "'metric': ['Metric 1', 'Metric 2', ...], "
+        "'steps': [ "
+        "{ "
+        "'title': 'appropriate title for the action', "
+        "'description': 'description of the action' "
+        "}, "
+        "{ "
+        "'title': 'another title for the action', "
+        "'description': 'another description of the action' "
+        "} "
+        "] "
+        "} "
+        "The action plan should be tailored to address the specific issue identified for the group and help employees improve their work life. "
+        "For the given group, suggest 3-5 practical steps:"
+        "The metrics should be measurable indicators to evaluate the effectiveness of the action."
+    )
+
+    response = client.models.generate_content(
+        model="gemini-2.0-flash",
+        contents=[system_prompt],
+    )
+    print(response.text)
+    extracted_json = extract_and_parse_json(response.text)
+    if not extracted_json:
+        raise HTTPException(status_code=500, detail="Internal Server Error")
     return extracted_json
