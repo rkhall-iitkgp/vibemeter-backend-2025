@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
+from typing import List, Dict
 
-from app.models.schema import OnboardingDataset, RewardsDataset, User
+from app.models.schema import OnboardingDataset, RewardsDataset, User, EmployeeReport
 from app.utils.db import get_db
 from app.utils.helpers import format_response
 
@@ -55,3 +56,36 @@ async def get_employee_profile(employee_id: str, db: Session = Depends(get_db)):
             ],
         }
     )
+
+
+@router.get("/employee/{employee_id}/reports")
+async def get_employee_reports(employee_id: str, db: Session = Depends(get_db)):
+    """
+    Retrieve all reports generated for an employee from chatbot conversations.
+    """
+    # Check if employee exists
+    user = db.query(User).filter(User.employee_id == employee_id).first()
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, 
+            detail="Employee not found"
+        )
+
+    # Get all reports for the employee
+    reports = (
+        db.query(EmployeeReport)
+        .filter(EmployeeReport.employee_id == employee_id)
+        .order_by(EmployeeReport.generated_at.desc())
+        .all()
+    )
+
+    return format_response({
+        "reports": [
+            {
+                "report_id": report.report_id,
+                "generated_at": report.generated_at,
+                "content": report.report_content,
+            }
+            for report in reports
+        ]
+    })

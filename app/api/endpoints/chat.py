@@ -1,6 +1,7 @@
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
-from app.ml.chatbot import graph_builder, ChatbotAgent
-
+from app.ml.chatbot import graph_builder, ChatbotAgent,ReportGeneratorAgent
+from app.models.schema import EmployeeReport
+from app.utils.db import get_db
 from app.socket import manager
 
 router = APIRouter()
@@ -12,6 +13,7 @@ async def chat(websocket: WebSocket, user_id: str):
 
     knowledge_graph, issues = graph_builder.run(user_id)
     agent = ChatbotAgent()
+    report_generator = ReportGeneratorAgent()
     agent.start_conversation(issues)
 
     print(f"Found {len(issues)} potential issues for Employee {user_id}")
@@ -65,6 +67,47 @@ I hope these recommendations are helpful. Your feedback is valuable and will hel
                 )
                 # print(f"Assistant: {closing_message}")
                 await manager.send_message(closing_message, user_id)
+
+                # Generate and save report after conversation is complete
+                print("\nGenerating employee report...")
+                report = report_generator.run(user_id, knowledge_graph, issues, agent.conversation)
+                print(f"Successfully generated report for employee {user_id}")
+
+                # Save report to database
+                try:
+                    db = next(get_db())
+                    
+                    # Create consolidated report data
+                    report_data = {
+                        "full_report": report,
+                        "conversation_summary": {
+                            "issues_discussed": list(agent.explored_issues.keys()),
+                            "root_causes": agent.root_causes,
+                            "themes": list(agent.themes)
+                        },
+                        "recommendations": [
+                            line.strip() for line in solutions.split('\n') 
+                            if line.strip().startswith('•')
+                        ],
+                        "metrics": {
+                            "vibe_trend": knowledge_graph.nodes[f"{user_id}_vibe"]["trend"],
+                            "performance_rating": knowledge_graph.nodes.get(f"{user_id}_performance", {}).get("rating"),
+                            "avg_work_hours": knowledge_graph.nodes.get(f"{user_id}_activity", {}).get("avg_work_hours")
+                        }
+                    }
+                    
+                    # Create new report entry
+                    db_report = EmployeeReport(
+                        employee_id=user_id,
+                        report_content=report_data
+                    )
+                    
+                    db.add(db_report)
+                    db.commit()
+                    print(f"Report saved to database for employee {user_id}")
+                    
+                except Exception as e:
+                    print(f"Error saving report to database: {e}")
 
                 conversation_complete = True
                 print("Conversation complete. All issues explored.")
