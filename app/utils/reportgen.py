@@ -236,11 +236,11 @@ class EmployeeReportPDF:
     def add_metric(self, label, value, change):
         """Display a large metric with its change percentage using color coding"""
         # Determine color based on change value
-        color_val = (
-            self.colors["positive"]
-            if float(change.replace("%", "").replace("+", "")) >= 0
-            else self.colors["negative"]
-        )
+        # color_val = (
+        #     self.colors["positive"]
+        #     if float(change.replace("%", "").replace("+", "")) >= 0
+        #     else self.colors["negative"]
+        # )
         color = (
             "green" if float(change.replace("%", "").replace("+", "")) >= 0 else "red"
         )
