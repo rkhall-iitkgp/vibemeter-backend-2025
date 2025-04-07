@@ -153,6 +153,7 @@ async def get_employee_details(
             "title": action.title,
             "purpose": action.purpose,
             "is_completed": action.is_completed,
+            "created_at": action.created_at,
         }
         for action in action_plans
     ]
