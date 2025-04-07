@@ -10,7 +10,7 @@ from app.utils.db import get_db
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("")
 async def get_employee_risk_categorization(
     db: Session = Depends(get_db),
 ) -> Dict[str, List[Dict]]:
