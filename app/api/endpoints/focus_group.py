@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 from typing import List
 
@@ -9,6 +10,7 @@ from sqlalchemy.orm import Session
 from app.models.schema import FocusGroup, User
 from app.utils.db import get_db
 from app.utils.helpers import format_response
+from app.utils.redis_client import redis_client
 
 router = APIRouter()
 
@@ -42,9 +44,16 @@ class GroupData(BaseModel):
 @router.get("")
 async def get_all_groups(db: Session = Depends(get_db)):
     """
-    Fetch all focus groups from the database.
+    Fetch all focus groups from the database .
     """
     try:
+        # Check if data is cached in Redis
+        cache_key = "all_focus_groups"
+        cached_data = await redis_client.get(cache_key)
+        if cached_data:
+            return format_response(data=json.loads(cached_data))
+
+        # Fetch data from the database
         groups = db.query(FocusGroup).all()
         formatted_groups = []
         for group in groups:
@@ -52,11 +61,17 @@ async def get_all_groups(db: Session = Depends(get_db)):
                 "focus_group_id": group.focus_group_id,
                 "name": group.name,
                 "description": group.description,
-                "created_at": group.created_at,
+                "created_at": str(group.created_at),
                 "metrics": group.metrics,
                 "members": len(group.users),
             }
             formatted_groups.append(formatted_group)
+
+        # Cache the data in Redis
+        await redis_client.set(
+            cache_key, json.dumps(formatted_groups), ex=3600
+        )  # Cache for 1 hour
+
         return format_response(data=formatted_groups)
     except HTTPException as e:
         raise e
@@ -73,6 +88,11 @@ async def get_all_groups_minified(db: Session = Depends(get_db)):
     Fetch all focus groups from the database in a minified format.
     """
     try:
+        # Check if data is cached in Redis
+        cache_key = "all_focus_groups_minified"
+        cached_data = await redis_client.get(cache_key)
+        if cached_data:
+            return format_response(data=json.loads(cached_data))
         groups = db.query(FocusGroup).all()
         formatted_groups = []
         for group in groups:
@@ -81,6 +101,9 @@ async def get_all_groups_minified(db: Session = Depends(get_db)):
                 "name": group.name,
             }
             formatted_groups.append(formatted_group)
+        await redis_client.set(
+            cache_key, json.dumps(formatted_groups), ex=3600
+        )  # Cache for 1 hour
         return format_response(data=formatted_groups)
     except HTTPException as e:
         raise e
@@ -97,6 +120,11 @@ async def get_group_details(focus_group_id: str, db: Session = Depends(get_db)):
     Fetch focus group data from the database.
     """
     try:
+        # Check if data is cached in Redis
+        cache_key = f"focus_group_{focus_group_id}"
+        cached_data = await redis_client.get(cache_key)
+        if cached_data:
+            return format_response(data=json.loads(cached_data))
         group = (
             db.query(FocusGroup)
             .filter(FocusGroup.focus_group_id == focus_group_id)
@@ -120,12 +148,38 @@ async def get_group_details(focus_group_id: str, db: Session = Depends(get_db)):
             "focus_group_id": group.focus_group_id,
             "name": group.name,
             "description": group.description,
-            "created_at": group.created_at,
+            "created_at": str(group.created_at),
             "metrics": group.metrics,
             "users": users_data,
-            "actions": group.actions,
-            "surveys": group.surveys,
+            "actions": [
+                {
+                    "action_id": action.action_id,
+                    "purpose": action.purpose,
+                    "created_at": str(action.created_at),
+                    "title": action.title,
+                    "metric": action.metric,
+                    "steps": action.steps,
+                    "is_completed": action.is_completed,
+                }
+                for action in group.actions
+            ],
+            "surveys": [
+                {
+                    "title": survey.title,
+                    "survey_id": survey.survey_id,
+                    "created_at": str(survey.created_at),
+                    "description": survey.description,
+                    "is_active": survey.is_active,
+                    "ends_at": str(survey.ends_at),
+                    "questions": survey.questions,
+                }
+                for survey in group.surveys
+            ],
         }
+        # Cache the data in Redis
+        await redis_client.set(
+            cache_key, json.dumps(formatted_group), ex=3600
+        )  # Cache for 1 hour
         return format_response(data=formatted_group)
     except HTTPException as e:
         raise e

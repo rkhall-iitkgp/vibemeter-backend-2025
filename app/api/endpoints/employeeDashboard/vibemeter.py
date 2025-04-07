@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 from app.models.schema import VibeMeterDataset
 from app.utils.db import get_db
 from app.utils.helpers import format_response
+from app.utils.redis_client import redis_client
 
 router = APIRouter()
 
@@ -23,6 +24,17 @@ async def check_today_submission(employee_id: str, db: Session = Depends(get_db)
     Returns whether submission is needed and any existing data.
     """
     today = date.today()
+    cache_key = f"vibemeter:{employee_id}:{today}"
+
+    # Check Redis cache first
+    cached_result = redis_client.get(cache_key)
+    if cached_result:
+        return format_response(
+            {
+                "needs_submission": False,
+                "message": "Vibe meter already submitted for today",
+            }
+        )
 
     # Query for today's entry using SQLAlchemy ORM
     result = (
@@ -35,6 +47,8 @@ async def check_today_submission(employee_id: str, db: Session = Depends(get_db)
     )
 
     if result:
+        # Cache the result in Redis
+        redis_client.set(cache_key, "submitted", ex=86400)  # Cache for 1 day
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Vibe meter already submitted for today",

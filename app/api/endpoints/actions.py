@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 from typing import List, Optional
 
@@ -9,6 +10,7 @@ from sqlalchemy.orm import Session
 from app.models.schema import Action, FocusGroup
 from app.utils.db import get_db
 from app.utils.helpers import format_response
+from app.utils.redis_client import redis_client
 
 router = APIRouter()
 
@@ -41,6 +43,16 @@ async def get_all_actions(
     Fetch all actions from the database.
     """
     try:
+        # Generate a unique Redis key based on the filter
+        cache_key = (
+            f"actions:{is_completed}" if is_completed is not None else "actions:all"
+        )
+
+        # Try to fetch data from Redis cache
+        cached_data = await redis_client.get(cache_key)
+        if cached_data:
+            return format_response(data=json.loads(cached_data))
+
         if is_completed is not None:
             actions = db.query(Action).filter(Action.is_completed == is_completed).all()
         else:
@@ -58,10 +70,20 @@ async def get_all_actions(
                 "metric": action.metric,
                 "steps": action.steps,
                 "is_completed": action.is_completed,
-                "target_groups": action.target_groups,
-                "created_at": action.created_at,
+                "target_groups": [
+                    {
+                        "name": group.name,
+                        "description": group.description,
+                        "created_at": str(group.created_at),
+                        "focus_group_id": group.focus_group_id,
+                        "metrics": group.metrics,
+                    }
+                    for group in action.target_groups
+                ],
+                "created_at": str(action.created_at),
             }
             action_list.append(action_dict)
+        await redis_client.set(cache_key, json.dumps(action_list), ex=300)
 
         return format_response(data=action_list)
     except HTTPException as e:
@@ -79,6 +101,15 @@ async def get_action(action_id: str, db: Session = Depends(get_db)):
     Fetch a specific action from the database by its ID.
     """
     try:
+        # Generate a unique Redis key for the action
+        cache_key = f"action:{action_id}"
+
+        # Try to fetch data from Redis cache
+        cached_data = await redis_client.get(cache_key)
+        if cached_data:
+            return format_response(data=json.loads(cached_data))
+
+        # Fetch the action from the database
         action = db.query(Action).filter(Action.action_id == action_id).first()
         if not action:
             raise HTTPException(status_code=404, detail="Action not found.")
@@ -89,7 +120,7 @@ async def get_action(action_id: str, db: Session = Depends(get_db)):
                 "focus_group_id": group.focus_group_id,
                 "name": group.name,
                 "description": group.description,
-                "created_at": group.created_at,
+                "created_at": str(group.created_at),
                 "metrics": group.metrics,
                 "members": len(group.users),
             }
@@ -103,8 +134,11 @@ async def get_action(action_id: str, db: Session = Depends(get_db)):
             "steps": action.steps,
             "is_completed": action.is_completed,
             "target_groups": formatted_groups,
-            "created_at": action.created_at,
+            "created_at": str(action.created_at),
         }
+
+        # Cache the action data in Redis
+        await redis_client.set(cache_key, json.dumps(action_dict), ex=300)
 
         return format_response(data=action_dict)
     except HTTPException as e:
