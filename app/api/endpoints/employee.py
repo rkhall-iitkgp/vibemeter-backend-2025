@@ -1,3 +1,4 @@
+import datetime
 import json
 import random
 from typing import Any, Dict, List
@@ -101,55 +102,113 @@ async def get_employee_risk_categorization(
         if cached_data:
             return json.loads(cached_data)
 
-        # Fetch first 15 users from the database
-        all_users = db.query(User).limit(15).all()
-        high_risk_employee = (
-            db.query(User).filter(User.employee_id == "EMP0014").first()
-        )
-
-        # Risk categorization dictionary
         risk_categories: Dict[str, List[Dict]] = {
             "high_risk_employees": [],
             "medium_risk_employees": [],
             "low_risk_employees": [],
         }
 
-        risk_categories["high_risk_employees"].append(
-            {
-                "name": "Ross",
-                "employee_id": high_risk_employee.employee_id,
-                "email": high_risk_employee.email,
-                "is_verified": (
-                    high_risk_employee.is_verified
-                    if high_risk_employee.is_verified is not None
-                    else False
-                ),
-                "risk_score": 80,
-            }
+        group = (
+            db.query(FocusGroup)
+            .filter(FocusGroup.name == "Consistently Dissatisfied")
+            .first()
         )
-
-        # Categorize employees with random risk scores
-        for user in all_users:
-            # Generate a random risk score between 0 and 100
-            risk_score = round(random.uniform(0, 100), 2)
-
-            employee_info = {
-                "name": generate_random_name(),
+        users = group.users
+        risk_categories["high_risk_employees"] = [
+            {
+                "name": user.name if hasattr(user, "name") else generate_random_name(),
                 "employee_id": user.employee_id,
                 "email": user.email,
                 "is_verified": (
                     user.is_verified if user.is_verified is not None else False
                 ),
-                "risk_score": risk_score,
             }
+            for user in users
+        ]
 
-            # Categorize based on random risk score
-            if risk_score >= 75:
-                risk_categories["high_risk_employees"].append(employee_info)
-            elif risk_score >= 50:
-                risk_categories["medium_risk_employees"].append(employee_info)
-            else:
-                risk_categories["low_risk_employees"].append(employee_info)
+        group = (
+            db.query(FocusGroup)
+            .filter(FocusGroup.name == "Volatile but Generally Happy")
+            .first()
+        )
+        users = group.users
+        risk_categories["medium_risk_employees"] = [
+            {
+                "name": user.name if hasattr(user, "name") else generate_random_name(),
+                "employee_id": user.employee_id,
+                "email": user.email,
+                "is_verified": (
+                    user.is_verified if user.is_verified is not None else False
+                ),
+            }
+            for user in users
+        ]
+
+        group = (
+            db.query(FocusGroup)
+            .filter(FocusGroup.name != "Consistently Dissatisfied")
+            .filter(FocusGroup.name != "Volatile but Generally Happy")
+            .all()
+        )
+        users = []
+        for group in group:
+            users.extend(group.users)
+        risk_categories["low_risk_employees"] = [
+            {
+                "name": user.name if hasattr(user, "name") else generate_random_name(),
+                "employee_id": user.employee_id,
+                "email": user.email,
+                "is_verified": (
+                    user.is_verified if user.is_verified is not None else False
+                ),
+            }
+            for user in users
+        ]
+
+        # # Fetch first 15 users from the database
+        # all_users = db.query(User).limit(15).all()
+        # high_risk_employee = (
+        #     db.query(User).filter(User.employee_id == "EMP0014").first()
+        # )
+
+        # # Risk categorization dictionary
+
+        # risk_categories["high_risk_employees"].append(
+        #     {
+        #         "name": "Ross",
+        #         "employee_id": high_risk_employee.employee_id,
+        #         "email": high_risk_employee.email,
+        #         "is_verified": (
+        #             high_risk_employee.is_verified
+        #             if high_risk_employee.is_verified is not None
+        #             else False
+        #         ),
+        #         "risk_score": 80,
+        #     }
+        # )
+
+        # # Categorize employees with random risk scores
+        # for user in all_users:
+        #     # Generate a random risk score between 0 and 100
+        #     risk_score = round(random.uniform(0, 100), 2)
+
+        #     employee_info = {
+        #         "name": generate_random_name(),
+        #         "employee_id": user.employee_id,
+        #         "email": user.email,
+        #         "is_verified": (
+        #             user.is_verified if user.is_verified is not None else False
+        #         ),
+        #         "risk_score": risk_score,
+        #     }
+
+        #     # Categorize based on random risk score
+        #     if risk_score >= 75:
+        #         risk_categories["high_risk_employees"].append(employee_info)
+        #     elif risk_score >= 50:
+        #         risk_categories["medium_risk_employees"].append(employee_info)
+        #     else:
+        #         risk_categories["low_risk_employees"].append(employee_info)
 
         # Cache the data
         await redis_client.set(
@@ -241,7 +300,7 @@ async def get_employee_details(
             "focus_group_id": groups.focus_group_id,
             "name": groups.name,
             "description": groups.description,
-            "created_at": groups.created_at,
+            "created_at": str(groups.created_at) if groups.created_at else None,
             "metrics": groups.metrics,
             "members": len(groups.users),
         }
@@ -262,18 +321,29 @@ async def get_employee_details(
             "title": action.title,
             "purpose": action.purpose,
             "is_completed": action.is_completed,
-            "created_at": action.created_at,
+            "created_at": str(action.created_at) if action.created_at else None,
         }
         for action in action_plans
     ]
 
     # Compile employee details
+    # Generate random date for when created_at doesn't exist
+    if hasattr(user, "created_at") and user.created_at:
+        created_at = str(user.created_at)
+    else:
+        # Generate random date within last 2 years
+        days_ago = random.randint(1, 730)  # Up to 2 years (365*2)
+        random_date = (
+            datetime.datetime.now() - datetime.timedelta(days=days_ago)
+        ).date()
+        created_at = str(random_date)
+
     employee_details = {
         "name": "Employee Name",  # Added dummy name
         "job_title": "HR",
         "email": user.email,
         "phone_number": "+1 (555) 987-6543",
-        "created_at": user.created_at if hasattr(user, "created_at") else None,
+        "created_at": created_at,
         "avatar": user.profile_picture,
         "employee_id": employee_id,
         "awards": awards_list,
