@@ -75,6 +75,7 @@ I hope these recommendations are helpful. Your feedback is valuable and will hel
                 report = report_generator.run(
                     user_id, knowledge_graph, issues, agent.conversation
                 )
+                intervention = report_generator.get_hr_intervention(report)
                 print(f"Successfully generated report for employee {user_id}")
 
                 # Save report to database
@@ -105,6 +106,7 @@ I hope these recommendations are helpful. Your feedback is valuable and will hel
                                 f"{user_id}_activity", {}
                             ).get("avg_work_hours"),
                         },
+                        "hr_intervention": intervention,
                     }
 
                     # Create new report entry

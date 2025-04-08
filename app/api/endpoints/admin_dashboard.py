@@ -7,6 +7,77 @@ from pydantic import BaseModel
 
 router = APIRouter()
 
+first_names = [
+    "James",
+    "Emma",
+    "William",
+    "Olivia",
+    "Michael",
+    "Sophia",
+    "Benjamin",
+    "Charlotte",
+    "Daniel",
+    "Isabella",
+    "Alexander",
+    "Amelia",
+    "Lucas",
+    "Mia",
+    "Ethan",
+    "Ava",
+    "Matthew",
+    "Harper",
+    "Henry",
+    "Ella",
+    "Jack",
+    "Scarlett",
+    "Noah",
+    "Lily",
+    "Samuel",
+    "Grace",
+    "Jack",
+    "Chloe",
+    "Liam",
+    "Zoe",
+    "David",
+    "Victoria",
+    "Smith",
+    "Johnson",
+    "Williams",
+    "Brown",
+    "Jones",
+    "Taylor",
+    "Davis",
+    "Miller",
+    "Wilson",
+    "Moore",
+    "Anderson",
+    "Thomas",
+    "Jackson",
+    "White",
+    "Harris",
+    "Martin",
+    "Thompson",
+    "Garcia",
+    "Martinez",
+    "Roberts",
+    "Clark",
+    "Lewis",
+    "Walker",
+    "Young",
+    "Allen",
+    "King",
+    "Scott",
+    "Wright",
+    "Adams",
+    "Baker",
+    "Hill",
+    "Nelson",
+]
+
+
+def generate_random_name():
+    return random.choice(first_names)
+
 
 # Pydantic models for data validation and serialization
 class Metric(BaseModel):
@@ -135,8 +206,8 @@ async def get_dashboard_data():
         high_concern_employees.append(
             Employee(
                 id=employee_id,
-                name="Ankan",
-                avatar="/avatars/ankan.png",
+                name=generate_random_name(),
+                avatar="/avatars/placeholder.png",
                 group="Leadership Training #GRP12345",
                 needsIntervention=False,
                 metrics=random.choice(metric_options),
