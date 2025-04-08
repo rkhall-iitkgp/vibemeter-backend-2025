@@ -22,6 +22,18 @@ class WebSocketManager:
         if websocket:
             await websocket.send_json({"event": "meeting_update", "message": message})
 
+    async def send_message(self, message: str, user_id: str):
+        """Send a message to a specific user."""
+        websocket = self.active_connections.get(user_id)
+        if websocket:
+            await websocket.send_json({"event": "ai_message", "message": message})
+
+    async def send_thinking(self, user_id: str):
+        """Send a thinking indicator to a specific user."""
+        websocket = self.active_connections.get(user_id)
+        if websocket:
+            await websocket.send_json({"event": "thinking", "message": "Typing..."})
+
     async def broadcast(self, message: str):
         """Broadcast a message to all connected users."""
         for websocket in self.active_connections.values():
