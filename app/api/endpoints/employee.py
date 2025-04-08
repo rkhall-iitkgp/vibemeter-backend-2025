@@ -100,6 +100,9 @@ async def get_employee_risk_categorization(
     try:
         # Fetch first 15 users from the database
         all_users = db.query(User).limit(15).all()
+        high_risk_employee = (
+            db.query(User).filter(User.employee_id == "EMP0014").first()
+        )
 
         # Risk categorization dictionary
         risk_categories: Dict[str, List[Dict]] = {
@@ -107,6 +110,20 @@ async def get_employee_risk_categorization(
             "medium_risk_employees": [],
             "low_risk_employees": [],
         }
+
+        risk_categories["high_risk_employees"].append(
+            {
+                "name": generate_random_name(),
+                "employee_id": high_risk_employee.employee_id,
+                "email": high_risk_employee.email,
+                "is_verified": (
+                    high_risk_employee.is_verified
+                    if high_risk_employee.is_verified is not None
+                    else False
+                ),
+                "risk_score": 80,
+            }
+        )
 
         # Categorize employees with random risk scores
         for user in all_users:
