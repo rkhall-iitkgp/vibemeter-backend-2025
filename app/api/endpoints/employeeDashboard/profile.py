@@ -1,9 +1,12 @@
+import json
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
-from app.models.schema import EmployeeReport, OnboardingDataset, RewardsDataset, User
+from app.models.schema import OnboardingDataset, RewardsDataset, User
 from app.utils.db import get_db
 from app.utils.helpers import format_response
+from app.utils.redis_client import redis_client
 
 router = APIRouter()
 
@@ -13,6 +16,13 @@ async def get_employee_profile(employee_id: str, db: Session = Depends(get_db)):
     """
     Retrieve employee profile information including personal details and recognition.
     """
+    # Check if data is cached in Redis
+    cache_key = f"employee_profile:{employee_id}"
+    cached_data = await redis_client.get(cache_key)
+
+    if cached_data:
+        return json.loads(cached_data)
+
     # Query to get user details using ORM
     user = db.query(User).filter(User.employee_id == employee_id).first()
 
@@ -35,57 +45,28 @@ async def get_employee_profile(employee_id: str, db: Session = Depends(get_db)):
     )
 
     # Prepare the response data
-    return format_response(
-        {
-            "full_name": "John Doe",  # Note: This appears to be hardcoded in the original
-            "profile_picture": user.profile_picture,
-            "employee_id": user.employee_id,
-            "contact_details": {
-                "email": user.email,
-            },
-            "joining_date": joining_date,
-            "awards": [
-                {
-                    "id": award.id,
-                    "award_type": award.award_type,  # Changed from award.award_name to match schema
-                    "award_date": award.award_date,  # Changed from award.date_awarded to match schema
-                    "reward_points": award.reward_points,
-                }
-                for award in awards
-            ],
-        }
-    )
+    response_data = {
+        "full_name": "John Doe",  # Placeholder for full name
+        "profile_picture": user.profile_picture,
+        "employee_id": user.employee_id,
+        "contact_details": {
+            "email": user.email,
+        },
+        "joining_date": str(joining_date.isoformat()) if joining_date else None,
+        "awards": [
+            {
+                "id": award.id,
+                "award_type": award.award_type,
+                "award_date": award.award_date.isoformat(),
+                "reward_points": award.reward_points,
+            }
+            for award in awards
+        ],
+    }
 
+    # Cache the response data in Redis
+    await redis_client.set(
+        cache_key, json.dumps(response_data), ex=3600
+    )  # Cache for 1 hour
 
-@router.get("/employee/{employee_id}/reports")
-async def get_employee_reports(employee_id: str, db: Session = Depends(get_db)):
-    """
-    Retrieve all reports generated for an employee from chatbot conversations.
-    """
-    # Check if employee exists
-    user = db.query(User).filter(User.employee_id == employee_id).first()
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Employee not found"
-        )
-
-    # Get all reports for the employee
-    reports = (
-        db.query(EmployeeReport)
-        .filter(EmployeeReport.employee_id == employee_id)
-        .order_by(EmployeeReport.generated_at.desc())
-        .all()
-    )
-
-    return format_response(
-        {
-            "reports": [
-                {
-                    "report_id": report.report_id,
-                    "generated_at": report.generated_at,
-                    "content": report.report_content,
-                }
-                for report in reports
-            ]
-        }
-    )
+    return format_response(response_data)

@@ -76,10 +76,10 @@ def load_datasets():
         print(f"Error: Dataset file not found - {e}")
         raise
     except pd.errors.EmptyDataError:
-        print(f"Error: One of the CSV files is empty")
+        print("Error: One of the CSV files is empty")
         raise
     except pd.errors.ParserError:
-        print(f"Error: Could not parse CSV file - check file format")
+        print("Error: Could not parse CSV file - check file format")
         raise
     except Exception as e:
         print(f"Unexpected error loading datasets: {e}")
@@ -466,16 +466,16 @@ class ChatbotAgent:
         # Generate supportive, solution-oriented greeting
         greeting_prompt = f"""
         You are a supportive, solution-oriented HR chatbot having a conversation with an employee.
-        
+
         The employee has these potential areas to discuss:
         {issue_context}
-        
+
         Generate a warm, empathetic greeting that:
         1. Welcomes the employee and expresses genuine interest in helping them
         2. Mentions you're here to understand their challenges AND find solutions together
         3. Conveys a supportive, problem-solving attitude
         4. Notes they can type /exit anytime to end the conversation
-        
+
         The greeting should be friendly, supportive and under 3 sentences.
         """
 
@@ -528,31 +528,31 @@ class ChatbotAgent:
 
             prompt = f"""
             You're a supportive, solution-oriented HR chatbot starting a conversation about {issue_type} ({issue_description}).
-            
+
             Generate a brief, helpful question that:
             1. Is under 15 words but shows genuine interest in helping
-            2. Feels natural and empathetic 
+            2. Feels natural and empathetic
             3. Encourages them to share challenges so you can help find solutions
             4. Doesn't directly state that you identified an issue
-            
+
             Write only the question itself, with no additional text.
             """
         else:
             # Follow-up or transition question
             prompt = f"""
             You're a supportive, solution-oriented HR chatbot continuing a conversation.
-            
+
             RECENT CONVERSATION:
             {history_text}
-            
+
             UNEXPLORED ISSUES: {[f"{i['type']}: {i['description']}" for i in unexplored_issues[:2]]}
-            
+
             Generate a brief, helpful follow-up question that:
             1. Is under 15 words but shows genuine interest in helping solve their issues
             2. Naturally builds on their last response
             3. Explores potential solutions or ways you can help them
             4. Makes them feel supported and understood
-            
+
             Write only the question itself, with no additional text.
             """
 
@@ -591,23 +591,23 @@ class ChatbotAgent:
         # Prepare prompt for analysis that includes solutions
         analysis_prompt = f"""
         You are an HR analytics expert analyzing an employee's response about workplace issues.
-        
+
         CURRENT CONVERSATION:
         {conversation_text}
-        
+
         POTENTIAL ISSUES:
         {all_issues_text}
-        
+
         CURRENTLY FOCUSED ISSUE: {current_issue['type'] if current_issue else 'None'} - {current_issue['description'] if current_issue else ''}
-        
+
         Based on the employee's latest response, analyze:
-        
+
         1. ROOT_CAUSES: What specific root causes did they mention for any issues? (Map issue types to lists of causes)
         2. THEMES: What broader themes emerged (work-life balance, communication, etc.)?
         3. POTENTIAL_SOLUTIONS: What specific solutions could help address the issues mentioned? (Map issue types to lists of solutions)
         4. SUFFICIENT_DEPTH: Has the current issue been explored sufficiently? (yes/no)
         5. SENTIMENT: What's the employee's sentiment about each issue mentioned? (Map issue types to sentiment)
-        
+
         Format your response as JSON with these 5 keys.
         """
 
@@ -751,7 +751,7 @@ class ChatbotAgent:
             Generate a brief, insightful summary of:
             1. Root causes for the issues mentioned
             2. Common themes across issues
-            
+
             Format as a concise markdown summary with bullet points. Be specific and helpful.
             """
 
@@ -811,9 +811,9 @@ class ChatbotAgent:
 
             Generate 2-3 practical, supportive recommendations that:
             1. Address the employee's main concerns
-            2. Offer actionable steps they can take 
+            2. Offer actionable steps they can take
             3. Include ways the company can support them
-            
+
             Format as brief, supportive bullet points. Be specific and empathetic.
             """
 
@@ -831,10 +831,10 @@ class ChatbotAgent:
 
         ROOT CAUSES:
         {json.dumps(self.root_causes, indent=2)}
-        
+
         POTENTIAL SOLUTIONS:
         {json.dumps(self.potential_solutions, indent=2)}
-        
+
         ISSUES:
         {[{'type': issue['type'], 'description': issue['description']} for issue in self.current_issues]}
 
@@ -843,7 +843,7 @@ class ChatbotAgent:
         2. Include both immediate steps the employee can take
         3. Suggest ways the company/management can help
         4. Are empathetic and supportive
-        
+
         Format as brief, clear bullet points. Be specific and practical (no fluff).
         """
 
@@ -990,23 +990,23 @@ class ReportGeneratorAgent:
         # Prepare structured report prompt
         prompt = f"""
         Generate a professional HR report for employee {employee_id} based on the following data.
-        
+
         KEY METRICS:
         {json.dumps(metrics, indent=2)}
-        
+
         IDENTIFIED ISSUES:
         {json.dumps(issues, indent=2)}
-        
+
         CONVERSATION INSIGHTS:
-        {conversation_text[:2000]}  
-        
+        {conversation_text[:2000]}
+
         FORMAT THE REPORT WITH THESE SECTIONS:
         1. Executive Summary (3-4 sentences overview)
         2. Key Metrics Analysis (bullet points of important metrics)
         3. Primary Issues Identified (bullet points)
         4. Root Causes (based on conversation)
         5. Recommended Actions (3-5 specific recommendations)
-        
+
         The report should be factual, professional, and action-oriented. No fluff or filler content.
         """
 

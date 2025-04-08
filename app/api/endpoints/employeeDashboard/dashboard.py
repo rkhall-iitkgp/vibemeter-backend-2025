@@ -1,3 +1,4 @@
+import json
 from datetime import date, timedelta
 from typing import List, Optional
 
@@ -9,6 +10,7 @@ from sqlalchemy.orm import Session
 from app.models.schema import ActivityTrackerDataset, LeaveDataset, Task, User
 from app.utils.db import get_db
 from app.utils.helpers import format_response
+from app.utils.redis_client import redis_client
 
 router = APIRouter()
 
@@ -77,118 +79,126 @@ async def get_employee_dashboard(employee_id: str, db: Session = Depends(get_db)
     - Past leave history
     - Attendance & punctuality stats
     """
-    # Check if employee exists
-    user = db.query(User).filter(User.employee_id == employee_id).first()
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Employee not found"
+    try:
+        cached_key = f"employee_dashboard:{employee_id}"
+        # Check if data is cached in Redis
+        cached_data = await redis_client.get(cached_key)
+        if cached_data:
+            return json.loads(cached_data)
+        # Check if employee exists
+        user = db.query(User).filter(User.employee_id == employee_id).first()
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, detail="Employee not found"
+            )
+
+        # Get current date for calculations
+        today = date.today()
+
+        # 1. Get work hours per day for the last 30 days
+        thirty_days_ago = today - timedelta(days=30)
+        work_hours_data = (
+            db.query(ActivityTrackerDataset.date, ActivityTrackerDataset.work_hours)
+            .filter(
+                ActivityTrackerDataset.employee_id == employee_id,
+                ActivityTrackerDataset.date >= thirty_days_ago,
+                ActivityTrackerDataset.date <= today,
+            )
+            .order_by(ActivityTrackerDataset.date)
+            .all()
         )
 
-    # Get current date for calculations
-    today = date.today()
+        # 2. Calculate leave balance
+        # Assuming a total leave allocation of 30 days per year
+        total_leave_allocation = 30
 
-    # 1. Get work hours per day for the last 30 days
-    thirty_days_ago = today - timedelta(days=30)
-    work_hours_data = (
-        db.query(ActivityTrackerDataset.date, ActivityTrackerDataset.work_hours)
-        .filter(
-            ActivityTrackerDataset.employee_id == employee_id,
-            ActivityTrackerDataset.date >= thirty_days_ago,
-            ActivityTrackerDataset.date <= today,
+        # Get total leave days used this year
+        start_of_year = date(today.year, 1, 1)
+        leaves_used = (
+            db.query(func.sum(LeaveDataset.leave_days))
+            .filter(
+                LeaveDataset.employee_id == employee_id,
+                LeaveDataset.leave_start_date >= start_of_year,
+                LeaveDataset.leave_end_date <= today,
+            )
+            .scalar()
+            or 0
         )
-        .order_by(ActivityTrackerDataset.date)
-        .all()
-    )
 
-    # 2. Calculate leave balance
-    # Assuming a total leave allocation of 30 days per year
-    total_leave_allocation = 30
+        leave_balance = total_leave_allocation - leaves_used
 
-    # Get total leave days used this year
-    start_of_year = date(today.year, 1, 1)
-    leaves_used = (
-        db.query(func.sum(LeaveDataset.leave_days))
-        .filter(
-            LeaveDataset.employee_id == employee_id,
-            LeaveDataset.leave_start_date >= start_of_year,
-            LeaveDataset.leave_end_date <= today,
+        # 3. Get upcoming leaves
+        upcoming_leaves = (
+            db.query(LeaveDataset)
+            .filter(
+                LeaveDataset.employee_id == employee_id,
+                LeaveDataset.leave_start_date > today,
+            )
+            .order_by(LeaveDataset.leave_start_date)
+            .all()
         )
-        .scalar()
-        or 0
-    )
 
-    leave_balance = total_leave_allocation - leaves_used
-
-    # 3. Get upcoming leaves
-    upcoming_leaves = (
-        db.query(LeaveDataset)
-        .filter(
-            LeaveDataset.employee_id == employee_id,
-            LeaveDataset.leave_start_date > today,
+        # 4. Get past leave history
+        past_leaves = (
+            db.query(LeaveDataset)
+            .filter(
+                LeaveDataset.employee_id == employee_id,
+                LeaveDataset.leave_end_date < today,
+            )
+            .order_by(LeaveDataset.leave_start_date.desc())
+            .all()
         )
-        .order_by(LeaveDataset.leave_start_date)
-        .all()
-    )
 
-    # 4. Get past leave history
-    past_leaves = (
-        db.query(LeaveDataset)
-        .filter(
-            LeaveDataset.employee_id == employee_id, LeaveDataset.leave_end_date < today
+        # 5. Calculate attendance & punctuality stats
+        # a. Average work hours
+        avg_work_hours = (
+            db.query(func.avg(ActivityTrackerDataset.work_hours))
+            .filter(
+                ActivityTrackerDataset.employee_id == employee_id,
+                ActivityTrackerDataset.date >= thirty_days_ago,
+            )
+            .scalar()
+            or 0
         )
-        .order_by(LeaveDataset.leave_start_date.desc())
-        .all()
-    )
 
-    # 5. Calculate attendance & punctuality stats
-    # a. Average work hours
-    avg_work_hours = (
-        db.query(func.avg(ActivityTrackerDataset.work_hours))
-        .filter(
-            ActivityTrackerDataset.employee_id == employee_id,
-            ActivityTrackerDataset.date >= thirty_days_ago,
+        # b. Days present in last 30 days
+        days_present = (
+            db.query(func.count(ActivityTrackerDataset.date))
+            .filter(
+                ActivityTrackerDataset.employee_id == employee_id,
+                ActivityTrackerDataset.date >= thirty_days_ago,
+                ActivityTrackerDataset.work_hours > 0,
+            )
+            .scalar()
+            or 0
         )
-        .scalar()
-        or 0
-    )
 
-    # b. Days present in last 30 days
-    days_present = (
-        db.query(func.count(ActivityTrackerDataset.date))
-        .filter(
-            ActivityTrackerDataset.employee_id == employee_id,
-            ActivityTrackerDataset.date >= thirty_days_ago,
-            ActivityTrackerDataset.work_hours > 0,
+        # c. Days absent (excluding weekends)
+        # Get all dates the employee worked
+        [record.date for record in work_hours_data]
+
+        # Calculate working days in the last 30 days (excluding weekends)
+        working_days = sum(
+            1
+            for day in range(30)
+            if (thirty_days_ago + timedelta(days=day)).weekday() < 5
         )
-        .scalar()
-        or 0
-    )
 
-    # c. Days absent (excluding weekends)
-    # Get all dates the employee worked
-    [record.date for record in work_hours_data]
+        # Calculate days absent
+        days_absent = working_days - days_present
+        if days_absent < 0:  # Safeguard against negative values
+            days_absent = 0
 
-    # Calculate working days in the last 30 days (excluding weekends)
-    working_days = sum(
-        1 for day in range(30) if (thirty_days_ago + timedelta(days=day)).weekday() < 5
-    )
+        # d. Calculate punctuality score (based on average work hours compared to standard 8-hour day)
+        punctuality_score = (
+            min(100, (avg_work_hours / 8) * 100) if avg_work_hours > 0 else 0
+        )
 
-    # Calculate days absent
-    days_absent = working_days - days_present
-    if days_absent < 0:  # Safeguard against negative values
-        days_absent = 0
-
-    # d. Calculate punctuality score (based on average work hours compared to standard 8-hour day)
-    punctuality_score = (
-        min(100, (avg_work_hours / 8) * 100) if avg_work_hours > 0 else 0
-    )
-
-    # Format and return the response
-    return format_response(
-        {
+        # Format and return the response
+        format_response = {
             "employee_id": employee_id,
             "work_hours": [
-                {"date": record.date.isoformat(), "hours": record.work_hours}
+                {"date": str(record.date), "hours": record.work_hours}
                 for record in work_hours_data
             ],
             "leave_info": {
@@ -200,8 +210,8 @@ async def get_employee_dashboard(employee_id: str, db: Session = Depends(get_db)
                         "id": leave.id,
                         "leave_type": leave.leave_type,
                         "leave_days": leave.leave_days,
-                        "start_date": leave.leave_start_date.isoformat(),
-                        "end_date": leave.leave_end_date.isoformat(),
+                        "start_date": str(leave.leave_start_date),
+                        "end_date": str(leave.leave_end_date),
                     }
                     for leave in upcoming_leaves
                 ],
@@ -210,8 +220,8 @@ async def get_employee_dashboard(employee_id: str, db: Session = Depends(get_db)
                         "id": leave.id,
                         "leave_type": leave.leave_type,
                         "leave_days": leave.leave_days,
-                        "start_date": leave.leave_start_date.isoformat(),
-                        "end_date": leave.leave_end_date.isoformat(),
+                        "start_date": str(leave.leave_start_date),
+                        "end_date": str(leave.leave_end_date),
                     }
                     for leave in past_leaves
                 ],
@@ -224,7 +234,18 @@ async def get_employee_dashboard(employee_id: str, db: Session = Depends(get_db)
                 "period": f"{thirty_days_ago.isoformat()} to {today.isoformat()}",
             },
         }
-    )
+        await redis_client.set(
+            f"employee_dashboard:{employee_id}", json.dumps(format_response), ex=3600
+        )
+        return format_response
+
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"An unexpected error occurred: {str(e)}",
+        )
 
 
 @router.post("/employee/{employee_id}/tasks", response_model=TaskOut)
@@ -249,13 +270,38 @@ async def create_task(
 
 @router.get("/employee/{employee_id}/tasks", response_model=List[TaskOut])
 async def get_tasks(employee_id: str, db: Session = Depends(get_db)):
+
+    # Check if tasks are cached in Redis
+    cache_key = f"employee:{employee_id}:tasks"
+    cached_tasks = await redis_client.get(cache_key)
+
+    if cached_tasks:
+        # Return cached tasks if available
+        return json.loads(cached_tasks)
+
+    # Fetch tasks from the database
     tasks = (
         db.query(Task)
         .filter(Task.employee_id == employee_id)
         .order_by(Task.due_date)
         .all()
     )
-    return tasks
+
+    tasks_data = [
+        {
+            "id": task.id,
+            "title": task.title,
+            "description": task.description,
+            "due_date": str(task.due_date),
+            "is_completed": task.is_completed,
+        }
+        for task in tasks
+    ]
+
+    # Cache the tasks in Redis with a TTL (e.g., 3600 seconds)
+    await redis_client.set(cache_key, json.dumps(tasks_data), ex=3600)
+
+    return tasks_data
 
 
 @router.put("/employee/{employee_id}/tasks/{task_id}", response_model=TaskOut)

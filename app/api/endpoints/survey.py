@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 from typing import List
 
@@ -9,6 +10,7 @@ from sqlalchemy.orm import Session
 from app.models.schema import FocusGroup, Survey
 from app.utils.db import get_db
 from app.utils.helpers import format_response
+from app.utils.redis_client import redis_client
 
 router = APIRouter()
 
@@ -43,6 +45,10 @@ async def get_all_surveys(db: Session = Depends(get_db)):
     Fetch all surveys from the database.
     """
     try:
+        cached_surveys = await redis_client.get("all_surveys")
+        if cached_surveys:
+            return format_response(data=json.loads(cached_surveys))
+
         surveys = db.query(Survey).all()
         formatted_surveys = []
         for survey in surveys:
@@ -50,13 +56,27 @@ async def get_all_surveys(db: Session = Depends(get_db)):
                 "survey_id": survey.survey_id,
                 "title": survey.title,
                 "description": survey.description,
-                "ends_at": survey.ends_at,
+                "ends_at": str(survey.ends_at),
                 "is_active": survey.is_active,
-                "target_groups": survey.target_groups,
-                "created_at": survey.created_at,
+                "target_groups": [
+                    {
+                        "name": group.name,
+                        "description": group.description,
+                        "created_at": str(group.created_at),
+                        "focus_group_id": group.focus_group_id,
+                        "metrics": group.metrics,
+                    }
+                    for group in survey.target_groups
+                ],
+                "created_at": str(survey.created_at),
                 "questions": survey.questions,
             }
             formatted_surveys.append(formatted_survey)
+
+        await redis_client.set(
+            "all_surveys", json.dumps(formatted_surveys), ex=3600
+        )  # Cache for 1 hour
+
         return format_response(data=formatted_surveys)
     except HTTPException as e:
         raise e
@@ -80,10 +100,10 @@ async def get_survey(survey_id: str, db: Session = Depends(get_db)):
             "survey_id": db_survey.survey_id,
             "title": db_survey.title,
             "description": db_survey.description,
-            "ends_at": db_survey.ends_at,
+            "ends_at": str(db_survey.ends_at),
             "is_active": db_survey.is_active,
             "target_groups": db_survey.target_groups,
-            "created_at": db_survey.created_at,
+            "created_at": str(db_survey.created_at),
             "questions": db_survey.questions,
             "survey_status": {},
         }
