@@ -1,7 +1,7 @@
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 
 from app.ml.chatbot import ChatbotAgent, ReportGeneratorAgent, graph_builder
-from app.models.schema import EmployeeReport
+from app.models.schema import EmployeeReport, User
 from app.socket import manager
 from app.utils.db import get_db
 
@@ -108,6 +108,18 @@ I hope these recommendations are helpful. Your feedback is valuable and will hel
                         },
                         "hr_intervention": intervention,
                     }
+
+                    if intervention.get("urgent_action_required", False):
+                        user = (
+                            db.query(User).filter(User.employee_id == user_id).first()
+                        )
+                        if user:
+                            # Send escalation message to HR
+                            user.escalated = True
+                            db.add(user)
+                            db.commit()
+                            db.refresh(user)
+                        await manager.send_escalation(user_id)
 
                     # Create new report entry
                     db_report = EmployeeReport(
