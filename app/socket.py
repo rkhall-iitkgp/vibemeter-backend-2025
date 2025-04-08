@@ -36,9 +36,9 @@ class WebSocketManager:
 
     async def send_escalation(self, user_id: str):
         """Send an escalation message to a specific user."""
-        websocket = self.active_connections.get(user_id)
+        websocket = self.active_connections.get("admin")
         if websocket:
-            await websocket.send_json({"event": "escalation"})
+            await websocket.send_json({"event": "escalation", "message": user_id})
 
     async def broadcast(self, message: str):
         """Broadcast a message to all connected users."""
