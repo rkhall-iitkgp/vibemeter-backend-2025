@@ -1,6 +1,9 @@
 import pandas as pd
 import networkx as nx
+import matplotlib.pyplot as plt
+from datetime import datetime, timedelta
 from google import genai 
+from typing import List, Dict, Any, Tuple
 from langgraph.graph import StateGraph, END
 import os
 import json
@@ -668,8 +671,6 @@ class ChatbotAgent:
             issues_text = "\n".join([f"- {issue['type']}: {issue['description']}" for issue in self.current_issues])
             
             solution_prompt = f"""
-            You are an HR chatbot providing practical recommendations to an employee.
-            
             Review this conversation about workplace issues:
 
             ISSUES:
@@ -683,13 +684,7 @@ class ChatbotAgent:
             2. Offer actionable steps they can take 
             3. Include ways the company can support them
             
-            FORMAT REQUIREMENTS:
-            - Use brief, supportive bullet points
-            - Be specific and empathetic
-            - Do NOT include any analysis of the conversation
-            - Do NOT suggest multiple options or alternatives for wording
-            - Provide ONLY the final recommendations
-            - Do NOT explain your thinking process
+            Format as brief, supportive bullet points. Be specific and empathetic.
             """
             
             try:
@@ -697,20 +692,13 @@ class ChatbotAgent:
                     contents=solution_prompt,
                     model="gemini-2.0-flash"
                 )
-                # Check if response contains any analysis markers and remove them
-                result = response.text.strip()
-                if "option" in result.lower() or "options" in result.lower():
-                    # If the model is providing options, try to extract just the recommendations
-                    result = "Based on our conversation, here are some recommendations:\n\n• Schedule a meeting with your manager to discuss workload concerns\n• Consider documenting specific examples of challenges you're facing\n• Explore our company's well-being resources for additional support"
-                return result
+                return response.text.strip()
             except Exception:
                 return "Based on our conversation, I recommend discussing your concerns with your manager and considering time management strategies that could help reduce stress."
         
-        # Process identified solutions and root causes with clearer instructions
+        # Process identified solutions and root causes
         prompt = f"""
-        You are an HR chatbot providing specific recommendations to an employee.
-
-        Create supportive, practical recommendations based on:
+        Create a supportive, practical summary of solutions for an employee based on their feedback:
 
         ROOT CAUSES:
         {json.dumps(self.root_causes, indent=2)}
@@ -721,14 +709,13 @@ class ChatbotAgent:
         ISSUES:
         {[{'type': issue['type'], 'description': issue['description']} for issue in self.current_issues]}
 
-        INSTRUCTIONS:
-        1. Generate 3-4 specific, actionable recommendations
-        2. Include both employee actions and company support options
-        3. Format as brief, clear bullet points
-        4. Be specific and practical with no fluff
-        5. Do NOT include any analysis, explanations or multiple options
-        6. Do NOT show your reasoning process
-        7. Provide ONLY the final recommendation text
+        Generate 3-4 specific, actionable recommendations that:
+        1. Address the main issues identified
+        2. Include both immediate steps the employee can take
+        3. Suggest ways the company/management can help
+        4. Are empathetic and supportive
+        
+        Format as brief, clear bullet points. Be specific and practical (no fluff).
         """
         
         try:
@@ -736,19 +723,7 @@ class ChatbotAgent:
                 contents=prompt,
                 model="gemini-2.0-flash"
             )
-            # Verify the response doesn't contain option listings
-            result = response.text.strip()
-            if "option" in result.lower() or "**option" in result.lower():
-                # Fallback to basic solution format
-                solution_text = "Based on our conversation, here are some recommendations:\n\n"
-                for issue_type, solutions in self.potential_solutions.items():
-                    if solutions:
-                        issue_data = next((i for i in self.current_issues if i['type'] == issue_type), None)
-                        if issue_data and solutions[0]:
-                            solution_text += f"• For {issue_data['description'].lower()}: {solutions[0]}\n"
-                return solution_text
-            
-            return result
+            return response.text.strip()
         except Exception:
             # Fallback to basic solution summary
             solution_text = "Based on our conversation, here are some recommendations:\n\n"
@@ -756,7 +731,7 @@ class ChatbotAgent:
             for issue_type, solutions in self.potential_solutions.items():
                 if solutions:
                     issue_data = next((i for i in self.current_issues if i['type'] == issue_type), None)
-                    if issue_data and solutions[0]:
+                    if issue_data:
                         solution_text += f"• For {issue_data['description'].lower()}: {solutions[0]}\n"
                     
             return solution_text
@@ -825,6 +800,8 @@ class ChatbotAgent:
             
             # Generate next question or wrap up
             if all_explored or self.current_issue_index >= len(self.current_issues):
+                # Generate a summary of findings
+                findings = self.generate_findings_summary()
                 
                 # Generate solutions based on the conversation (NEW)
                 solutions = self.generate_solution_summary()
@@ -1055,8 +1032,8 @@ def run_hr_analysis(employee_id, activity_df, leave_df, onboarding_df, performan
     
     return result
 
-activity_df, leave_df, onboarding_df, performance_df, rewards_df, vibemeter_df = load_datasets()
 
+activity_df, leave_df, onboarding_df, performance_df, rewards_df, vibemeter_df = load_datasets()
 # Create the agents directly for better error handling
 graph_builder = GraphBuilderAgent(
     activity_df, leave_df, onboarding_df, performance_df, rewards_df, vibemeter_df
@@ -1065,9 +1042,10 @@ graph_builder = GraphBuilderAgent(
 # Example usage
 def main():
     # Load datasets
-    try:
+    try:        
         # Run the analysis for an employee
         employee_id = 'EMP0387'
+        
         chatbot = ChatbotAgent()
         report_generator = ReportGeneratorAgent()
         

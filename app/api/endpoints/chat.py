@@ -14,7 +14,8 @@ async def chat(websocket: WebSocket, user_id: str):
     knowledge_graph, issues = graph_builder.run(user_id)
     agent = ChatbotAgent()
     report_generator = ReportGeneratorAgent()
-    agent.start_conversation(issues)
+    greeting = agent.start_conversation(issues)
+    await manager.send_message(greeting, user_id)
 
     print(f"Found {len(issues)} potential issues for Employee {user_id}")
     print("Starting interactive conversation...\n")
