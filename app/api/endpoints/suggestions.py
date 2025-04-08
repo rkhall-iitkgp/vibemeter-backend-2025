@@ -106,6 +106,9 @@ def generate_suggestions(db: Session = Depends(get_db)):
         f"Name: {group.name}\n" f"Description: {group.description}"
         for group in target_groups
     ]
+    target_groups = "".join(
+        [f"Group {i}:\n {group}\n\n\n" for i, group in enumerate(target_groups)]
+    )
 
     csv_path = os.path.abspath(
         os.path.join(
@@ -149,8 +152,7 @@ def generate_suggestions(db: Session = Depends(get_db)):
         "} "
         "The action plan should be tailored to address the specific issue identified for the group and help employees improve their work life. "
         "Here are the focus groups you should target:"
-        f"{"".join([f"Group {i}:\n {group}\n\n\n" for i, group in enumerate(target_groups)])}"
-        # "For each group, suggest 3-5 practical steps. "
+        f"{target_groups}"
         "The metrics should be measurable indicators to evaluate the effectiveness of the action."
     )
 

@@ -6,6 +6,7 @@ from app.api.endpoints import (
     admin_dashboard,
     analysis,
     auth,
+    chat,
     employee,
     focus_group,
     meetings,
@@ -37,6 +38,7 @@ app.include_router(analysis.router, prefix="/api/analysis", tags=["Analysis"])
 app.include_router(
     dashboard.router, prefix="/api/dashboard", tags=["EmployeeDashboard"]
 )
+app.include_router(chat.router, prefix="/api/chat", tags=["Chat"])
 app.include_router(employee.router, prefix="/api/employee", tags=["Employee"])
 app.include_router(focus_group.router, prefix="/api/groups", tags=["FocusGroup"])
 app.include_router(meetings.router, prefix="/api/meetings", tags=["Meetings"])

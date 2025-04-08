@@ -98,9 +98,9 @@ async def get_dashboard_data():
     high_concern_employees.append(
         Employee(
             id="EMP0014",
-            name="Ankan",
-            avatar="/avatars/ankan.png",
-            group="Leadership Training",
+            name="Ross",
+            avatar="/avatars/Monica.png",
+            group="Burnout Prvention Program",
             needsIntervention=True,
             metrics=[],
         )

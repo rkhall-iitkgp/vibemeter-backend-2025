@@ -11,8 +11,79 @@ from app.utils.redis_client import redis_client
 
 router = APIRouter()
 
+first_names = [
+    "James",
+    "Emma",
+    "William",
+    "Olivia",
+    "Michael",
+    "Sophia",
+    "Benjamin",
+    "Charlotte",
+    "Daniel",
+    "Isabella",
+    "Alexander",
+    "Amelia",
+    "Lucas",
+    "Mia",
+    "Ethan",
+    "Ava",
+    "Matthew",
+    "Harper",
+    "Henry",
+    "Ella",
+    "Jack",
+    "Scarlett",
+    "Noah",
+    "Lily",
+    "Samuel",
+    "Grace",
+    "Jack",
+    "Chloe",
+    "Liam",
+    "Zoe",
+    "David",
+    "Victoria",
+    "Smith",
+    "Johnson",
+    "Williams",
+    "Brown",
+    "Jones",
+    "Taylor",
+    "Davis",
+    "Miller",
+    "Wilson",
+    "Moore",
+    "Anderson",
+    "Thomas",
+    "Jackson",
+    "White",
+    "Harris",
+    "Martin",
+    "Thompson",
+    "Garcia",
+    "Martinez",
+    "Roberts",
+    "Clark",
+    "Lewis",
+    "Walker",
+    "Young",
+    "Allen",
+    "King",
+    "Scott",
+    "Wright",
+    "Adams",
+    "Baker",
+    "Hill",
+    "Nelson",
+]
 
-@router.get("/")
+
+def generate_random_name():
+    return random.choice(first_names)
+
+
+@router.get("")
 async def get_employee_risk_categorization(
     db: Session = Depends(get_db),
 ) -> Dict[str, List[Dict]]:
@@ -32,6 +103,9 @@ async def get_employee_risk_categorization(
 
         # Fetch first 15 users from the database
         all_users = db.query(User).limit(15).all()
+        high_risk_employee = (
+            db.query(User).filter(User.employee_id == "EMP0014").first()
+        )
 
         # Risk categorization dictionary
         risk_categories: Dict[str, List[Dict]] = {
@@ -40,12 +114,27 @@ async def get_employee_risk_categorization(
             "low_risk_employees": [],
         }
 
+        risk_categories["high_risk_employees"].append(
+            {
+                "name": "Ross",
+                "employee_id": high_risk_employee.employee_id,
+                "email": high_risk_employee.email,
+                "is_verified": (
+                    high_risk_employee.is_verified
+                    if high_risk_employee.is_verified is not None
+                    else False
+                ),
+                "risk_score": 80,
+            }
+        )
+
         # Categorize employees with random risk scores
         for user in all_users:
             # Generate a random risk score between 0 and 100
             risk_score = round(random.uniform(0, 100), 2)
 
             employee_info = {
+                "name": generate_random_name(),
                 "employee_id": user.employee_id,
                 "email": user.email,
                 "is_verified": (
@@ -184,7 +273,8 @@ async def get_employee_details(
         "job_title": "HR",
         "email": user.email,
         "phone_number": "+1 (555) 987-6543",
-        "created_at": str(user.created_at if hasattr(user, "created_at") else None),
+        "created_at": user.created_at if hasattr(user, "created_at") else None,
+        "avatar": user.profile_picture,
         "employee_id": employee_id,
         "awards": awards_list,
         "vibemeter": get_dummy_vibemeter(employee_id),

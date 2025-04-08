@@ -89,6 +89,7 @@ class User(Base):
     rewards = relationship("RewardsDataset", back_populates="user")
     vibemeter = relationship("VibeMeterDataset", back_populates="user")
     tasks = relationship("Task", back_populates="user")
+    reports = relationship("EmployeeReport", back_populates="user")
 
     meetings = relationship(
         "Meeting", secondary="meeting_members", back_populates="members"
@@ -401,6 +402,23 @@ class Meeting(Base):
     members = relationship(
         "User", secondary="meeting_members", back_populates="meetings"
     )
+
+
+class EmployeeReport(Base):
+    __tablename__ = "employee_reports"
+
+    report_id = Column(
+        String,
+        primary_key=True,
+        index=True,
+        default=lambda: "RPT" + generate_random_id(),
+    )
+    employee_id = Column(String, ForeignKey("user.employee_id"), nullable=False)
+    report_content = Column(JSON, nullable=False)  # Store all report data as JSON
+    generated_at = Column(TIMESTAMP, nullable=False, default=datetime.now)
+
+    # Relationship with User table
+    user = relationship("User", back_populates="reports")
 
 
 # Create all tables in the database

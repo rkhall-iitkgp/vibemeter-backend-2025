@@ -1,22 +1,14 @@
-import os
+from reportgen import make_report
 
-from fastapi import APIRouter
-from fastapi.responses import FileResponse
-
-from app.utils.reportgen import make_report
-
-router = APIRouter()
-
-
-@router.get("/")
-async def get_daily_report():
+if __name__ == "__main__":
     title = "Employee Engagement & Satisfaction Report"
-    subtitle = "Daily Analysis - 2025-10-01"
+    subtitle = "Quarterly Analysis - Q2 2025"
     metrics = {
         "title": "Employee Engagement Score",
         "score": 78,
         "change": 5.3,
     }
+
     issues = {
         "issues": [
             "Workload: Heavy workload affecting wellness",
@@ -27,6 +19,7 @@ async def get_daily_report():
             "Team Culture: Team dynamic challenges",
             "Leadership: Leadership effectiveness",
         ],
+        # Extract values from the provided issues data
         "issue_count": [15, 12, 14, 11, 13, 10, 12],
     }
     high_concern_employee = {
@@ -54,14 +47,3 @@ async def get_daily_report():
     }
     # Generate the report using the provided data
     make_report(title, subtitle, metrics, issues, high_concern_employee, vibeMeterData)
-    # Path to the generated PDF
-    pdf_path = "employee_dashboard.pdf"
-
-    # Check if the file exists
-    if not os.path.exists(pdf_path):
-        return {"error": "Report generation failed or file not found"}
-
-    # Return the PDF file as a response
-    return FileResponse(
-        path=pdf_path, filename="employee_dashboard.pdf", media_type="application/pdf"
-    )
