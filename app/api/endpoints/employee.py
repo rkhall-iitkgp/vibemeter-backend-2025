@@ -42,9 +42,6 @@ first_names = [
     "Zoe",
     "David",
     "Victoria",
-]
-
-surnames = [
     "Smith",
     "Johnson",
     "Williams",
@@ -81,9 +78,7 @@ surnames = [
 
 
 def generate_random_name():
-    first_name = random.choice(first_names)
-    surname = random.choice(surnames)
-    return f"{first_name} {surname}"
+    return random.choice(first_names)
 
 
 @router.get("")
@@ -113,7 +108,7 @@ async def get_employee_risk_categorization(
 
         risk_categories["high_risk_employees"].append(
             {
-                "name": generate_random_name(),
+                "name": "Ross",
                 "employee_id": high_risk_employee.employee_id,
                 "email": high_risk_employee.email,
                 "is_verified": (
@@ -259,6 +254,7 @@ async def get_employee_details(
         "email": user.email,
         "phone_number": "+1 (555) 987-6543",
         "created_at": user.created_at if hasattr(user, "created_at") else None,
+        "avatar": user.profile_picture,
         "employee_id": employee_id,
         "awards": awards_list,
         "vibemeter": get_dummy_vibemeter(employee_id),
