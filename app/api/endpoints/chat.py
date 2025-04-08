@@ -27,6 +27,7 @@ async def chat(websocket: WebSocket, user_id: str):
         while not conversation_complete:
             print("Waiting for user input...")
             data = await websocket.receive_text()
+            await manager.send_thinking(user_id)
             agent.conversation.append({"role": "user", "content": data})
             analysis = agent.analyze_response(data, agent.conversation[-10:])
 
@@ -123,7 +124,10 @@ I hope these recommendations are helpful. Your feedback is valuable and will hel
 
                 conversation_complete = True
                 print("Conversation complete. All issues explored.")
-                await manager.send_message("Thank you for your time!", user_id)
+                await manager.send_message(
+                    "Thank you for our conversation today. Take care,and remember I'm here whenever you need support",
+                    user_id,
+                )
             else:
                 # Generate next question based on updated conversation history
                 next_question = agent.generate_question(agent.conversation[-6:])
