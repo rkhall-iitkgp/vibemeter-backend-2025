@@ -247,7 +247,54 @@ def get_dummy_vibemeter(employee_id: str) -> Dict:
     }
 
 
-@router.get("/{employee_id}")
+@router.get("/high-risk")
+async def get_high_risk_employees(db: Session = Depends(get_db)):
+    """
+    Fetch high-risk employees from the database.
+    """
+    try:
+        # Check if data is cached
+        # cache_key = "high_risk_employees"
+        # cached_data = await redis_client.get(cache_key)
+        # if cached_data:
+        #     return json.loads(cached_data)
+
+        # Fetch high-risk employees
+        focus_group = (
+            db.query(FocusGroup)
+            .filter(FocusGroup.name == "Consistently Dissatisfied")
+            .first()
+        )
+        users = focus_group.users
+
+        # Format the response data
+        response_data = [
+            {
+                "name": generate_random_name(),
+                "employee_id": user.employee_id,
+                "avatar": user.profile_picture,
+                "focus_groups": "Consistently Dissatisfied",
+                "escalated": user.escalated,
+                "meet_scheduled": user.meet_scheduled,
+            }
+            for user in users
+        ]
+
+        # Cache the data
+        # await redis_client.set(
+        #     cache_key, json.dumps(response_data), ex=3600
+        # )  # Cache for 1 hour
+
+        return {"data": response_data}
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to retrieve high-risk employees: {str(e)}",
+        )
+
+
+@router.get("/by-id/{employee_id}")
 async def get_employee_details(
     employee_id: str, db: Session = Depends(get_db)
 ) -> Dict[str, Any]:

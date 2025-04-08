@@ -80,6 +80,9 @@ class User(Base):
     password = Column(String, nullable=False)
     is_verified = Column(Boolean, default=False)
     profile_picture = Column(String, nullable=True, default="default.jpg")
+    escalated = Column(Boolean, default=False)
+    meet_scheduled = Column(Boolean, default=False)
+    employee_name = Column(String, nullable=True)
 
     # Relationships with other tables
     activities = relationship("ActivityTrackerDataset", back_populates="user")
