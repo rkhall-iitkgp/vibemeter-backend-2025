@@ -103,7 +103,9 @@ def generate_suggestions(db: Session = Depends(get_db)):
     client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
     target_groups = db.query(FocusGroup).all()
     target_groups = [
-        f"Name: {group.name}\n" f"Description: {group.description}"
+        f"Name: {group.name}\n"
+        f"Focus Group ID: {group.focus_group_id}\n"
+        f"Description: {group.description}"
         for group in target_groups
     ]
     target_groups = "".join(
@@ -137,7 +139,10 @@ def generate_suggestions(db: Session = Depends(get_db)):
         "{ "
         "'title': 'Action Title', "
         "'purpose': 'Purpose of the Action', "
-        "'target_group: 'Name of target group'"
+        "'target_group': {"
+        "'name': 'Exactly match the name from the provided focus groups', "
+        "'focus_group_id': 'Use the exact focus_group_id that corresponds to this group' "
+        "}, "
         "'metric': ['Metric 1', 'Metric 2', ...], "
         "'steps': [ "
         "{ "
@@ -151,9 +156,9 @@ def generate_suggestions(db: Session = Depends(get_db)):
         "] "
         "} "
         "The action plan should be tailored to address the specific issue identified for the group and help employees improve their work life. "
-        "Here are the focus groups you should target:"
+        "Here are the focus groups you should target - use ONLY these exact names and IDs in your response:"
         f"{target_groups}"
-        "The metrics should be measurable indicators to evaluate the effectiveness of the action."
+        "The metrics should be measurable indicators to evaluate the effectiveness of the action. Metrix name should be 2-3 words long and atleast 20 letters"
     )
 
     user_prompt = (

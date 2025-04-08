@@ -1019,6 +1019,59 @@ class ReportGeneratorAgent:
             print(f"Error generating report content: {e}")
             return f"Error generating report for employee {employee_id}: {str(e)}"
 
+    def get_hr_intervention(self, report):
+        """Generate HR intervention recommendations based on the report"""
+        prompt = f"""
+        Based on the following employee report, analyze whether formal HR intervention is needed:
+
+        REPORT:
+        {report}
+
+        CCarefully analyze for indicators of:
+        1. Work-related trauma
+        2. Clinical depression signs
+        3. Burnout beyond normal work stress
+        4. Self-harm ideation or references
+        5. Suicidal ideation (direct or indirect)
+        6. Severe anxiety or panic attacks
+        7. Feelings of hopelessness related to work
+
+        Return a JSON object with:
+        1. "risk_level": One of ["none", "low", "medium", "high", "critical"]
+        2. "indicators": List of specific concerning phrases or patterns detected
+        3. "urgent_action_required": Boolean indicating if immediate intervention is needed
+        4. "recommendations": List of appropriate mental health support recommendations
+
+        If no concerning signs are present, indicate a "none" or "low" risk level.
+        """
+
+        try:
+            response = model.models.generate_content(
+                contents=prompt, model="gemini-2.0-flash"
+            )
+            response_text = response.text.strip()
+
+            # Convert JSON string to Python object
+            try:
+                # Remove any formatting or markdown code blocks that might be present
+                clean_json = (
+                    response_text.replace("```json", "").replace("```", "").strip()
+                )
+                result = json.loads(clean_json)
+                return result
+            except json.JSONDecodeError as e:
+                print(f"Error parsing JSON response: {e}")
+                return {
+                    "hr_intervention_needed": False,
+                    "reason": "Error parsing recommendation data.",
+                }
+        except Exception as e:
+            print(f"Error generating HR intervention assessment: {e}")
+            return {
+                "hr_intervention_needed": False,
+                "reason": "Error generating HR intervention assessment.",
+            }
+
     def graph_to_dict(self, G):
         result = {}
         for node in G.nodes:
