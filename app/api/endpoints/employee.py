@@ -116,7 +116,9 @@ async def get_employee_risk_categorization(
         users = group.users
         risk_categories["high_risk_employees"] = [
             {
-                "name": user.name if hasattr(user, "name") else generate_random_name(),
+                "name": (
+                    user.employee_name if user.employee_name else generate_random_name()
+                ),
                 "employee_id": user.employee_id,
                 "email": user.email,
                 "is_verified": (
@@ -134,7 +136,9 @@ async def get_employee_risk_categorization(
         users = group.users
         risk_categories["medium_risk_employees"] = [
             {
-                "name": user.name if hasattr(user, "name") else generate_random_name(),
+                "name": (
+                    user.employee_name if user.employee_name else generate_random_name()
+                ),
                 "employee_id": user.employee_id,
                 "email": user.email,
                 "is_verified": (
@@ -155,7 +159,9 @@ async def get_employee_risk_categorization(
             users.extend(group.users)
         risk_categories["low_risk_employees"] = [
             {
-                "name": user.name if hasattr(user, "name") else generate_random_name(),
+                "name": (
+                    user.employee_name if user.employee_name else generate_random_name()
+                ),
                 "employee_id": user.employee_id,
                 "email": user.email,
                 "is_verified": (
@@ -270,7 +276,9 @@ async def get_high_risk_employees(db: Session = Depends(get_db)):
         # Format the response data
         response_data = [
             {
-                "name": generate_random_name(),
+                "name": (
+                    user.employee_name if user.employee_name else generate_random_name()
+                ),
                 "employee_id": user.employee_id,
                 "avatar": user.profile_picture,
                 "focus_groups": "Consistently Dissatisfied",

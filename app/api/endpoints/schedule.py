@@ -63,11 +63,17 @@ async def schedule_meet(
                 status_code=404, detail=f"User with employee_id {member_id} not found"
             )
 
+        member.meet_scheduled = True
+        db.add(member)
+        db.commit()
+        db.refresh(member)
+
         # Add to meeting_members table
         meeting_member = MeetingMembers(
             meeting_id=new_meeting.meeting_id, user_id=member_id
         )
         db.add(meeting_member)
+        db.refresh(meeting_member)
 
         # Emit the `meeting_update` event to the member over WebSocket
         await manager.notify_meeting_update(

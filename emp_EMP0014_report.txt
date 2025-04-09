@@ -1,0 +1,33 @@
+## Employee Performance and Wellbeing Report - EMP0014
+
+**Date:** October 26, 2023
+
+**1. Executive Summary:** This report analyzes key metrics and conversation insights for employee EMP0014, revealing a concerning trend of low "vibe" scores and a stated feeling of suicidal ideation. The employee also took 4 days of sick leave recently. Immediate intervention is critical to ensure the employee's wellbeing and address potential performance impacts. Recommended actions include initiating a wellness check, providing immediate mental health resources, and adjusting workload expectations temporarily.
+
+**2. Key Metrics Analysis:**
+
+*   **Average Vibe:** 2.0 - Significantly below the acceptable threshold.
+*   **Vibe Trend:** Stable - Indicates a persistent issue rather than a temporary fluctuation.
+*   **Leave Count:** 1 - One instance of leave taken.
+*   **Leave Days Total:** 4 - Total of 4 days of leave taken.
+*   **Leave Type:** Sick Leave - All days were attributed to sick leave.
+
+**3. Primary Issues Identified:**
+
+*   **Low Vibe Scores:** Consistently below an acceptable level, indicating potential dissatisfaction or distress.
+*   **Mental Health Concerns:** Stated suicidal ideation requires immediate and serious attention.
+
+**4. Root Causes:**
+
+Based on the limited conversation data, the root causes are currently unknown but potentially related to:
+
+*   **Underlying Mental Health Condition:** The employee's statement suggests a possible pre-existing or emerging mental health issue.
+*   **Work-Related Stressors:** While not explicitly stated, the low vibe score and general feeling of distress could be exacerbated by work-related pressures. Further exploration is needed to determine if this is the case.
+
+**5. Recommended Actions:**
+
+*   **Immediate Wellness Check:** HR should initiate a private and supportive conversation with EMP0014 to assess their immediate wellbeing and offer resources.
+*   **Mental Health Resource Referral:** Provide EMP0014 with immediate access to the company's Employee Assistance Program (EAP) or other relevant mental health services, including crisis support lines.
+*   **Emergency Contact Protocol:** Implement the company's emergency contact protocol, informing a designated contact if EMP0014 provides consent or if the situation warrants it based on imminent risk.
+*   **Workload Adjustment:** Temporarily adjust EMP0014's workload and responsibilities to reduce potential stress, pending a more comprehensive understanding of the situation. A plan for how their job duties will be covered during this time needs to be addressed.
+*   **Follow-Up and Support:** Schedule regular check-ins with EMP0014 to monitor their progress and ensure they are receiving the necessary support and resources.
