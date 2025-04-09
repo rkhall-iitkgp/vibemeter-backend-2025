@@ -2,8 +2,12 @@ import random
 from datetime import datetime, timedelta
 from typing import List
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel
+from sqlalchemy.orm import Session
+from app.models.schema import User, FocusGroup
+from app.utils.db import get_db
+
 
 router = APIRouter()
 
@@ -126,7 +130,7 @@ class DashboardResponse(BaseModel):
 
 
 @router.get("/dashboard", response_model=DashboardResponse)
-async def get_dashboard_data():
+async def get_dashboard_data(db: Session = Depends(get_db)):
     """
     Returns dashboard data for the admin dashboard including:
     - Employee satisfaction gauge data
@@ -142,10 +146,13 @@ async def get_dashboard_data():
         months.insert(
             0, month_date.strftime("%b")
         )  # Insert at beginning to maintain chronological order
+        
+    total_users = db.query(User).count()
+    risk_users = db.query(FocusGroup).filter(FocusGroup.name == "Consistently Dissatisfied").count()
 
     # Employee satisfaction data
     employee_satisfaction = EmployeeSatisfaction(
-        percentage=68.5, change=5.3, period="1 month"
+        percentage=round((risk_users*100/total_users), 2), change=5.3, period="1 month"
     )
 
     # Vibemeter scores

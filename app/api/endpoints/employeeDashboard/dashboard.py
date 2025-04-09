@@ -342,15 +342,19 @@ async def get_persona_dashboard(employee_id: str, db: Session = Depends(get_db))
     """
     Fetch all leaves for a given employee.
     """
-    user_data = UserData(
-        employee_id=employee_id,
-        name="John Doe",
-        job_title="Software Engineer",
-        created_at=date.today(),
-        phone="1234567890",
-        email="test@test.com",
-        profile_picture="",
-    )
+    # user_data = UserData(
+    #     employee_id=employee_id,
+    #     name="John Doe",
+    #     job_title="Software Engineer",
+    #     created_at=date.today(),
+    #     phone="1234567890",
+    #     email="test@test.com",
+    #     profile_picture="",
+    # )
+    
+    user_data = db.query(User).filter(User.employee_id == employee_id).first()
+    if not user_data:
+        raise HTTPException(status_code=404, detail="User not found")
 
     awards = [
         AwardsData(id=1, title="Employee of the Month", icon="star", date="01/2025"),
