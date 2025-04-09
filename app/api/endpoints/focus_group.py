@@ -121,10 +121,6 @@ async def get_group_details(focus_group_id: str, db: Session = Depends(get_db)):
     """
     try:
         # Check if data is cached in Redis
-        cache_key = f"focus_group_{focus_group_id}"
-        cached_data = await redis_client.get(cache_key)
-        if cached_data:
-            return format_response(data=json.loads(cached_data))
         group = (
             db.query(FocusGroup)
             .filter(FocusGroup.focus_group_id == focus_group_id)
@@ -176,10 +172,7 @@ async def get_group_details(focus_group_id: str, db: Session = Depends(get_db)):
                 for survey in group.surveys
             ],
         }
-        # Cache the data in Redis
-        await redis_client.set(
-            cache_key, json.dumps(formatted_group), ex=3600
-        )  # Cache for 1 hour
+        
         return format_response(data=formatted_group)
     except HTTPException as e:
         raise e

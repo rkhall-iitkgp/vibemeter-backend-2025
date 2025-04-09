@@ -43,16 +43,6 @@ async def get_all_actions(
     Fetch all actions from the database.
     """
     try:
-        # Generate a unique Redis key based on the filter
-        cache_key = (
-            f"actions:{is_completed}" if is_completed is not None else "actions:all"
-        )
-
-        # Try to fetch data from Redis cache
-        cached_data = await redis_client.get(cache_key)
-        if cached_data:
-            return format_response(data=json.loads(cached_data))
-
         if is_completed is not None:
             actions = db.query(Action).filter(Action.is_completed == is_completed).all()
         else:
@@ -83,7 +73,6 @@ async def get_all_actions(
                 "created_at": str(action.created_at),
             }
             action_list.append(action_dict)
-        await redis_client.set(cache_key, json.dumps(action_list), ex=300)
 
         return format_response(data=action_list)
     except HTTPException as e:
