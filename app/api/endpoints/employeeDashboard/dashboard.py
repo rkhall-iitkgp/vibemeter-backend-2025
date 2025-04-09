@@ -351,7 +351,7 @@ async def get_persona_dashboard(employee_id: str, db: Session = Depends(get_db))
     #     email="test@test.com",
     #     profile_picture="",
     # )
-    
+
     user_data = db.query(User).filter(User.employee_id == employee_id).first()
     if not user_data:
         raise HTTPException(status_code=404, detail="User not found")

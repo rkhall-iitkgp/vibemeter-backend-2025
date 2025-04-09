@@ -5,9 +5,9 @@ from typing import List
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
-from app.models.schema import User, FocusGroup
-from app.utils.db import get_db
 
+from app.models.schema import FocusGroup, User
+from app.utils.db import get_db
 
 router = APIRouter()
 
@@ -146,13 +146,19 @@ async def get_dashboard_data(db: Session = Depends(get_db)):
         months.insert(
             0, month_date.strftime("%b")
         )  # Insert at beginning to maintain chronological order
-        
+
     total_users = db.query(User).count()
-    risk_users = db.query(FocusGroup).filter(FocusGroup.name == "Consistently Dissatisfied").count()
+    risk_users = (
+        db.query(FocusGroup)
+        .filter(FocusGroup.name == "Consistently Dissatisfied")
+        .count()
+    )
 
     # Employee satisfaction data
     employee_satisfaction = EmployeeSatisfaction(
-        percentage=round((risk_users*100/total_users), 2), change=5.3, period="1 month"
+        percentage=round((risk_users * 100 / total_users), 2),
+        change=5.3,
+        period="1 month",
     )
 
     # Vibemeter scores
