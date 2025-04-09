@@ -150,8 +150,7 @@ async def get_employee_risk_categorization(
 
         group = (
             db.query(FocusGroup)
-            .filter(FocusGroup.name != "Consistently Dissatisfied")
-            .filter(FocusGroup.name != "Volatile but Generally Happy")
+            .filter(FocusGroup.name == "Inconsistent Satisfaction")
             .all()
         )
         users = []

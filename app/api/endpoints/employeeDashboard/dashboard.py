@@ -360,6 +360,7 @@ async def get_persona_dashboard(employee_id: str, db: Session = Depends(get_db))
         AwardsData(id=1, title="Employee of the Month", icon="star", date="01/2025"),
         AwardsData(id=2, title="Best Innovator", icon="lightbulb", date="02/2025"),
         AwardsData(id=3, title="Team Leader", icon="users", date="03/2025"),
+        AwardsData(id=3, title="Quick Learner", icon="book", date="04/2025"),
     ]
 
     return format_response(
